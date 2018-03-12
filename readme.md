@@ -1,3 +1,8 @@
+<p><b>Project Komuna - Bart Knot & Agus Judistira</b><p>
+<p><b><a href="https://trello.com/b/gnpdPIcK/komuna">Trello link</b><p>
+<p><b><a href="https://github.com/AgusJudistira/komuna/tree/master">Github link</b><p>
+<hr>
+<p><b></b><p>
 <p align="center"><img src="https://laravel.com/assets/img/components/logo-laravel.svg"></p>
 
 <p align="center">

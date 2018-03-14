@@ -15,4 +15,9 @@ class Project extends Model
     {
         return $this->belongsToMany(Project_user::class, 'projects_users', 'project_id', 'user_id');
     }
+
+    public function isCompleted()
+    {
+    	return false;
+    }
 }

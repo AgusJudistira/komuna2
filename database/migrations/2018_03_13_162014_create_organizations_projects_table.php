@@ -14,7 +14,11 @@ class CreateOrganizationsProjectsTable extends Migration
     public function up()
     {
         Schema::create('organizations_projects', function (Blueprint $table) {
-            $table->increments('id');
+            $table->integer('organization_id')->nullable();
+            $table->integer('project_id')->nullable();
+            $table->index(['organization_id', 'project_id']);
+            $table->dateTime('start_date_organization');
+            $table->dateTime('end_date_organization');
             $table->timestamps();
         });
     }

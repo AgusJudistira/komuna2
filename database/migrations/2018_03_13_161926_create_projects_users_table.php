@@ -14,7 +14,11 @@ class CreateProjectsUsersTable extends Migration
     public function up()
     {
         Schema::create('projects_users', function (Blueprint $table) {
-            $table->increments('id');
+            $table->integer('project_id')->nullable();
+            $table->integer('user_id')->nullable();
+            $table->index(['project_id', 'user_id']);
+            $table->dateTime('start_date_user');
+            $table->dateTime('end_date_user');
             $table->timestamps();
         });
     }

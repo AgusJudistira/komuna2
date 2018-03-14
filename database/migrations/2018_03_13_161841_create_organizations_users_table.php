@@ -14,7 +14,11 @@ class CreateOrganizationsUsersTable extends Migration
     public function up()
     {
         Schema::create('organizations_users', function (Blueprint $table) {
-            $table->increments('id');
+            $table->integer('organization_id')->nullable();
+            $table->integer('user_id')->nullable();
+            $table->index(['organization_id', 'user_id']);
+            $table->dateTime('start_date_user');
+            $table->dateTime('end_date_user');
             $table->timestamps();
         });
     }

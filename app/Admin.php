@@ -5,28 +5,19 @@ namespace App;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class User extends Authenticatable
+class Admin extends Authenticatable
 {
     use Notifiable;
 
+    protected $guard = 'admin';
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'firstname', 'lastname', 'email', 'password',
-        'streetname_number', 'postal_code', 'city',
-        'phone_private', 'phone_work', 'gender'
-    ];
+        'name', 'email', 'password'
 
-    protected $attributes = [
-        'streetname_number' => "",
-        'postal_code' => "",
-        'city' => "",
-        'phone_private' => "", 
-        'phone_work' => "", 
-        'gender' => ""
     ];
 
     /**
@@ -38,6 +29,7 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
+    /*
     public function project()
     {
         return $this->belongsToMany(Project_user::class, 'projects_users', 'project_id', 'user_id');
@@ -47,4 +39,5 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Organization_user::class, 'organizations_users', 'organization_id', 'user_id');
     }
+    */
 }

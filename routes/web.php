@@ -12,5 +12,19 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+
+	$projects = DB::table('projects')->latest()->get();
+
+	return view('welcome', compact('projects'));
 });
+
+
+Route::get('/projects/{projects}', function ($id) {
+
+	$project = DB::table('projects')->find($id);
+
+	
+	return view('projects/show', compact('project'));
+});
+
+

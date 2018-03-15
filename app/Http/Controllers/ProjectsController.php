@@ -16,11 +16,27 @@ class ProjectsController extends Controller
 		
 	}
 
-	public function show($id)
+
+	public function show(Project $project)
 	{
 
-		$project = project::find($id);
-		
 		return view('projects.show', compact('project'));
+
+	}
+
+
+	public function create()
+	{
+
+		return view('projects.create');
+
+	}
+
+
+public function store()
+	{
+
+		dd(http_request()->all());
+
 	}
 }

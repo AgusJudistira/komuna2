@@ -8,20 +8,37 @@
         <h1>Komuna</h1>
     </div>
 
+
     <div class="projectSummary">
 
         @foreach ($projects as $project)
 
-        <a href="/projects/{{$project->id}}">
+            <div>
             
-            {{ $project->name }} 
-        
-        </a>
-        
+                    <a href="/projects/{{$project->id}}">
+                    
+                        {{ $project->name }} 
+                    
+                    </a>
+                        
+                    <p>
+
+                        {{ $project->description }}
+
+                    </p>
+
+                    <p>
+                        deadline: {{ $project->due_date }}
+
+                    </p>
+                
+                </div>
+            
+           
+        @endforeach
 
     </div>
 
-    @endforeach
 
 </body>
 </html>

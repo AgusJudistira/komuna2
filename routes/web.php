@@ -1,10 +1,12 @@
 <?php
 
+Auth::routes();
+
 Route::get('/projects', 'ProjectsController@index');
 
-Route::get('projects/{projects}', 'ProjectsController@show');
+Route::get('projects/{project}', 'ProjectsController@show')->where('project', '[0-9]+');
 
-Auth::routes();
+Route::get('organizations', 'OrganizationsController@org_index');
 
 Route::get('/', function () {
     return view('welcome');

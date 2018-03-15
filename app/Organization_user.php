@@ -8,13 +8,13 @@ class Organization_user extends Model
 {
     public $timestamps = false;
 
-    public function organization()
+    public function organizations()
     {
-        return $this->belongsToMany(Organization::class);
+        return $this->belongsToMany(Organization::class, 'organizations');
     }
 
     public function user()
     {
-        return $this->belongsToMany(User::class);
+        return $this->belongsToMany(User::class, 'users');
     }
 }

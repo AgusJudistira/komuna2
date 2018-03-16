@@ -10,11 +10,11 @@ class Organization_project extends Model
 
     public function organization()
     {
-        return $this->belongsToMany(Organization::class);
+        return $this->belongsToMany(Organization::class, 'organizations');
     }
 
     public function project()
     {
-        return $this->belongsToMany(Project::class);        
+        return $this->belongsToMany(Project::class, 'projects');
     }
 }

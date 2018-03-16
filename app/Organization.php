@@ -8,11 +8,11 @@ class Organization extends Model
 {
     public function project()
     {
-        return $this->belongsToMany(Organization_project::class, 'organizations_projects', 'organization_id', 'project_id');
+        return $this->belongsToMany(Project::class, 'organizations_projects', 'organization_id', 'project_id');
     }
 
     public function user()
     {
-        return $this->belongsToMany(Organization_user::class, 'organizations_users', 'organization_id', 'user_id');
+        return $this->belongsToMany(User::class, 'organizations_users', 'organization_id', 'user_id');
     }
 }

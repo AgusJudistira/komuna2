@@ -10,11 +10,11 @@ class Organization_user extends Model
 
     public function organization()
     {
-        return $this->belongsToMany(Organization::class);
+        return $this->belongsToMany(Organization::class, 'organizations');
     }
 
     public function user()
     {
-        return $this->belongsToMany(User::class);
+        return $this->belongsToMany(User::class, 'users');
     }
 }

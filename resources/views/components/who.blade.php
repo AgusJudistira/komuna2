@@ -5,11 +5,8 @@
         </div>
         <div class="row">
             <div class="col-sm-12">
-                <a href="logout">Gebruiker uitloggen</a>
+                <a href="/logout">Gebruiker uitloggen</a>
             </div>
-            {{--  <form id='uitloggen-form' method='get' action='/logout'>
-                <p><input type='submit' name='uitloggen' value='User Logout'></p>
-            </form>  --}}
         </div>
         <br />
     @endif
@@ -20,7 +17,7 @@
         </div>
         <div class="row">
             <div class="col-sm-12">
-                <a href="admin/logout">Admin uitloggen</a>
+                <a href="/admin/logout">Admin uitloggen</a>
                 {{--  <form id='uitloggen-form' method='get' action='admin/logout'>
                     <p><input type='submit' name='uitloggen' value='Admin Logout'></p>
                 </form>  --}}

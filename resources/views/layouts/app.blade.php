@@ -30,7 +30,7 @@
                     <ul class="navbar-nav mr-auto">
                         <li> <a  class="nav-link" href="/projects">Projects</a></li>
                         <li> <a  class="nav-link" href="/projects/create">Start Project</a></li>
-                        <li><a class="nav-link" href="{{ route('org.inputform') }}">Organisaties aanmaken</a></li>
+                        {{--  <li><a class="nav-link" href="{{ route('org.inputform') }}">Organisaties aanmaken</a></li>  --}}
                     </ul>
 
                     <!-- Right Side Of Navbar -->

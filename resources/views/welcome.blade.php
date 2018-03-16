@@ -1,9 +1,6 @@
-<<<<<<< HEAD
+
 @extends('layouts.app')
 
-
-=======
->>>>>>> 58a57509156ff773be024796fcc144025f4c6eb2
 <!doctype html>
 <html lang="{{ app()->getLocale() }}">
     <head>
@@ -70,14 +67,8 @@
             }
         </style>
     </head>
-<<<<<<< HEAD
-
-
-    <body>
+<body>
     @section('content')
-=======
-    <body>
->>>>>>> 58a57509156ff773be024796fcc144025f4c6eb2
         <div class="flex-center position-ref full-height">
             @if (Route::has('login'))
                 <div class="top-right links">
@@ -96,11 +87,8 @@
                 </div>
 
                 <div class="links">
-<<<<<<< HEAD
                     <a href="/projects">Projects</a>
 
-=======
->>>>>>> 58a57509156ff773be024796fcc144025f4c6eb2
                     <a href="https://laravel.com/docs">Documentation</a>
                     <a href="https://laracasts.com">Laracasts</a>
                     <a href="https://laravel-news.com">News</a>
@@ -109,9 +97,6 @@
                 </div>
             </div>
         </div>
+        @endsection
     </body>
-<<<<<<< HEAD
-    @endsection
-=======
->>>>>>> 58a57509156ff773be024796fcc144025f4c6eb2
 </html>

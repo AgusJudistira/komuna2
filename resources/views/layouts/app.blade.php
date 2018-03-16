@@ -15,10 +15,11 @@
 </head>
 <body>
     <div id="app">
-        <nav class="navbar-fixed-top navbar navbar-expand-md navbar-light navbar-laravel ">
+        <nav class="navbar navbar-expand-md navbar-light navbar-laravel">
+        {{--  <nav class="navbar navbar-inverse navbar-laravel">  --}}
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
-                  <h1>  {{ config('app.name', 'Komuna') }} </h1>
+                    <h1>{{ config('app.name', 'Komuna') }}</h1>
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -39,9 +40,7 @@
                             <li><a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a></li>
                         @else
                             @component('components.who')
-                            
                             @endcomponent
-
                         @endguest
                     </ul>
                 </div>

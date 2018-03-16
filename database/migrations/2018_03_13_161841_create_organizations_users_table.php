@@ -17,8 +17,8 @@ class CreateOrganizationsUsersTable extends Migration
             $table->integer('organization_id')->nullable();
             $table->integer('user_id')->nullable();
             $table->index(['organization_id', 'user_id']);
-            $table->dateTime('start_date_user');
-            $table->dateTime('end_date_user');
+            $table->dateTime('start_date_user')->nullable();
+            $table->dateTime('end_date_user')->nullable();
             $table->timestamps();
         });
     }

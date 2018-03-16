@@ -8,11 +8,12 @@
                 <div class="card-header">User Dashboard</div>
 
                 <div class="card-body">
-                    @if (session('status'))
+                    <h5><a href="organizations">Organisatie aanmaken</a></h5>
+                    {{--  @if (session('status'))
                         <div class="alert alert-success">
                             {{ session('status') }}
                         </div>
-                    @endif
+                    @endif  --}}
 
                     You are logged in as {{ Auth::guard('web')->user()->firstname . " ". Auth::guard('web')->user()->lastname}}
                 </div>

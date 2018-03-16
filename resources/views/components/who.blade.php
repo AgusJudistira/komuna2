@@ -18,9 +18,6 @@
         <div class="row">
             <div class="col-sm-12">
                 <a href="/admin/logout">Admin uitloggen</a>
-                {{--  <form id='uitloggen-form' method='get' action='admin/logout'>
-                    <p><input type='submit' name='uitloggen' value='Admin Logout'></p>
-                </form>  --}}
             </div>
         </div>
     @endif

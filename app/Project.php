@@ -2,10 +2,9 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
-
 class Project extends Model
 {
+
     public function organization()
     {
         return $this->belongsToMany(Organization_project::class, 'organizations_projects', 'organization_id', 'user_id');

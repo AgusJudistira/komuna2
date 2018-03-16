@@ -10,7 +10,7 @@ class ProjectsController extends Controller
 	public function index() 
 	{
 
-    	$projects = Project::all();
+		$projects = Project::all();
 
 		return view('projects.index', compact('projects'));
 		
@@ -33,10 +33,28 @@ class ProjectsController extends Controller
 	}
 
 
-public function store()
-	{
+	public function store()
+	{	
+		$this->validate(request(),[
 
-		dd(http_request()->all());
+			'name' => 'required', 
+			'description' => 'required', 
+			'start_date' => 'required', 
+			'due_date' => 'required'
 
+		]);
+
+
+		Project::create(request([
+
+			'name', 
+			'description', 
+			'start_date', 
+			'due_date'
+
+		]));
+
+
+		return redirect('/projects');
 	}
 }

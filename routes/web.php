@@ -4,7 +4,7 @@ Route::get('/', function(){
 
 	return view('welcome');
 
-<<<<<<< HEAD
+
 });
 
 Route::get('projects', 'ProjectsController@index');
@@ -17,8 +17,7 @@ Route::post('/projects', 'ProjectsController@store');
 
 
 
-=======
->>>>>>> [W1-003a] gebruikers en admin kunnen tegelijkertijd in- en uitloggen
+
 Auth::routes();
 
 Route::get('/', function () {

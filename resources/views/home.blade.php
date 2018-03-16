@@ -16,6 +16,9 @@
 
                     You are logged in as {{ Auth::guard('web')->user()->firstname . " ". Auth::guard('web')->user()->lastname}}
                 </div>
+                <div class="card-body">
+                  @yield('projects')
+                </div>
             </div>
         </div>
     </div>

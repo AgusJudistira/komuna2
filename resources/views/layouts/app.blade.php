@@ -16,6 +16,7 @@
 <body>
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light navbar-laravel">
+        {{--  <nav class="navbar navbar-inverse navbar-laravel">  --}}
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
                     <h1>{{ config('app.name', 'Komuna') }}</h1>
@@ -27,7 +28,7 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
-
+                        <li><a class="nav-link" href="{{ route('org.inputform') }}">Organisaties aanmaken</a></li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->
@@ -37,46 +38,8 @@
                             <li><a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a></li>
                             <li><a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a></li>
                         @else
-                        @component('components.who')
-                        @endcomponent
-                            {{--  <li class="nav-item dropdown">
-
-                                @if ( Auth::guard('web')->check() )
-                                    <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                        {{ Auth::guard('web')->user()->firstname . " " . Auth::guard('web')->user()->lastname }} <span class="caret"></span>
-                                    </a>
-                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                        <a class="dropdown-item" href="{{ route('logout') }}"
-                                            onclick="event.preventDefault();
-                                                            document.getElementById('logout-form').submit();">
-                                            {{ __('Logout') }}
-                                        </a>
-    
-                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                            @csrf
-                                        </form>
-                                    </div>
-                                @endif
-
-                                @if ( Auth::guard('admin')->check() )
-                                    <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                        {{ Auth::guard('admin')->user()->name }} (admin) <span class="caret"></span>
-                                    </a>
-
-                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                        <a class="dropdown-item" href="{{ route('admin.logout') }}"
-                                        onclick="event.preventDefault();
-                                                document.getElementById('logout-form').submit();">
-                                            {{ __('Logout') }}
-                                        </a>
-    
-                                        <form id="logout-form" action="{{ route('admin.logout') }}" method="POST" style="display: none;">
-                                            @csrf
-                                        </form>
-                                    </div>
-                                @endif
-
-                            </li>  --}}
+                            @component('components.who')
+                            @endcomponent
                         @endguest
                     </ul>
                 </div>

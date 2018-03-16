@@ -6,7 +6,10 @@ Route::get('/projects', 'ProjectsController@index');
 
 Route::get('projects/{project}', 'ProjectsController@show')->where('project', '[0-9]+');
 
+Route::get('/organizations/org-input-form', 'OrganizationsController@showInputForm')->name('org.inputform');
+Route::post('/organizations', 'OrganizationsController@saveOrganization');
 Route::get('organizations', 'OrganizationsController@org_index');
+
 
 Route::get('/', function () {
     return view('welcome');
@@ -22,4 +25,5 @@ Route::get('/admin', 'AdminController@index')->name('admin.dashboard');
 Route::get('/user-login', 'Auth\LoginController@showLoginForm')->name('user.login');
 Route::post('/user-login', 'Auth\LoginController@userLogin')->name('user.login.submit');
 Route::get('/logout', 'Auth\LoginController@userLogout')->name('user.logout');
+
 

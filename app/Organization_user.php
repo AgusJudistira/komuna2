@@ -8,7 +8,7 @@ class Organization_user extends Model
 {
     public $timestamps = false;
 
-    public function organizations()
+    public function organization()
     {
         return $this->belongsToMany(Organization::class, 'organizations');
     }

@@ -5,17 +5,10 @@
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="card">
-                <div class="row">
-                <h3 class="card-header col-md-6 row">Organizatie-overzicht
-                <a class="col-md-6" href="{{ route('org.inputform') }}">Nieuwe organisatie invoeren</a></h3>
-                </div>
+            <h4 class="card-header col-md-6">Organizatie-overzicht<span class="col-md-8 pull-right"><a href="{{ route('org.inputform') }}">Nieuwe organisatie aanmaken</a></span></h4>
 
                 <div class="card-body">
-                    {{--  @if (session('status'))
-                        <div class="alert alert-success">
-                            {{ session('status') }}
-                        </div>
-                    @endif  --}}
+
                     <div class="row">
                         <h5 class="col-md-3">Organisatie</h5>
                         <h5 class="col-md-3">Adres</h5>

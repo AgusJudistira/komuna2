@@ -34,29 +34,35 @@ class OrganizationsController extends Controller
 
     public function saveOrganization()
     {
+        // var_dump(request('aanmaken'));
+        // dd(request('annuleren'));
+
         $user_id = Auth::guard('web')->user()->id;
-        $org = new Organization;
-        // $org->user_id = $user_id;
-        $org->name = request('name');
 
-        $this->validate(request(),[
-            'name' => 'required'            
-        ]);
+        if (request('aanmaken') == "aanmaken") 
+        {            
+            $org = new Organization;
+            // $org->user_id = $user_id;
+            $org->name = request('name');
 
-        $org->email = request('email');
-        $org->streetname_number = request('streetname_number');
-        $org->postal_code = request('postal_code');
-        $org->city = request('city');
-        $org->phonenumber = request('phonenumber');
+            $this->validate(request(),[
+                'name' => 'required'            
+            ]);
 
-        $org->save();
-        $org->user()->attach($user_id);
-        $org->user()->organization_id = $org->id;
+            $org->email = request('email');
+            $org->streetname_number = request('streetname_number');
+            $org->postal_code = request('postal_code');
+            $org->city = request('city');
+            $org->phonenumber = request('phonenumber');
+
+            $org->save();
+            $org->user()->attach($user_id);
+            $org->user()->organization_id = $org->id;
+        }
 
         $org_list = User::find($user_id)->organization()->get();
         $all_org_list = Organization::all();
 
-        //dd($org_list);
 
         return view('organizations.org-index', compact('org_list', 'all_org_list'));
     }

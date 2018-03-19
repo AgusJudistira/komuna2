@@ -16,7 +16,7 @@
 <body>
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light navbar-laravel">
-        {{--  <nav class="navbar navbar-inverse navbar-laravel">  --}}
+        {{--  <nav class="navbar navbar-default navbar-fixed-top">  --}}
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
                     <h1>{{ config('app.name', 'Komuna') }}</h1>

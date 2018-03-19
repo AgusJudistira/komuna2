@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="card">
-            <h4 class="card-header col-md-6">Organizatie-overzicht<span class="col-md-8 pull-right"><a href="{{ route('org.inputform') }}">Nieuwe organisatie aanmaken</a></span></h4>
+            <h4 class="card-header">Organizatie-overzicht</h4>
 
                 <div class="card-body">
 
@@ -24,6 +24,7 @@
                     {{--  You are logged in as {{ Auth::guard('web')->user()->firstname . " ". Auth::guard('web')->user()->lastname}}  --}}
                 </div>
             </div>
+            <div class="card-footer"><h5><a href="{{ route('org.inputform') }}">Nieuwe organisatie aanmaken</a></h5></div>
         </div>
     </div>
 </div>

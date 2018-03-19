@@ -1,7 +1,6 @@
 @extends('layouts.app')
 
 
-
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
@@ -37,6 +36,13 @@
                             <p>                        
                                 deadline: {{ $project->due_date }}
                             </p>
+                            <p>Project owner(s):</p>
+                                <ul>
+                                    @foreach ($project->projectowner as $proj_owner)
+                                        <li>{{ $proj_owner->firstname . " " . $proj_owner->lastname}}</li>
+                                    @endforeach                                
+                                </ul>
+                            </p> 
                         </div>
                     </div>
                  </div>

@@ -15,6 +15,9 @@
 						<p> start: {{ $project->start_date }} </p>
 						<p> deadline: {{ $project->due_date }}</p>
                     </div>
+                    @if ($isProjectOwner)
+                        <p>Is projectowner</p>
+                    @endif
                 </div>
             </div>
         </div>

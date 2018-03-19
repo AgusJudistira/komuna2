@@ -32,6 +32,20 @@ class ProjectsController extends Controller
 	}
 
 
+    public function search()
+    {
+        
+        $zoekstring = "%" . request('searchstring') . "%";
+
+        $projects = Project::where('name', 'LIKE', $zoekstring)
+							->orWhere('description', 'LIKE', $zoekstring)
+							->get();
+
+
+        return view('projects.index', compact('projects'));
+    }
+
+
 	public function create()
 	{
 
@@ -60,7 +74,6 @@ class ProjectsController extends Controller
 			'due_date'
 
 		]));
-
 
 		return redirect('/projects');
 	}

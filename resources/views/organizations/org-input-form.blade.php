@@ -101,12 +101,12 @@
                                 
                                 <div class="col-md-6">
                                     <div class="form-group row">
-                                        <button id="annuleren" type="submit" class="btn btn-info btn-lg">Annuleren</button>
+                                        <button id="annuleren" name="annuleren" value="annuleren" type="submit" class="btn btn-info btn-lg">Annuleren</button>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group row">
-                                        <button id="aanmaken" type="submit" class="btn btn-primary btn-lg">Aanmaken</button>
+                                        <button id="aanmaken" name="aanmaken" value="aanmaken" type="submit" class="btn btn-primary btn-lg">Aanmaken</button>
                                     </div>
                                 </div>
                                 

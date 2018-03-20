@@ -41,6 +41,7 @@
                             <li><a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a></li>
                         @else
                             @component('components.who')
+
                             @endcomponent
                         @endguest
                     </ul>

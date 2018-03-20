@@ -81,7 +81,7 @@ class ProjectsController extends Controller
 		$user_id = Auth::guard('web')->user()->id;
 
 		$this->validate(request(),[
-
+			
 			'name' => 'required', 
 			'description' => 'required', 
 			'start_date' => 'required', 

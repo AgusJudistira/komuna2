@@ -6,12 +6,15 @@ use App\Project;
 use Auth;
 use App;
 use Carbon\Carbon;
+use Session;
 
 class ProjectsController extends Controller
 {	
 	public function __construct()
 	{
 		$this->middleware('auth')->except('index');	
+		setlocale(LC_ALL, 'nl_NL');
+		// Session::put('locale', 'nl');
 	}
 
 
@@ -110,9 +113,6 @@ class ProjectsController extends Controller
 	{
 		$isProjectOwner = $this->isOwner($project);
 		$list_of_projectowners = $project->user()->get();		
-
-		// App::setLocale('nl');
-		Carbon::setLocale('nl');
 
 		return view('projects.edit', compact('project', 'isProjectOwner', 'list_of_projectowners'));
 	}

@@ -18,28 +18,43 @@
                         <div class="row">
                             <div class="col-md-12">
                                 Projectowner(s):
-                                <ul>
-                                    @foreach ($list_of_projectowners as $projectowner)
-                                        <li>{{ $projectowner->firstname . " " . $projectowner->lastname }}</li>
-                                    @endforeach
-                                </ul>
-                                
                             </div>
                         </div>
+                        <div class="row">
+                            
+                            @foreach ($list_of_projectowners as $projectowner)
+                                <div class="col-md-4">{{ $projectowner->firstname . " " . $projectowner->lastname }}</div>
+                                <div class="col-md-4">{{ $projectowner->email}}</div>
+                                <div class="col-md-4">{{ $projectowner->phone_work}}</div>
+                            @endforeach
+                            
+                        </div>
+                        
+                        
+                    </div>
+                    <div class="card-footer">
                         @if ($isProjectOwner)
                             <form method="get" action="/projects/edit/{{$project->id}}">
                                 <div class="row"> 
                                     <div class="col-md-4">     
                                     </div>
-                                    {{--  <span> - [ <a href="/projects/edit/{{$project->id}}">Wijzig project</a> ]</span>  --}}
                                     <div class="col-md-8">     
                                         <button id="wijzigen" name="wijzigen" value="wijzigen" type="submit" class="btn btn-primary btn-lg">Project wijzigen</button>
                                     </div>
                                 </div>                    
                             </form>
+                        @else
+                        
+                            <form method="get" action="/projects/join/{{$project->id}}">
+                                <div class="col-md-6">
+                                </div>
+                                <div class="col-md-6">
+                                    <button id="aanmelden" name="aanmelden" value="aanmelden" type="submit" class="btn btn-primary btn-lg">Voor het project aanmelden</button>
+                                </div>
+                            </form>
+                        
                         @endif
                     </div>
-
                 </div>
             </div>
         </div>

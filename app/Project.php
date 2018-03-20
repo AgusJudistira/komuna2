@@ -15,9 +15,10 @@ class Project extends Model
         return $this->belongsToMany(User::class, 'projects_users', 'project_id', 'user_id');
     }
 
-    public function projectowner()
+    public function projectUser()
+    // dit is om toegang te krijgen tot de variabelen die in de pivot tabel opgeslagen zijn
     {
-        return $this->belongsToMany(User::class, 'projectowners_projects', 'project_id', 'projectowner_id');
+         return $this->belongsToMany(Project_user::class);
     }
 
     public function isCompleted()

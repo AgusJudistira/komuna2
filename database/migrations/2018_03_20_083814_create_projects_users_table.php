@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateProjectownersProjectsTable extends Migration
+class CreateProjectsUsersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,16 @@ class CreateProjectownersProjectsTable extends Migration
      */
     public function up()
     {
-        Schema::create('projectowners_projects', function (Blueprint $table) {
+        Schema::create('projects_users', function (Blueprint $table) {
             $table->integer('project_id')->nullable();
-            $table->integer('projectowner_id')->nullable();
-            $table->index(['project_id', 'projectowner_id']);
-            $table->dateTime('start_date_projectowner')->nullable();
-            $table->dateTime('end_date_projectowner')->nullable();
+            $table->integer('user_id')->nullable();
+            $table->index(['project_id', 'user_id']);
+            $table->boolean('projectowner')->default(false);
+            $table->dateTime('start_date_user')->default(now());
+            $table->dateTime('end_date_user')->nullable();
             $table->timestamps();
-
         });
+
     }
 
     /**
@@ -31,6 +32,6 @@ class CreateProjectownersProjectsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('projectowners_projects');
+        Schema::dropIfExists('projects_users');
     }
 }

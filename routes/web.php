@@ -6,11 +6,27 @@ Route::get('/', function () {
 
 Auth::routes();
 
+//show a list of projects
 Route::get('projects', 'ProjectsController@index');
+
+//detailed view of ONE project
 Route::get('projects/{project}', 'ProjectsController@show')->where('project', '[0-9]+');
+
+//show edit form of an existing project
+Route::get('projects/edit/{project}', 'ProjectsController@edit')->where('project', '[0-9]+');
+
+//save an existing/modified project
+Route::post('/projects/save_existing/{project}', 'ProjectsController@save_existing')->where('project', '[0-9]+');
+
+//show input form for a new project
 Route::get('projects/create', 'ProjectsController@create');
-Route::post('projects.index', 'ProjectsController@search');
+
+//save a new project
 Route::post('/projects', 'ProjectsController@store');
+
+//show search results
+Route::post('projects.index', 'ProjectsController@search');
+
 
 Route::get('/organizations/org-input-form', 'OrganizationsController@showInputForm')->name('org.inputform');
 Route::post('/organizations', 'OrganizationsController@saveOrganization');

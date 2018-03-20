@@ -4,35 +4,31 @@ namespace App\Http\Controllers;
 
 use App\Project;
 use Auth;
+use App;
+use Carbon\Carbon;
 
 class ProjectsController extends Controller
 {	
 	public function __construct()
 	{
-	
-		$this->middleware('auth')->except('index', 'show');
-	
+		$this->middleware('auth')->except('index', 'show');	
 	}
 
 
 	public function index() 
 	{
+		$projects = Project::with('user')->get();
 
-		$projects = Project::with('projectowner')->get();
-		//$projects = Project::all();
-		// dd($projects);
-
-		return view('projects.index', compact('projects', 'projectowner'));
-		
+		return view('projects.index', compact('projects', 'user'));		
 	}
 
 
 	public function show(Project $project)
 	{
 		$isProjectOwner = $this->isOwner($project);
+		$list_of_projectowners = $project->user()->get();		
 
-		return view('projects.show', compact('project', 'isProjectOwner'));
-
+		return view('projects.show', compact('project', 'isProjectOwner', 'list_of_projectowners'));
 	}
 
 
@@ -41,7 +37,7 @@ class ProjectsController extends Controller
         
         $zoekstring = "%" . request('searchstring') . "%";
 
-		$projects = Project::with('projectowner')
+		$projects = Project::with('user')
 							->where('name', 'LIKE', $zoekstring)
 							->orWhere('description', 'LIKE', $zoekstring)
 							->get();
@@ -53,23 +49,29 @@ class ProjectsController extends Controller
 
 	public function create()
 	{
-
 		return view('projects.create');
-
 	}
 
-	public function isOwner($project_id)
+
+	public function isOwner($project)
 	{
 		$user_id = Auth::guard('web')->user()->id;
 
-		$project = Project::find($project_id);
+		//$project = Project::find($project_id);
+		$list_of_projectowners = $project->user()->get();
+		
+		$result = false;
 
-		// dd($project);
-		dd($project->projectowner()->projectowner_id);
-		// return $project->projectowner()->projectowner_id == $user_id;		
-		// return ($project->projectowner_id == $user_id);
-
+		foreach($list_of_projectowners as $projectowner) {
+			if ($projectowner->id == $user_id) {
+				$result = true;
+				break;
+			}
+		}
+		 
+		return $result;
 	}
+
 
 	public function store()
 	{	
@@ -94,9 +96,56 @@ class ProjectsController extends Controller
 
 		]));
 
-		$newProject->projectowner()->attach($user_id);
-		$newProject->projectowner()->project_id = $newProject->id;
+		$newProject->user()->attach($user_id);
+		$newProject->user()->project_id = $newProject->id;
+
+		//maak de gebruiker die het project aanmaakt de projecteigenaar
+		$newProject->user()->projectowner = true; 
 
 		return redirect('/projects');
 	}
+
+
+	public function edit(Project $project)
+	{
+		$isProjectOwner = $this->isOwner($project);
+		$list_of_projectowners = $project->user()->get();		
+
+		// App::setLocale('nl');
+		Carbon::setLocale('nl');
+
+		return view('projects.edit', compact('project', 'isProjectOwner', 'list_of_projectowners'));
+	}
+
+
+	public function save_existing(Project $project)
+	{	
+		$user_id = Auth::guard('web')->user()->id;
+		
+
+		$this->validate(request(),[
+
+			'name' => 'required', 
+			'description' => 'required', 
+			'start_date' => 'required', 
+			'due_date' => 'required'
+
+		]);
+
+
+		$savedProject = $project->update(request([
+
+			'name', 
+			'description', 
+			'start_date', 
+			'due_date'
+
+		]));
+
+
+		$projects = Project::with('user')->get(); // als voorbereiding op projects.index view
+
+		return view('projects.index', compact('projects', 'user'));
+	}
+
 }

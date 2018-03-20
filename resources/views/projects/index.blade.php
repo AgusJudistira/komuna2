@@ -24,7 +24,7 @@
            <div class="form-group">
                 <div class="card">
                     <div class="card-header">  
-                        <a href="/projects/{{$project->id}}">                    
+                        <a href="/projects/{{$project->id}}">
                             {{ $project->name }}  
                         </a>                        
                     </div>
@@ -38,8 +38,10 @@
                             </p>
                             <p>Project owner(s):</p>
                                 <ul>
-                                    @foreach ($project->projectowner as $proj_owner)
-                                        <li>{{ $proj_owner->firstname . " " . $proj_owner->lastname}}</li>
+                                    @foreach ($project->user as $user)
+                                        @if ($user->projectowner)
+                                            <li>{{ $user->firstname . " " . $user->lastname}}</li>
+                                        @endif
                                     @endforeach                                
                                 </ul>
                             </p> 

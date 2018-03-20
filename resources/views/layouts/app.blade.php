@@ -29,8 +29,6 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
-                        <li> <a  class="nav-link" href="/projects">Projects</a></li>
-                        <li> <a  class="nav-link" href="/projects/create">Start Project</a></li>
                         {{--  <li><a class="nav-link" href="{{ route('org.inputform') }}">Organisaties aanmaken</a></li>  --}}
                     </ul>
 
@@ -42,6 +40,7 @@
                             <li><a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a></li>
                         @else
                             @component('components.who')
+
                             @endcomponent
                         @endguest
                     </ul>

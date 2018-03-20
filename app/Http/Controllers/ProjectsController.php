@@ -11,7 +11,7 @@ class ProjectsController extends Controller
 {	
 	public function __construct()
 	{
-		$this->middleware('auth')->except('index', 'show');	
+		$this->middleware('auth')->except('index');	
 	}
 
 
@@ -78,7 +78,7 @@ class ProjectsController extends Controller
 		$user_id = Auth::guard('web')->user()->id;
 
 		$this->validate(request(),[
-
+			
 			'name' => 'required', 
 			'description' => 'required', 
 			'start_date' => 'required', 
@@ -87,8 +87,13 @@ class ProjectsController extends Controller
 		]);
 
 
+<<<<<<< HEAD
 		$newProject = Project::create(request([
 
+=======
+		Project::create(request([
+			'user',
+>>>>>>> W02-001a_b
 			'name', 
 			'description', 
 			'start_date', 

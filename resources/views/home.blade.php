@@ -9,6 +9,10 @@
 
                 <div class="card-body">
                     <h5><a href="organizations">Organisatie aanmaken</a></h5>
+                    <h5><a href="/users/{{Auth::guard('web')->user()->id}}">edit profile</a></h5>
+                    <h5><a href="/projects">Projects</a></h5>
+                    <h5><a href="/projects/create">Start Project</a></h5>   
+                    
                     {{--  @if (session('status'))
                         <div class="alert alert-success">
                             {{ session('status') }}

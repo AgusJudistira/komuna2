@@ -9,6 +9,7 @@
             </div>
         </div>
         <br />
+        <img src="/uploads/avatars/{{ Auth::user()->avatar }}" style="width: 70px; height: 70px; position: absolute; top: 10px; right:5%; border-style: solid; border-width: 1px; border-color: grey; border-radius: 50%;">
     @endif
 
     @if (Auth::guard('admin')->check())    

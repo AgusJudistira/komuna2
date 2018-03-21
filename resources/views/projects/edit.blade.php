@@ -2,15 +2,6 @@
 
 @section('content')
 
-<script type="text/javascript">
-
-    $('.date').datepicker({
-
-       format: 'yyyy-mm-dd'
-
-     });
-
-</script>
 
 <div class="container">
     <div class="row justify-content-center">
@@ -80,11 +71,11 @@
                             
                             <div class="row">
                                 <div class="col-md-12">
-                                    Projectowner(s):
+                                    Project user(s):
                                     <ul>
-                                        @foreach ($list_of_projectowners as $projectowner)
-                                            <li>{{ $projectowner->firstname . " " . $projectowner->lastname }}
-                                                @if ($isProjectOwner)
+                                        @foreach ($list_of_projectusers as $projectuser)
+                                            <li>{{ $projectuser->firstname . " " . $projectuser->lastname }}
+                                                @if ($projectuser->pivot->projectowner)
                                                     <span> - Project owner</span>
                                                 @endif
                                             </li>

@@ -36,15 +36,7 @@
                             <p>                        
                                 deadline: {{ $project->due_date }}
                             </p>
-                            <p>Project owner(s):</p>
-                                <ul>
-                                    @foreach ($project->user as $user)
-                                        @if ($user->projectowner)
-                                            <li>{{ $user->firstname . " " . $user->lastname}}</li>
-                                        @endif
-                                    @endforeach                                
-                                </ul>
-                            </p> 
+
                         </div>
                     </div>
                  </div>

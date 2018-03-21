@@ -17,20 +17,21 @@
 
                         <div class="row">
                             <div class="col-md-12">
-                                Projectowner(s):
+                                Project owner(s):
                             </div>
                         </div>
                         <div class="row">
                             
-                            @foreach ($list_of_projectowners as $projectowner)
-                                <div class="col-md-4">{{ $projectowner->firstname . " " . $projectowner->lastname }}</div>
-                                <div class="col-md-4">{{ $projectowner->email}}</div>
-                                <div class="col-md-4">{{ $projectowner->phone_work}}</div>
+                            @foreach ($list_of_projectusers as $projectuser)
+                                @if ($projectuser->pivot->projectowner)                                
+                                    <div class="col-md-4">{{ $projectuser->firstname . " " . $projectuser->lastname }}</div>
+                                    <div class="col-md-4">{{ $projectuser->email}}</div>
+                                    <div class="col-md-4">{{ $projectuser->phone_work}}</div>
+                                @endif
                             @endforeach
                             
                         </div>
-                        
-                        
+                                                
                     </div>
                     <div class="card-footer">
                         @if ($isProjectOwner)

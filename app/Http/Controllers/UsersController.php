@@ -22,7 +22,7 @@ class UsersController extends Controller
     {   
         //$user = Auth::guard('web')->user()->id;
         if ($user->id == Auth::guard('web')->user()->id) {
-            return view('users.edit', compact('user'));
+            return view('users.edit_personal', compact('user'));
         }
         else {
             return back();
@@ -37,7 +37,8 @@ class UsersController extends Controller
             // 'lastname' => 'required',
             //'email' => 'email|required|unique:users,email',
             //'password' => 'required|min:6|confirmed',
-
+        	'birthday' => 'required',
+        	'gender' => 'required',
             'streetname_number' => 'required',
             'postal_code' => 'required',
             'city' => 'required',
@@ -50,7 +51,8 @@ class UsersController extends Controller
         // $user->lastname = request('lastname');
         //$user->email = request('email');
         //$user->password = bcrypt(request('password'));
-
+        $user->birthday = request('birthday');
+        $user->gender = request('gender');
         $user->streetname_number = request('streetname_number');
         $user->postal_code = request('postal_code');
         $user->city = request('city');

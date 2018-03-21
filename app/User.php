@@ -17,8 +17,8 @@ class User extends Authenticatable
     protected $fillable = [
         'firstname', 'lastname', 'email', 'password',
         'streetname_number', 'postal_code', 'city',
-        'phone_private', 'phone_work', 'gender'
-    ];
+        'phone_private', 'phone_work', 'gender', 
+            ];
 
     protected $attributes = [
         'streetname_number' => "",
@@ -26,7 +26,8 @@ class User extends Authenticatable
         'city' => "",
         'phone_private' => "", 
         'phone_work' => "", 
-        'gender' => ""
+        'gender' => "",
+       
     ];
 
     /**

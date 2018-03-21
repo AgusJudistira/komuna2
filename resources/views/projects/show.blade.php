@@ -17,17 +17,15 @@
 
                         <div class="row">
                             <div class="col-md-12">
-                                Project owner(s):
+                                Project user(s):
                             </div>
                         </div>
                         <div class="row">
                             
-                            @foreach ($list_of_projectusers as $projectuser)
-                                @if ($projectuser->pivot->projectowner)                                
-                                    <div class="col-md-4">{{ $projectuser->firstname . " " . $projectuser->lastname }}</div>
-                                    <div class="col-md-4">{{ $projectuser->email}}</div>
-                                    <div class="col-md-4">{{ $projectuser->phone_work}}</div>
-                                @endif
+                            @foreach ($list_of_projectusers as $projectuser)                                
+                                <div class="col-md-5">{{ $projectuser->firstname . " " . $projectuser->lastname }}@if ($projectuser->pivot->projectowner) (proj. owner)@endif</div>
+                                <div class="col-md-4">{{ $projectuser->email}}</div>                                                                                               
+                                <div class="col-md-3">{{ $projectuser->phone_work}}</div>
                             @endforeach
                             
                         </div>
@@ -47,9 +45,9 @@
                         @else
                         
                             <form method="get" action="/projects/join/{{$project->id}}">
-                                <div class="col-md-6">
+                                <div class="col-md-4">
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-8">
                                     <button id="aanmelden" name="aanmelden" value="aanmelden" type="submit" class="btn btn-primary btn-lg">Voor het project aanmelden</button>
                                 </div>
                             </form>

@@ -117,10 +117,21 @@ class ProjectsController extends Controller
 
 	public function edit(Project $project)
 	{
-		$isProjectOwner = $this->isOwner($project);
-		$list_of_projectowners = $project->user()->get();		
+		//$isProjectOwner = $this->isOwner($project);
+		//$list_of_projectowners = $project->user()->get();		
 
-		return view('projects.edit', compact('project', 'isProjectOwner', 'list_of_projectowners'));
+		$isProjectOwner = $this->isOwner(Auth::guard('web')->user(), $project);
+		//$list_of_projectusers = $project->user()->get();
+		$list_of_projectusers = $project->user()->withPivot('projectowner')->get();
+		// $projectowners = Array());
+		// foreach ($all_projectusers as $projectuser) {
+		// 	if ($projectuser->pivot->projectowner) {
+		// 		array_push($projectowners, $projectuser);
+		// 	}
+		// }
+		//dd($list_of_projectusers);
+
+		return view('projects.edit', compact('project', 'isProjectOwner', 'list_of_projectusers'));
 	}
 
 

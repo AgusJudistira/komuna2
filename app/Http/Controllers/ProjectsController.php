@@ -21,30 +21,29 @@ class ProjectsController extends Controller
 	public function index() 
 	{
 		$projects = Project::with('user')->get();
-
+				
 		return view('projects.index', compact('projects', 'user'));		
 	}
 
 
 	public function show(Project $project)
 	{
-		$isProjectOwner = $this->isOwner($project);
-		$list_of_projectowners = $project->user()->get();		
+		$isProjectOwner = $this->isOwner(Auth::guard('web')->user(), $project);
+		// $list_of_projectusers = $project->user()->get();
+		$list_of_projectusers = $project->user()->withPivot('projectowner')->get();
 
-		return view('projects.show', compact('project', 'isProjectOwner', 'list_of_projectowners'));
+		return view('projects.show', compact('project', 'isProjectOwner', 'list_of_projectusers'));
 	}
 
 
     public function search()
-    {
-        
+    {        
         $zoekstring = "%" . request('searchstring') . "%";
 
 		$projects = Project::with('user')
 							->where('name', 'LIKE', $zoekstring)
 							->orWhere('description', 'LIKE', $zoekstring)
 							->get();
-
 
         return view('projects.index', compact('projects', 'projectowner'));
     }
@@ -56,23 +55,33 @@ class ProjectsController extends Controller
 	}
 
 
-	public function isOwner($project)
-	{
-		$user_id = Auth::guard('web')->user()->id;
-
-		//$project = Project::find($project_id);
-		$list_of_projectowners = $project->user()->get();
+	public function isOwner($check_user, $project)
+	{				
+		$projectUsers = $project->user()->withPivot('projectowner')->get();		
 		
-		$result = false;
-
-		foreach($list_of_projectowners as $projectowner) {
-			if ($projectowner->id == $user_id) {
-				$result = true;
-				break;
+		foreach ($projectUsers as $user) {
+			if ($user->id == $check_user->id) {
+				return $user->pivot->projectowner;
 			}
 		}
-		 
-		return $result;
+
+		return false;
+
+		// $list_of_projectusers = $project->user()->get();
+		
+		// $result = false;
+
+		// foreach($list_of_projectusers as $user) {
+		// 	// if ($projectowner->id == $user_id) {
+		// 	// 	$result = true;
+		// 	// 	break;
+		// 	// }
+		// 	if ($user->projectowner) {
+		// 		$result = true;
+		// 		break;
+		// 	}
+		// }
+		 		
 	}
 
 
@@ -99,11 +108,8 @@ class ProjectsController extends Controller
 
 		]));
 
-		$newProject->user()->attach($user_id);
-		$newProject->user()->project_id = $newProject->id;
+		$newProject->user()->attach($user_id, ['projectowner' => true]);
 
-		//maak de gebruiker die het project aanmaakt de projecteigenaar
-		$newProject->user()->projectowner = true; 
 
 		return redirect('/projects');
 	}

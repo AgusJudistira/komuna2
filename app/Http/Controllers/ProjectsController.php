@@ -87,13 +87,8 @@ class ProjectsController extends Controller
 		]);
 
 
-<<<<<<< HEAD
 		$newProject = Project::create(request([
 
-=======
-		Project::create(request([
-			'user',
->>>>>>> W02-001a_b
 			'name', 
 			'description', 
 			'start_date', 

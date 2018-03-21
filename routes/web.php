@@ -43,8 +43,11 @@ Route::get('/user-login', 'Auth\LoginController@showLoginForm')->name('user.logi
 Route::post('/user-login', 'Auth\LoginController@userLogin')->name('user.login.submit');
 Route::get('/logout', 'Auth\LoginController@userLogout')->name('user.logout');
 
-Route::get('/users/{user}',  ['as' => 'users.edit', 'uses' => 'UsersController@edit']);
+Route::get('/users/{user}',  ['as' => 'users.edit_personal', 'uses' => 'UsersController@edit']);
 Route::patch('/users/{user}/update',  ['as' => 'users.update', 'uses' => 'UsersController@update']);
 
 Route::get('/users/{user}/edit_avatar',  ['as' => 'users.edit_avatar', 'uses' => 'UsersController@editAvatar']);
 Route::post('/users/{user}/update_avatar',  ['as' => 'users.update_avatar', 'uses' => 'UsersController@updateAvatar']);
+
+Route::get('/users/{user}/edit_competences',  ['as' => 'users.edit_competences', 'uses' => 'competencesController@editCompetences']);
+Route::post('/users/{user}/update_competences',  ['as' => 'users.update_competences', 'uses' => 'competencesController@updateCompetences']);

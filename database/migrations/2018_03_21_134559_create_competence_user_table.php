@@ -17,7 +17,7 @@ class CreateCompetenceUserTable extends Migration
             $table->integer('competence_id')->nullable();
             $table->integer('user_id')->nullable();
             $table->index(['competence_id', 'user_id']);
-            $table->timestamps();
+            $table->timestamps();('user_id')->nullable();
         });
     }
 

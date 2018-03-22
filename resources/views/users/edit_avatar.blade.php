@@ -22,19 +22,25 @@
                                 @endif
                                 </div>
                                 </form>
-                                    <!-- <input type="submit" class="pull-right btn btn-sm btn-primary"> -->
-                            </div>
-                        </div>
                     <div class="form-group row mb-0">
                         <div class="col-md-6 offset-md-10">
                             
-                            <form method="GET" action="{{route('users.update_competences', $user)}}">
-                                <button type="submit" class="btn btn-primary ml-auto">
-                                    {{ __('Next') }}
+                             <form class="col-md-2 float-left" method="GET" action="/users/{{Auth::user()->id}}/"> 
+                                <button type="submit" class="btn btn-primary ml-auto" role="button">
+                                    {{ __('Vorige') }}
                                 </button> 
-                            </form>
+                            </form> 
+
+                             <form class="col-md-2 float-right" method="GET" action="/users/{{Auth::user()->id}}/edit_competences"> 
+                                <button type="submit" class="btn btn-primary ml-auto" role="button">
+                                    {{ __('Volgende') }}
+                                </button> 
+                            </form>                        
                         </div>
                     </div>
+                                    <!-- <input type="submit" class="pull-right btn btn-sm btn-primary"> -->
+                            </div>
+                        </div>
                 </div>
             </div>
         </div>

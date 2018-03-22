@@ -2,16 +2,16 @@
 
 namespace App;
 
-class Message extends Model
+class Message extends Model //iedere bericht heeft maar een zender en een ontvanger
 {
-    public function creator()
+    public function sender()
     {
-        return $this->hasOne(User::class);
+        return $this->hasOne(User::class, 'sender_id');
     }
 
-    public function user()
+    public function recipient()
     {
-        return $this->belongsToMany(User::class, 'messages_users', 'message_id', 'user_id');
+        return $this->hasOne(User::class, 'recipient_id');        
     }
 
 }

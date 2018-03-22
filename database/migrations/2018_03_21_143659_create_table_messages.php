@@ -15,11 +15,13 @@ class CreateTableMessages extends Migration
     {
         Schema::create('messages', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('creator_id')->nullable();
+            $table->integer('sender_id')->nullable();
+            $table->integer('recipient_id')->nullable();
             $table->integer('project_id')->default(0);
             $table->integer('organization_id')->default(0);
             $table->string('subject')->nullable();
             $table->text('message')->nullable();
+            $table->boolean('is_read')->default(false);
             $table->timestamps();
         });
     }

@@ -121,13 +121,45 @@ class ProjectsController extends Controller
 		return view('projects.edit', compact('project', 'isProjectOwner', 'list_of_projectusers'));
 	}
 
-
+	// voorbereidende data verzamelen voor een join message
 	public function join(Project $project)
 	{
-		//$user_id = Auth::guard('web')->user()->id;
 		return view('projects.join', compact('project'));
 	}
 
+
+	// verzoek om aan een project mee te werken wordt daadwerkerlijk verstuurd
+	public function joinProjectMessage(Project $project)
+	{
+		$projectmembers = $project->user()->withPivot('projectowner')->get();
+
+		//verstuur een bericht aan iedere projecteigenaar
+		foreach($projectmembers as $member) {
+			if ($member->pivot->projectowner) {
+				$this->sendPermissionToJoinMessage($project, Auth::guard('web')->user()->id, $member->id);
+			}
+		}
+
+		return redirect('home');
+	}
+
+	//bericht wordt aangemaakt en gelinkt aan de ontvanger
+	public function sendPermissionToJoinMessage(Project $project, $sender_id, $recipient_id)
+	{
+		$project_id = $project->id;		
+		$subject = "Mag ik aan het project '$project->name' meewerken?";
+		$message = "<p>Graag wil ik meewerken aan het project <span class='text-primary'>$project->name</span></p>." .
+					"<p>Als u geintesseerd bent in mijn hulp en expertise, ben ik voor een nader gesprek beschikbaar.</p>";
+		
+		$newMessage = App\Message::create([
+			'sender_id' => $sender_id,
+			'recipient_id' => $recipient_id,
+			'project_id' => $project_id,
+			'subject' => $subject,
+			'message' => $message
+		]);
+		
+	}
 
 	public function save_existing(Project $project)
 	{			

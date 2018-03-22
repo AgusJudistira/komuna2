@@ -71,12 +71,12 @@
                             
                             <div class="row">
                                 <div class="col-md-12">
-                                    Project user(s):
+                                    Projectleden:
                                     <ul>
                                         @foreach ($list_of_projectusers as $projectuser)
                                             <li>{{ $projectuser->firstname . " " . $projectuser->lastname }}
                                                 @if ($projectuser->pivot->projectowner)
-                                                    <span> - Project owner</span>
+                                                    <span> (eigenaar)</span>
                                                 @endif
                                             </li>
                                         @endforeach

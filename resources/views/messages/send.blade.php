@@ -8,7 +8,7 @@
             <div class="form-group">
                 <div class="card">
                     <div class="card-header">  
-                        <h4>Aanmelden voor het project <span class="text-primary">{{$project->name}}</span>.</h4>
+                        <h4>Uw aanmelding voor het project <span class="text-primary">{{$project->name}}</span> is verstuurd.</h4>
                     </div>
                     <form class="form-group" method="GET" action="/messages/send">
                         {{csrf_field()}}
@@ -30,13 +30,13 @@
 
                         <div class="form-group">
                             @if(count($errors))
-                            <div class="alert alert-danger">
-                            <ul>
-                                @foreach($errors->all() as $error) 
-                                <li>{{$error}}</li>
-                                @endforeach
-                            </ul>
-                            </div>
+                                <div class="alert alert-danger">
+                                    <ul>
+                                        @foreach($errors->all() as $error) 
+                                            <li>{{$error}}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
                             @endif
                         </div >
                     </form>

@@ -17,13 +17,13 @@
 
                         <div class="row">
                             <div class="col-md-12">
-                                Project user(s):
+                                Projectleden:
                             </div>
                         </div>
                         <ul>
                             
                             @foreach ($list_of_projectusers as $projectuser)                                
-                                <li class="col-md-6">{{ $projectuser->firstname . " " . $projectuser->lastname }}@if ($projectuser->pivot->projectowner) (proj. owner)@endif</li>
+                                <li class="col-md-6">{{ $projectuser->firstname . " " . $projectuser->lastname }}@if ($projectuser->pivot->projectowner) (eigenaar)@endif</li>
                                 {{--  <div class="col-md-6"></div>  --}}
                                 {{--  <div class="col-md-4">{{ $projectuser->email}}</div>                                                                                               
                                 <div class="col-md-2">{{ $projectuser->phone_work}}</div>  --}}
@@ -35,6 +35,7 @@
                     <div class="card-footer">
                         @if ($isProjectOwner)
                             <form method="get" action="/projects/edit/{{$project->id}}">
+                                {{csrf_field()}}
                                 <div class="row"> 
                                     <div class="col-md-4">     
                                     </div>

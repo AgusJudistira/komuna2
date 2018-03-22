@@ -29,10 +29,18 @@ class ProjectsController extends Controller
 	public function show(Project $project)
 	{
 		$isProjectOwner = $this->isOwner(Auth::guard('web')->user(), $project);
+
 		// $list_of_projectusers = $project->user()->get();
 		$list_of_projectusers = $project->user()->withPivot('projectowner')->get();
 
 		return view('projects.show', compact('project', 'isProjectOwner', 'list_of_projectusers'));
+
+		$isProjectMember = $this->isMember(Auth::guard('web')->user(), $project);
+		// $list_of_projectusers = $project->user()->get();
+		$list_of_projectusers = $project->user()->withPivot('projectowner')->get();
+
+		return view('projects.show', compact('project', 'isProjectOwner', 'isProjectMember', 'list_of_projectusers'));
+
 	}
 
 
@@ -55,6 +63,18 @@ class ProjectsController extends Controller
 	}
 
 
+	public function isMember($check_user, $project)
+	{
+		$projectUsers = $project->user()->get();
+		foreach ($projectUsers as $user) {
+			if ($user->id == $check_user->id) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+
 	public function isOwner($check_user, $project)
 	{				
 		$projectUsers = $project->user()->withPivot('projectowner')->get();		
@@ -66,24 +86,7 @@ class ProjectsController extends Controller
 		}
 
 		return false;
-
-		// $list_of_projectusers = $project->user()->get();
-		
-		// $result = false;
-
-		// foreach($list_of_projectusers as $user) {
-		// 	// if ($projectowner->id == $user_id) {
-		// 	// 	$result = true;
-		// 	// 	break;
-		// 	// }
-		// 	if ($user->projectowner) {
-		// 		$result = true;
-		// 		break;
-		// 	}
-		// }
-		 		
-	}
-
+}
 
 	public function store()
 	{	
@@ -117,37 +120,49 @@ class ProjectsController extends Controller
 
 	public function edit(Project $project)
 	{
-		$isProjectOwner = $this->isOwner($project);
-		$list_of_projectowners = $project->user()->get();		
+		$isProjectOwner = $this->isOwner(Auth::guard('web')->user(), $project);
+
 
 		return view('projects.edit', compact('project', 'isProjectOwner', 'list_of_projectowners'));
 	}
 
+		$list_of_projectusers = $project->user()->withPivot('projectowner')->get();
+
+
+		return view('projects.edit', compact('project', 'isProjectOwner', 'list_of_projectusers'));
+	}
+
+
+	public function join(Project $project)
+	{
+		//$user_id = Auth::guard('web')->user()->id;
+		return view('projects.join', compact('project'));
+	}
+
 
 	public function save_existing(Project $project)
-	{	
-		$user_id = Auth::guard('web')->user()->id;
-		
+	{			
+		if (request('invoeren') == 'invoeren') {
+			$user_id = Auth::guard('web')->user()->id;
+			
+			$this->validate(request(),[
 
-		$this->validate(request(),[
+				'name' => 'required', 
+				'description' => 'required', 
+				'start_date' => 'required', 
+				'due_date' => 'required'
 
-			'name' => 'required', 
-			'description' => 'required', 
-			'start_date' => 'required', 
-			'due_date' => 'required'
+			]);
 
-		]);
+			$savedProject = $project->update(request([
 
+				'name', 
+				'description', 
+				'start_date', 
+				'due_date'
 
-		$savedProject = $project->update(request([
-
-			'name', 
-			'description', 
-			'start_date', 
-			'due_date'
-
-		]));
-
+			]));
+		}
 
 		$projects = Project::with('user')->get(); // als voorbereiding op projects.index view
 

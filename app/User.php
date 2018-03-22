@@ -45,13 +45,6 @@ class User extends Authenticatable
     }
 
     
-    // public function projectUser()
-    // // dit is om toegang te krijgen tot de variabelen die in de pivot tabel opgeslagen zijn
-    // {
-    //      return $this->belongsToMany(Project_user::class, 'projects_user');
-    // }
-
-
     public function organization()
     {
         return $this->belongsToMany(Organization::class, 'organizations_users', 'user_id', 'organization_id');

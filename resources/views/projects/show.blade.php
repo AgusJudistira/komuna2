@@ -17,6 +17,7 @@
 
                         <div class="row">
                             <div class="col-md-12">
+<<<<<<< HEAD
                                 Project owner(s):
                             </div>
                         </div>
@@ -31,6 +32,21 @@
                             @endforeach
                             
                         </div>
+=======
+                                Project user(s):
+                            </div>
+                        </div>
+                        <ul>
+                            
+                            @foreach ($list_of_projectusers as $projectuser)                                
+                                <li class="col-md-6">{{ $projectuser->firstname . " " . $projectuser->lastname }}@if ($projectuser->pivot->projectowner) (proj. owner)@endif</li>
+                                {{--  <div class="col-md-6"></div>  --}}
+                                {{--  <div class="col-md-4">{{ $projectuser->email}}</div>                                                                                               
+                                <div class="col-md-2">{{ $projectuser->phone_work}}</div>  --}}
+                            @endforeach
+                            
+                        </ul>
+>>>>>>> e31b5820969f83be5c269ba5b083905eb247fc0e
                                                 
                     </div>
                     <div class="card-footer">
@@ -44,6 +60,7 @@
                                     </div>
                                 </div>                    
                             </form>
+<<<<<<< HEAD
                         @else
                         
                             <form method="get" action="/projects/join/{{$project->id}}">
@@ -54,6 +71,17 @@
                                 </div>
                             </form>
                         
+=======
+                        @elseif (!$isProjectMember)
+                            <form method="get" action="/projects/join/{{$project->id}}">
+                                {{csrf_field()}}
+                                <div class="col-md-4">
+                                </div>
+                                <div class="col-md-8">
+                                    <button id="aanmelden" name="aanmelden" value="aanmelden" type="submit" class="btn btn-primary btn-lg">Voor het project aanmelden</button>
+                                </div>
+                            </form>                            
+>>>>>>> e31b5820969f83be5c269ba5b083905eb247fc0e
                         @endif
                     </div>
                 </div>

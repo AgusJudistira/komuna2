@@ -81,7 +81,7 @@ class ProjectsController extends Controller
 		}
 
 		return false;
-}
+	}
 
 	public function store()
 	{	

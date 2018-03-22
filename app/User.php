@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-
+use App\Competence;
 class User extends Authenticatable
 {
     use Notifiable;
@@ -17,7 +17,7 @@ class User extends Authenticatable
     protected $fillable = [
         'firstname', 'lastname', 'email', 'password',
         'streetname_number', 'postal_code', 'city',
-        'phone_private', 'phone_work', 'gender', 
+        'phone_private', 'phone_work', 'gender', 'birthday'
             ];
 
     protected $attributes = [
@@ -27,7 +27,7 @@ class User extends Authenticatable
         'phone_private' => "", 
         'phone_work' => "", 
         'gender' => "",
-       
+        
     ];
 
     /**
@@ -53,7 +53,7 @@ class User extends Authenticatable
     public function competences()
 
     {
-        return $this->belongsToMany(Competences::class, 'competence_user', 'project_id', 'user_id');
+        return $this->belongsToMany(Competence::class, 'competence_user', 'project_id', 'user_id');
     }
 
     public function message_sent()

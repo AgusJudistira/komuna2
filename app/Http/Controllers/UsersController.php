@@ -12,15 +12,13 @@ class UsersController extends Controller
 
 {
 
-
     public function __construct()
     {
         $this->middleware('auth');
     }
 
     public function edit(User $user)
-    {   
-        //$user = Auth::guard('web')->user()->id;
+    { 
         if ($user->id == Auth::guard('web')->user()->id) {
             return view('users.edit_personal', compact('user'));
         }
@@ -33,10 +31,6 @@ class UsersController extends Controller
     public function update(User $user)
     { 
         $this->validate(request(), [
-            // 'firstname' => 'required',
-            // 'lastname' => 'required',
-            //'email' => 'email|required|unique:users,email',
-            //'password' => 'required|min:6|confirmed',
         	'birthday' => 'required',
         	'gender' => 'required',
             'streetname_number' => 'required',
@@ -47,11 +41,6 @@ class UsersController extends Controller
 
         ]);
 
-        // $user->firstname = request('firstname');
-        // $user->lastname = request('lastname');
-        //$user->email = request('email');
-        //$user->password = bcrypt(request('password'));
-        $user->birthday = request('birthday');
         $user->gender = request('gender');
         $user->streetname_number = request('streetname_number');
         $user->postal_code = request('postal_code');
@@ -62,12 +51,12 @@ class UsersController extends Controller
 
 
 		return redirect('/users/' . $user->id . '/edit_avatar');
-        //return back();
+    
     }
 
     public function editAvatar(User $user)
     {   
-        //$user = Auth::guard('web')->user()->id;
+
         if ($user->id == Auth::guard('web')->user()->id) {
             return view('users.edit_avatar', compact('user'));
         }
@@ -104,7 +93,7 @@ class UsersController extends Controller
         
     }
 
-     public function updateCompetences(Request $request)
+    public function updateCompetences(Request $request)
     { 
             //
     }

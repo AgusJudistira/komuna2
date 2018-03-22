@@ -91,4 +91,21 @@ class UsersController extends Controller
         	 return view('users.edit_avatar', compact('user'));
         }
     }
+
+    public function editCompetences(User $user)
+    {   
+        //$user = Auth::guard('web')->user()->id;
+        if ($user->id == Auth::guard('web')->user()->id) {
+            return view('users.edit_competences', compact('user'));
+        }
+        else {
+            return back();
+        }
+        
+    }
+
+     public function updateCompetences(Request $request)
+    { 
+            //
+    }
 }

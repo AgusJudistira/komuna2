@@ -30,7 +30,7 @@
                             </div>
                         
                          <div class="form-group row ">
-                            <label for="gender" class="col-md-4 col-form-label text-md-right">{{ __('First Name') }}</label>
+                            <label for="gender" class="col-md-4 col-form-label text-md-right">{{ __('Sekse') }}</label>
 
                             <div class="col-md-6 ">
                                 <select id="gender" type="text" class="form-control{{ $errors->has('gender') ? ' is-invalid' : '' }}" name="gender" value="{{ $user->gender }}" required>
@@ -122,7 +122,7 @@
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-10">
                                 <button type="submit" class="btn btn-primary ml-auto">
-                                    {{ __('Next') }}
+                                    {{ __('volgende') }}
                                 </button>
                             </div>
                         </div>

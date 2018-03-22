@@ -19,9 +19,16 @@
         {{--  <nav class="navbar navbar-default navbar-fixed-top">  --}}
         <nav class="navbar navbar-expand-md navbar-light navbar-laravel">
             <div class="container">
+                @guest
                 <a class="navbar-brand" href="{{ url('/') }}">
                     <h1>{{ config('app.name', 'Komuna') }}</h1>
                 </a>
+                @else
+                <a class="navbar-brand" href="{{ url('/home') }}">
+                    <h1>{{ config('app.name', 'Komuna') }}</h1>
+                </a>
+                @endguest
+
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>

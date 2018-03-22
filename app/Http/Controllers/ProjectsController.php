@@ -122,10 +122,6 @@ class ProjectsController extends Controller
 	{
 		$isProjectOwner = $this->isOwner(Auth::guard('web')->user(), $project);
 
-
-		return view('projects.edit', compact('project', 'isProjectOwner', 'list_of_projectowners'));
-	}
-
 		$list_of_projectusers = $project->user()->withPivot('projectowner')->get();
 
 

@@ -51,6 +51,7 @@ class User extends Authenticatable
     }
 
     public function competences()
+
     {
         return $this->belongsToMany(Competences::class, 'competence_user', 'project_id', 'user_id');
     }
@@ -64,4 +65,5 @@ class User extends Authenticatable
     {
         return $this->hasMany(Message::class, 'recipient_id');
     }
+
 }

@@ -15,18 +15,28 @@ class MessagesController extends Controller
     }
 
     
-    public function joinProject(Project $project)
+    public function showMessages()
     {
-        $user_id = Auth::guard('web')->user()->id;        
-        $projectmembers = $project->user()->withPivot('projectowner')->get();
+        $user = Auth::guard('web')->user();
+        // $projectmembers = $project->user()->withPivot('projectowner')->get();        
+
+        switch (request('message_type')) {
+            case 'sent':
+                $msg_titel = "Verzonden berichten";
+                $messages = $user->message_sent()->get();
+                break;
+            case 'unread':
+                $msg_titel = "Ongelezen berichten";
+                $messages = $user->message_received()->where('is_read', '=', false)->get();
+                break;
+            case 'incoming':
+                $msg_titel = "Ontvangen berichten";
+                $messages = $user->message_received()->get();
+                break;
+        }                        
         
-        
-        return view('organizations.org-index', compact('org_list', 'all_org_list'));
+        return view('messages.msg-index', compact('msg_titel', 'messages'));
     }
 
-    public function showInputForm()
-    {
-        return view('organizations.org-input-form');
-    }
 
 }

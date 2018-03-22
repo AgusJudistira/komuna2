@@ -80,7 +80,6 @@ class ProjectsController extends Controller
 		return false;
 	}
 
-
 	public function store()
 	{	
 		$user_id = Auth::guard('web')->user()->id;

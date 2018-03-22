@@ -20,10 +20,24 @@
                     @endif  --}}
                 </div>
                 <div class="card-footer">
-                    
-                    <p>Verzonden berichten: {{ $sent_messages }}</p>
-                    <p>Ongelezen berichten: {{ $unread_messages }}</p>
-                    <p>Ingekomen berichten: {{ $incoming_messages }}</p>
+                    <form class="form-group" method="POST" action="/messages/msg-index">
+                        {{ csrf_field() }}
+                        <div class="row">
+                            <div class="col-md-3">Verzonden berichten:</div>
+                            <div class="col-md-1">{{ $sent_messages }}</div>
+                            <div class="col-md-4"><button id="sent" name="message_type" value="sent" type="submit" class="btn btn-primary btn-lg">Bekijken</button></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3">Ongelezen berichten:</div>
+                            <div class="col-md-1">{{ $unread_messages }}</div>
+                            <div class="col-md-4"><button id="unread" name="message_type" value="unread" type="submit" class="btn btn-primary btn-lg">Bekijken</button></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3">Ingekomen berichten:</div>
+                            <div class="col-md-1">{{ $incoming_messages }}</div>
+                            <div class="col-md-4"><button id="incoming" name="message_type" value="incoming" type="submit" class="btn btn-primary btn-lg">Bekijken</button></div> 
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>

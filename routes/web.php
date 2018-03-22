@@ -31,7 +31,7 @@ Route::post('projects.index', 'ProjectsController@search');
 Route::get('/projects/join/{project}', 'ProjectsController@join')->where('project', '[0-9]+');
 
 //send message to projectowners after user decides to join.
-Route::get('/messages/send/{project}', 'ProjectsController@joinProjectMessage')->where('project', '[0-9]+');
+Route::post('/messages/msg-index', 'MessagesController@showMessages');
 
 
 Route::get('/organizations/org-input-form', 'OrganizationsController@showInputForm')->name('org.inputform');

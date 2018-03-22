@@ -29,10 +29,11 @@ class ProjectsController extends Controller
 	public function show(Project $project)
 	{
 		$isProjectOwner = $this->isOwner(Auth::guard('web')->user(), $project);
+		$isProjectMember = $this->isMember(Auth::guard('web')->user(), $project);
 		// $list_of_projectusers = $project->user()->get();
 		$list_of_projectusers = $project->user()->withPivot('projectowner')->get();
 
-		return view('projects.show', compact('project', 'isProjectOwner', 'list_of_projectusers'));
+		return view('projects.show', compact('project', 'isProjectOwner', 'isProjectMember', 'list_of_projectusers'));
 	}
 
 
@@ -54,6 +55,17 @@ class ProjectsController extends Controller
 		return view('projects.create');
 	}
 
+	public function isMember($check_user, $project)
+	{
+		$projectUsers = $project->user()->get();
+		foreach ($projectUsers as $user) {
+			if ($user->id == $check_user->id) {
+				return true;
+			}
+		}
+
+		return false;
+	}
 
 	public function isOwner($check_user, $project)
 	{				
@@ -66,22 +78,6 @@ class ProjectsController extends Controller
 		}
 
 		return false;
-
-		// $list_of_projectusers = $project->user()->get();
-		
-		// $result = false;
-
-		// foreach($list_of_projectusers as $user) {
-		// 	// if ($projectowner->id == $user_id) {
-		// 	// 	$result = true;
-		// 	// 	break;
-		// 	// }
-		// 	if ($user->projectowner) {
-		// 		$result = true;
-		// 		break;
-		// 	}
-		// }
-		 		
 	}
 
 

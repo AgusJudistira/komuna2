@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use App\User;
+use App\Competence;
+
 use Image;
 
 class UsersController extends Controller
@@ -81,20 +84,39 @@ class UsersController extends Controller
         }
     }
 
-    public function editCompetences(User $user)
+   
+public function editCompetences(User $user)
     {   
-        //$user = Auth::guard('web')->user()->id;
-        if ($user->id == Auth::guard('web')->user()->id) {
-            return view('users.edit_competences', compact('user'));
+        $competences = Competence::all();
+
+            if ($user->id == Auth::guard('web')->user()->id) {
+            return view('users.edit_competences', compact('competences', 'user'));
         }
         else {
             return back();
         }
-        
-    }
 
-    public function updateCompetences(Request $request)
-    { 
-            //
-    }
+
 }
+
+    // public function updateCompetences(Request)
+    //     {   
+    //     dd();
+    //        // foreach ($newCompetence as $competence => $value) {
+                
+
+    //             // $newCompetence->user()->attach($user_id);
+            
+           
+
+    //         // dd();
+
+    //         // $user_id = Auth::guard('web')->user()->id;
+
+    //         //return redirect('/users.edit_competences');
+    //     }
+        
+
+}
+    //$competences = $user->competences()->get();
+

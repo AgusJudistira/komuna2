@@ -26,12 +26,6 @@
                             </div>
                         </div>
                         <ul>                            
-
-                                Project user(s):
-                            </div>
-                        </div>
-                        <ul>
-                            
                             @foreach ($list_of_projectusers as $projectuser)                                
                                 <li class="col-md-6">{{ $projectuser->firstname . " " . $projectuser->lastname }}@if ($projectuser->pivot->projectowner) (eigenaar)@endif</li>
                             @endforeach                            

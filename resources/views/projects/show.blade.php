@@ -4,7 +4,12 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-md-8"></div>
+        <div class="col-md-4">
+            <h4><a href="/projects">&lt; Terug naar projectoverzicht</a></h4>
+        </div>
+        <div class="col-md-8">            
+
            	<div class="form-group">
                 <div class="card">
                     <div class="card-header">  
@@ -20,15 +25,10 @@
                                 Projectleden:
                             </div>
                         </div>
-                        <ul>
-                            
+                        <ul>                            
                             @foreach ($list_of_projectusers as $projectuser)                                
                                 <li class="col-md-6">{{ $projectuser->firstname . " " . $projectuser->lastname }}@if ($projectuser->pivot->projectowner) (eigenaar)@endif</li>
-                                {{--  <div class="col-md-6"></div>  --}}
-                                {{--  <div class="col-md-4">{{ $projectuser->email}}</div>                                                                                               
-                                <div class="col-md-2">{{ $projectuser->phone_work}}</div>  --}}
-                            @endforeach
-                            
+                            @endforeach                            
                         </ul>
                                                 
                     </div>
@@ -58,6 +58,7 @@
                 </div>
             </div>
         </div>
+
 	</div>   
 </div>         
 @endsection

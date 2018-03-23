@@ -18,9 +18,12 @@
             </div>               
             
         </div>
-        <div class="card-body">
-            {!! $message->message !!}
-        </div>
+        <form id="decide" method="POST" action="/projects/decide">		
+            {{csrf_field()}}
+            <div class="card-body">
+                {!! $message->message !!}
+            </div>
+        </form>
         <div class="card-footer">
             <h4><a href="/home">&lt; Terug naar dashboard</a></h4>
         </div>

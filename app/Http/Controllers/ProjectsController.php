@@ -150,9 +150,19 @@ class ProjectsController extends Controller
 		$sender = User::find($sender_id);
 		$sender_fullname = $sender->firstname . " " . $sender->lastname;
 		$subject = "Mag ik aan het project '$project->name' meewerken?";
+		
 		$message = "<p>$sender_fullname wilt graag meewerken aan het project <span class='text-primary'>$project->name</span></p>.";					
-		$message .= "Klik op accepteren of weigeren.";
-
+		$message .= "Klik op accepteren of weigeren.";		
+		//$message .= "<form id=\"decide\" method=\"POST\" action=\"/projects/decide\">";		
+		$message .= "<div class=\"row\">";
+		$message .= "<div class=\"col-md-4\"></div>";
+		$message .= "<div class=\"col-md-4\"><button form=\"decide\" name=\"refuse\" value=\"refuse\" type=\"submit\" class=\"btn btn-info btn-lg\">Weigeren</button></div>";
+		$message .= "<div class=\"col-md-4\"><button form=\"decide\" name=\"accept\" value=\"accept\" type=\"submit\" class=\"btn btn-primary btn-lg\">Accepteren</button></div>";
+		$message .= "</div>";
+		$message .= "<input type=\"hidden\" name=\"project_id\" value=\"$project_id\">";
+		$message .= "<input type=\"hidden\" name=\"applicant_id\" value=\"$sender_id\">";
+		//$message .= "</form>";
+		
 		$newMessage = App\Message::create([
 			'sender_id' => $sender_id,
 			'recipient_id' => $recipient_id,
@@ -160,8 +170,55 @@ class ProjectsController extends Controller
 			'subject' => $subject,
 			'message' => $message
 		]);
-		
+	
 	}
+
+	public function sendAcceptedToProjectMessage(Project $project, $sender_id, $recipient_id)
+	{
+		$project_id = $project->id;
+		$sender = User::find($sender_id);
+		$sender_fullname = $sender->firstname . " " . $sender->lastname;
+		$subject = "U bent toegelaten tot het project '$project->name'!";
+		$message = "<p>Gefeliciteerd!</p>";
+		$message .= "<p>Projecteigenaar $sender_fullname heeft u geaccepteerd om aan het project <span class='text-primary'>$project->name</span></p> mee te werken.";
+		
+		$newMessage = App\Message::create([
+			'sender_id' => $sender_id,
+			'recipient_id' => $recipient_id,
+			'project_id' => $project_id,
+			'subject' => $subject,
+			'message' => $message
+		]);
+	}
+
+
+	public function decide()
+	{
+		$applicant_id = request('applicant_id');
+		$project_id = request('project_id');
+		$project = Project::find($project_id);
+		$thisuser_id = Auth::guard('web')->user()->id;
+
+		if ($thisuser_id != $applicant_id) {
+			if (request('accept') == 'accept') {				
+				//make applicant a projectmember by linking it to the project via a pivot table
+				//first check if the applicant is already member
+				if (count($project->user()->find($applicant_id)) == 0) {				
+					$project->user()->attach($applicant_id);
+					$this->sendAcceptedToProjectMessage($project, $thisuser_id, $applicant_id);
+				}
+			}			
+		}
+
+		$isProjectOwner = $this->isOwner(Auth::guard('web')->user(), $project);
+
+		$isProjectMember = $this->isMember(Auth::guard('web')->user(), $project);
+		
+		$list_of_projectusers = $project->user()->withPivot('projectowner')->get();
+
+		return view('projects.show', compact('project', 'isProjectOwner', 'isProjectMember', 'list_of_projectusers'));
+	}
+
 
 	public function save_existing(Project $project)
 	{			

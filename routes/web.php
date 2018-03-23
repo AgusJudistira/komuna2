@@ -24,6 +24,9 @@ Route::get('projects/create', 'ProjectsController@create');
 //save a new project
 Route::post('/projects', 'ProjectsController@store');
 
+//accept or refuse an applicant
+Route::post('/projects/decide', 'ProjectsController@decide');
+
 //show search results
 Route::post('projects.index', 'ProjectsController@search');
 

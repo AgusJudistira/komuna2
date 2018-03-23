@@ -23,29 +23,31 @@ class MessagesController extends Controller
 
         switch (request('message_type')) {
             case 'sent':
-                $msg_titel = "Verzonden berichten";
-                $messages = $user->message_sent()->get();
+                $msg_type = "Verzonden berichten";
+                $messages = $user->message_sent()->latest()->get();
                 break;
             case 'unread':
-                $msg_titel = "Ongelezen berichten";
-                $messages = $user->message_received()->where('is_read', '=', false)->get();
+                $msg_type = "Ongelezen berichten";
+                $messages = $user->message_received()->where('is_read', '=', false)->latest()->get();
                 break;
             case 'incoming':
-                $msg_titel = "Ontvangen berichten";
-                $messages = $user->message_received()->get();
+                $msg_type = "Ontvangen berichten";
+                $messages = $user->message_received()->latest()->get();
                 break;
             default:
                 $messages = Array();
                 break;
         }                        
         
-        return view('messages.msg-index', compact('msg_titel', 'messages'));
+        return view('messages.msg-index', compact('msg_type', 'messages'));
     }
 
     public function focusMessage(Message $message)
     {
-        $message->is_read = true; //Mark message as read
-        $message->save();
+        if ($message->sender_id != Auth::guard('web')->user()->id) {
+            $message->is_read = true; //Mark message as read
+            $message->save();
+        }
 
         return view('messages/msg-show', compact('message'));
     }

@@ -33,6 +33,9 @@ class MessagesController extends Controller
                 $msg_titel = "Ontvangen berichten";
                 $messages = $user->message_received()->get();
                 break;
+            default:
+                $messages = Array();
+                break;
         }                        
         
         return view('messages.msg-index', compact('msg_titel', 'messages'));

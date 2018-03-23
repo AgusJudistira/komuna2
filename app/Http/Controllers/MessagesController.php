@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
 use App\Organization;
+use App\Message;
 use Auth;
 
 class MessagesController extends Controller
@@ -41,5 +42,12 @@ class MessagesController extends Controller
         return view('messages.msg-index', compact('msg_titel', 'messages'));
     }
 
+    public function focusMessage(Message $message)
+    {
+        $message->is_read = true; //Mark message as read
+        $message->save();
+
+        return view('messages/msg-show', compact('message'));
+    }
 
 }

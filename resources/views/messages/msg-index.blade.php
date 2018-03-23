@@ -18,18 +18,16 @@
             </thead>
             @foreach ($messages as $msg)
                 <tr>
+                    
                     @if ($msg_titel == "Verzonden berichten")
-                        <td>{{$msg->recipient()->first()->firstname . " " . $msg->recipient()->first()->lastname}}</td>
+                        <td><a href="/messages/msg-show/{{$msg->id}}">{{$msg->recipient()->first()->firstname . " " . $msg->recipient()->first()->lastname}}</a></td>
                     @else
-                        <td>{{$msg->sender()->first()->firstname . " " . $msg->sender()->first()->lastname}}</td>
+                        <td><a href="/messages/msg-show/{{$msg->id}}">{{$msg->sender()->first()->firstname . " " . $msg->sender()->first()->lastname}}</a></td>
                     @endif
                     
-                    <td>{{$msg->subject}}</td>
-                    <td>{{$msg->created_at}}</td>                        
-                    {{--  <div class="card-body">                  
-                        <p class="primary-txt">{!! $msg->message !!}</p>
-                    </div>                      --}}
-                    
+                    <td><a href="/messages/msg-show/{{$msg->id}}">{{$msg->subject}}</a></td>
+                    <td><a href="/messages/msg-show/{{$msg->id}}">{{$msg->created_at}}</a></td>                        
+
                 </tr>
             @endforeach
         </table>

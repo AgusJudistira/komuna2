@@ -15,8 +15,7 @@
             <div class="form-group">
               <label for="competence">Competentie:</label>
               <input type="text" class="form-control" id="competence" name="competence" required>
-            </div> 
-
+            </div>
             <button type="submit" class="btn btn-default">Creeer</button>
             <div class="form-group">
               @if(count($errors))

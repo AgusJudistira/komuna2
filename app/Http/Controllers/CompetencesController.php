@@ -29,9 +29,7 @@ class CompetencesController extends Controller
 	}
 
 
-
-
- 	public function createCompetences()
+	public function createCompetences()
 	{
 		return view('competences.create_competences');
 	}
@@ -55,6 +53,10 @@ class CompetencesController extends Controller
 
 		return redirect('/competences/create_competences');
 	}
+
+
+        
+    }
 
 	public function bindCompetences(Competence $competence)
 	{	

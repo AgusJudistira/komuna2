@@ -33,6 +33,7 @@ class ProjectsController extends Controller
 		$isProjectMember = $this->isMember(Auth::guard('web')->user(), $project);
 		
 		$list_of_projectusers = $project->user()->withPivot('projectowner')->get();
+		
 
 		return view('projects.show', compact('project', 'isProjectOwner', 'isProjectMember', 'list_of_projectusers'));
 	}

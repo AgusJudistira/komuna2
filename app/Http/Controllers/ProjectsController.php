@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Project;
 use Auth;
 use App;
+use App\User;
 use Carbon\Carbon;
 use Session;
 
@@ -145,11 +146,13 @@ class ProjectsController extends Controller
 	//bericht wordt aangemaakt en gelinkt aan de ontvanger
 	public function sendPermissionToJoinMessage(Project $project, $sender_id, $recipient_id)
 	{
-		$project_id = $project->id;		
+		$project_id = $project->id;
+		$sender = User::find($sender_id);
+		$sender_fullname = $sender->firstname . " " . $sender->lastname;
 		$subject = "Mag ik aan het project '$project->name' meewerken?";
-		$message = "<p>Graag wil ik meewerken aan het project <span class='text-primary'>$project->name</span></p>." .
-					"<p>Als u geintesseerd bent in mijn hulp en expertise, ben ik voor een nader gesprek beschikbaar.</p>";
-		
+		$message = "<p>$sender_fullname wilt graag meewerken aan het project <span class='text-primary'>$project->name</span></p>.";					
+		$message .= "Klik op accepteren of weigeren.";
+
 		$newMessage = App\Message::create([
 			'sender_id' => $sender_id,
 			'recipient_id' => $recipient_id,

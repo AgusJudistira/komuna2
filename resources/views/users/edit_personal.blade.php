@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ __('personelijke gegevens') }}</div>
+                <div class="card-header">{{ __('persoonlijke gegevens') }}</div>
 
                 <div class="card-body">
                     <form method="POST" action="{{route('users.update', $user)}}">
@@ -30,7 +30,7 @@
                             </div>
                         
                          <div class="form-group row ">
-                            <label for="gender" class="col-md-4 col-form-label text-md-right">{{ __('Sekse') }}</label>
+                            <label for="gender" class="col-md-4 col-form-label text-md-right">{{ __('Geslacht') }}</label>
 
                             <div class="col-md-6 ">
                                 <select id="gender" type="text" class="form-control{{ $errors->has('gender') ? ' is-invalid' : '' }}" name="gender" value="{{ $user->gender }}" required>

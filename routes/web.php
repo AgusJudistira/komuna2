@@ -32,8 +32,10 @@ Route::get('/projects/join/{project}', 'ProjectsController@join')->where('projec
 // message to join is created and sent (linked to sender and receiver)
 Route::get('/messages/send/{project}', 'ProjectsController@joinProjectMessage')->where('project', '[0-9]+');
 
-//send message to projectowners after user decides to join.
+//show a list of messages
 Route::post('/messages/msg-index', 'MessagesController@showMessages');
+//read one message
+Route::get('/messages/msg-show/{message}', 'MessagesController@focusMessage')->where('message', '[0-9]+');
 
 
 Route::get('/organizations/org-input-form', 'OrganizationsController@showInputForm')->name('org.inputform');

@@ -20,7 +20,7 @@
 								@endforeach
 							</select>
 						</div>
-						<button type="submit" class="btn btn-default">Voeg toe</button>
+						<!-- <button type="submit" class="btn btn-default">Voeg toe</button> -->
 						<div class="form-group">
 							@if(count($errors))
 							<div class="alert alert-danger">

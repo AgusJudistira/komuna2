@@ -22,10 +22,21 @@
             {{csrf_field()}}
             <div class="card-body">
                 {!! $message->message !!}
+                
+                @if ($message->action_taken == 0)
+                    @if ($message->recipient_id == Auth::guard('web')->user()->id)
+                        {!! $message->actions !!}
+                    @endif
+                @elseif ($message->action_taken == 1)
+                    <p class="text-success">Het verzoek is al geaccepteerd.</p>
+                @elseif ($message->action_taken == 2)
+                    <p class="text-danger">Het verzoek is al geweigerd.</p>
+                @endif
             </div>
+            <input type="hidden" name="message_id" value="{{$message->id}}">
         </form>
         <div class="card-footer">
-            <h4><a href="/home">&lt; Terug naar dashboard</a></h4>
+            <h4><a href="{{ url()->previous() }}">&lt; Terug naar overzicht</a></h4>
         </div>
     </div>
 </div>

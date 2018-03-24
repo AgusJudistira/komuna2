@@ -36,7 +36,7 @@ Route::get('/projects/join/{project}', 'ProjectsController@join')->where('projec
 Route::get('/messages/send/{project}', 'ProjectsController@joinProjectMessage')->where('project', '[0-9]+');
 
 //show a list of messages
-Route::post('/messages/msg-index', 'MessagesController@showMessages');
+Route::get('/messages/msg-index', 'MessagesController@showMessages');
 //read one message
 Route::get('/messages/msg-show/{message}', 'MessagesController@focusMessage')->where('message', '[0-9]+');
 

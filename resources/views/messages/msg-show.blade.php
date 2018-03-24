@@ -36,7 +36,7 @@
             <input type="hidden" name="message_id" value="{{$message->id}}">
         </form>
         <div class="card-footer">
-            <h4><a href="/home">&lt; Terug naar dashboard</a></h4>
+            <h4><a href="{{ url()->previous() }}">&lt; Terug naar overzicht</a></h4>
         </div>
     </div>
 </div>

@@ -20,7 +20,7 @@
                     @endif  --}}
                 </div>
                 <div class="card-footer">
-                    <form class="form-group" method="POST" action="/messages/msg-index">
+                    <form class="form-group" method="GET" action="/messages/msg-index">
                         {{ csrf_field() }}
                         <div class="row">
                             {{--  <div class="col-md-3">Verzonden berichten:</div>

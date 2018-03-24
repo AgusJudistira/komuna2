@@ -55,7 +55,6 @@ class CompetencesController extends Controller
 	}
 
 
-
 	public function bindCompetences(Competence $competence)
 	{	
 		$user_id = Auth::guard('web')->user()->id;

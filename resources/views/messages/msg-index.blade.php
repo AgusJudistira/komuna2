@@ -25,16 +25,40 @@
             </thead>
             @foreach ($messages as $msg)
                 <tr>
-                    
+
                     @if ($msg_type == "Verzonden berichten")
-                        <td><a href="/messages/msg-show/{{$msg->id}}">{{$msg->recipient()->first()->firstname . " " . $msg->recipient()->first()->lastname}}</a></td>
+                        @if ($msg->is_read)
+                            <td>
+                        @else
+                            <td style="background-color:pink;">                            
+                        @endif
+                                <a href="/messages/msg-show/{{$msg->id}}">{{$msg->recipient()->first()->firstname . " " . $msg->recipient()->first()->lastname}}</a>
+                            </td>
                     @else
-                        <td><a href="/messages/msg-show/{{$msg->id}}">{{$msg->sender()->first()->firstname . " " . $msg->sender()->first()->lastname}}</a></td>
+                        @if ($msg->is_read)
+                            <td>
+                        @else
+                            <td style="background-color:pink;">                            
+                        @endif
+                                <a href="/messages/msg-show/{{$msg->id}}">{{$msg->sender()->first()->firstname . " " . $msg->sender()->first()->lastname}}</a>
+                            </td>
                     @endif
                     
-                    <td><a href="/messages/msg-show/{{$msg->id}}">{{$msg->subject}}</a></td>
-                    <td><a href="/messages/msg-show/{{$msg->id}}">{{$msg->created_at}}</a></td>                        
+                    @if ($msg->is_read)
+                        <td>
+                    @else
+                        <td style="background-color:pink;">                            
+                    @endif
+                            <a href="/messages/msg-show/{{$msg->id}}">{{$msg->subject}}</a>
+                        </td>
 
+                    @if ($msg->is_read)
+                        <td>
+                    @else
+                        <td style="background-color:pink;">                            
+                    @endif
+                            <a href="/messages/msg-show/{{$msg->id}}">{{$msg->created_at}}</a>
+                        </td>
                 </tr>
             @endforeach
         </table>

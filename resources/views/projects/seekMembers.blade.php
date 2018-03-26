@@ -21,7 +21,7 @@
             </thead>
             @foreach ($invitable_members as $invitee)
                 <tr>
-                    <td>{{$invitee->firstname . " " . $invitee->lastname}}</td>
+                    <td><a href="/projects/showInvitee/{{{$thisProject->id}}}/{{{$invitee->id}}}">{{$invitee->firstname . " " . $invitee->lastname}}</a></td>
                     <td>{{$invitee->gender}}</td>
                     <td>{{$invitee->city}}</td>
                 </tr>

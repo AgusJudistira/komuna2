@@ -17,6 +17,12 @@ Route::post('projects/edit', 'ProjectsController@edit');
 
 Route::post('projects/seekMembers', 'ProjectsController@seekMembers');
 
+// get details about a volunteer before inviting.
+Route::get('projects/showInvitee/{project}/{invitee}', 'ProjectsController@showInvitee')->where(['project' => '[0-9]+', 'invitee' => '[0-9]+']);
+
+// invite a volunteer to join project
+Route::post('projects/invite', 'ProjectsController@sendInvitation');
+
 //save an existing/modified project
 Route::post('/projects/save_existing/{project}', 'ProjectsController@save_existing')->where('project', '[0-9]+');
 

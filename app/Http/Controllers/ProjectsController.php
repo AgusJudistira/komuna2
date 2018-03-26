@@ -131,8 +131,12 @@ class ProjectsController extends Controller
 
 
 	// verzoek om aan een project mee te werken wordt daadwerkerlijk verstuurd
-	public function joinProjectMessage(Project $project)
+	public function joinProjectMessage(Project $project)	
 	{
+		if (request('annuleren') == 'annuleren') {
+			return redirect('/projects/' . $project->id);
+		}
+
 		$projectmembers = $project->user()->withPivot('projectowner')->get();
 
 		//verstuur een bericht aan iedere projecteigenaar
@@ -153,7 +157,7 @@ class ProjectsController extends Controller
 		$sender_fullname = $sender->firstname . " " . $sender->lastname;
 		$subject = "Mag ik aan het project '$project->name' meewerken?";
 		
-		$message = "<p>$sender_fullname wilt graag meewerken aan het project <span class='text-primary'>$project->name</span>.</p>";
+		$message = "<p>$sender_fullname wilt graag meewerken aan het project <a href='/projects/$project_id' target='_blank'>$project->name</a>.</p>";
 		$message .= "Klik op accepteren of weigeren.";		
 		//$action .= "<form id=\"decide\" method=\"POST\" action=\"/projects/decide\">";
 		
@@ -185,7 +189,7 @@ class ProjectsController extends Controller
 		$sender_fullname = $sender->firstname . " " . $sender->lastname;
 		$subject = "U bent toegelaten tot het project '$project->name'!";
 		$message = "<p>Gefeliciteerd!</p>";
-		$message .= "<p>Projecteigenaar $sender_fullname heeft u geaccepteerd om aan het project <span class='text-primary'>$project->name</span></p> mee te werken.";
+		$message .= "<p>Projecteigenaar $sender_fullname heeft u geaccepteerd om aan het project <a href='/projects/$project_id' target='_blank'>$project->name</a> mee te werken.</p>";
 		
 		$newMessage = App\Message::create([
 			'sender_id' => $sender_id,
@@ -203,7 +207,7 @@ class ProjectsController extends Controller
 		$sender_fullname = $sender->firstname . " " . $sender->lastname;
 		$subject = "Uw bent helaas geweigerd voor het project '$project->name'!";
 		$message = "<p>Helaas...</p>";
-		$message .= "<p>Projecteigenaar $sender_fullname heeft uw verzoek om aan het project <span class='text-primary'>$project->name</span></p> mee te werken geweigerd.";
+		$message .= "<p>Projecteigenaar $sender_fullname heeft uw verzoek om aan het project <a href='/projects/$project_id' target='_blank'>$project->name</a> mee te werken geweigerd.</p>";
 		
 		$newMessage = App\Message::create([
 			'sender_id' => $sender->id,

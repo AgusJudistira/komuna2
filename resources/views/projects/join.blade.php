@@ -8,12 +8,12 @@
       <div class="form-group">
         <div class="card">
           <div class="card-header">  
-          <h4>Aanmelden voor het project <span class="text-primary">{{$project->name}}</span>.</h4>                      
+          <h4>Aanmelden voor het project <b>{{$project->name}}</b>.</h4>                      
           </div>
         <form class="form-group" method="GET" action="/messages/send/{{$project->id}}">
             {{csrf_field()}}
             <div class="col-md-8">
-                <p>U, <span class="text-primary">{{Auth::guard('web')->user()->firstname . " " . Auth::guard('web')->user()->lastname}}</span>, bent van plan om zich aan te melden om mee te werken aan het project: <span class="text-primary">{{ $project->name }}</span>.
+                <p>U, <b><i>{{Auth::guard('web')->user()->firstname . " " . Auth::guard('web')->user()->lastname}}</i></b>, bent van plan om zich aan te melden om mee te werken aan het project: <b><i>{{ $project->name }}</i></b>.
                 <p>Klik op <span class="bg-primary" style="color: white;">Aanmelding versturen</span> om u aan te melden.</p>
                 <p>Een bericht naar de projecteigenaar(s) zal verstuurd worden. </p>
                 <p>Na goedkeuring van een projecteigenaar zult u aan het project gekoppeld worden.</p>
@@ -25,7 +25,7 @@
                     <button id="annuleren" name="annuleren" value="annuleren" type="submit" class="btn btn-info btn-lg">Annuleren</button>
                 </div>
                 <div class="col-md-3">                                    
-                    <button id="invoeren" name="invoeren" value="versturen" type="submit" class="btn btn-primary btn-lg">Aanmelding versturen</button>
+                    <button id="invoeren" name="versturen" value="versturen" type="submit" class="btn btn-primary btn-lg">Aanmelding versturen</button>
                 </div>           
             </div>
 

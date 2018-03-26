@@ -52,10 +52,13 @@ class CompetencesController extends Controller
 		]));
 
 		return redirect('/competences/create_competences');
-	}
+
+	
 
 
-        
+
+
+
 
 	public function bindCompetences(Competence $competence)
 	{	

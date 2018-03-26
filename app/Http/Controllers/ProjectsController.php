@@ -31,7 +31,12 @@ class ProjectsController extends Controller
 	{
 		$isProjectOwner = $this->isOwner(Auth::guard('web')->user(), $project);
 
-		$isProjectMember = $this->isMember(Auth::guard('web')->user(), $project);
+		if ($isProjectOwner) {
+			$isProjectMember = true;
+		}
+		else {
+			$isProjectMember = $this->isMember(Auth::guard('web')->user(), $project);
+		}
 		
 		$list_of_projectusers = $project->user()->withPivot('projectowner')->get();
 		
@@ -113,14 +118,34 @@ class ProjectsController extends Controller
 	}
 
 
-	public function edit(Project $project)
+	public function edit()
 	{
+		$project_id = request('project_id');
+		$project = Project::find($project_id);
 		$isProjectOwner = $this->isOwner(Auth::guard('web')->user(), $project);
 
 		$list_of_projectusers = $project->user()->withPivot('projectowner')->get();
 
 
 		return view('projects.edit', compact('project', 'isProjectOwner', 'list_of_projectusers'));
+	}
+
+	public function seekMembers()
+	{
+		$project_id = request('project_id');
+		$thisProject = Project::find($project_id);
+
+		$members = $thisProject->User()->get();
+
+		$invitable_members = Array();
+
+		$volunteers = User::all();
+		foreach ($volunteers as $volunteer) {			
+			if	(!$this->isMember($volunteer, $thisProject)) {
+				array_push($invitable_members, $volunteer);				
+			}
+		}
+		return view('projects.seekMembers', compact('thisProject', 'invitable_members'));
 	}
 
 	// voorbereidende data verzamelen voor een join message

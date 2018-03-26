@@ -13,7 +13,9 @@ Route::get('projects', 'ProjectsController@index');
 Route::get('projects/{project}', 'ProjectsController@show')->where('project', '[0-9]+');
 
 //show edit form of an existing project
-Route::get('projects/edit/{project}', 'ProjectsController@edit')->where('project', '[0-9]+');
+Route::post('projects/edit', 'ProjectsController@edit');
+
+Route::post('projects/seekMembers', 'ProjectsController@seekMembers');
 
 //save an existing/modified project
 Route::post('/projects/save_existing/{project}', 'ProjectsController@save_existing')->where('project', '[0-9]+');

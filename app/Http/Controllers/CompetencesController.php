@@ -56,7 +56,6 @@ class CompetencesController extends Controller
 
 
         
-    }
 
 	public function bindCompetences(Competence $competence)
 	{	

@@ -76,13 +76,11 @@ Route::post('/users/{user}/update_competences',  ['as' => 'users.update_competen
 //show competences
 Route::get('competences', 'CompetencesController@index');
 
-// Route::get('/users/{user}/edit_competences', 'CompetencesController@bindCompetences');
 //Route::post('/users/{user}/update_competences',  ['as' => 'users.update_competences', 'uses' => 'UsersController@updateCompetences']);
 
 Route::get('/users/{user}/edit_competences',  ['as' => 'users.edit_competences', 'uses' => 'competencesController@editCompetences']);
 Route::post('/users/{user}/update_competences',  ['as' => 'users.update_competences', 'uses' => 'competencesController@updateCompetences']);
-// create competences
-// create competences  
+// create competences 
 Route::get('/competences/create_competences',  ['as' => 'competences.create_competences', 'uses' => 'CompetencesController@createCompetences']);
 Route::post('/competences/update_competences',  ['as' => 'competences.update_competences', 'uses' => 'CompetencesController@storeCompetences']);
 

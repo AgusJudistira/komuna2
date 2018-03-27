@@ -16,9 +16,10 @@
         .navbar {
             background-color: darkblue;
             color: chartreuse;
-            /* position: fixed;
+            position: fixed;
             width: 100%;
-            top: 0; */
+            top: 0;
+            z-index: 5;
         }
 
         * a:hover {
@@ -27,12 +28,28 @@
             text-decoration: none!important;
         }
 
-        /* .py-4 {
-            position: absolute;
-            margin-top: 170px;
-            float: right;
+        .py-4 {
+            margin-top: 70px;
+        }
 
-        } */
+        #dashboard-button {
+            z-index: 3; 
+            position: fixed; 
+            top: 33px;
+            left: 50px; 
+            border-radius: 50%;
+            background-color: darkred;
+            color: white;
+            padding-left: 15px;
+            padding-right: 15px;
+            padding-top: 27px;
+            padding-bottom: 27px;
+        }
+
+        #dashboard-button:hover {
+            background-color: darkgreen;
+            color: white;
+        }
 
     </style>
 </head>
@@ -58,6 +75,10 @@
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
+                    <form action="/home" method="get" role="form">
+                        {{ csrf_field() }}
+                        <button id="dashboard-button" name="dashboard-button" value="dashboard-button" type="submit"><b>Naar<br />Dashboard</b></button>
+                    </form>
                     {{--  <ul class="navbar-nav mr-auto">
                         <li> <a  class="nav-link" href="/projects">Projects</a></li>
                         <li> <a  class="nav-link" href="/projects/create">Start Project</a></li>

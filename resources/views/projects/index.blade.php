@@ -3,24 +3,23 @@
 
 @section('content')
 <div class="container">
-    <div class="row justify-content-center">
-            
-        <div class="col-md-12 text-right">
-            <h4><a href="/home">&lt; Terug naar dashboard</a></h4>
-        </div>
+    <div class="row justify-content-center">            
             
         <form class="form-inline col-md-12" action="projects.index" method="post" role="form">
             {{ csrf_field() }}
+            
             <div class="form-inline row">
+            
                 <label class="control-label control-label-right col-md-4" for="searchstring">Zoek in projecten op: </label>
-                <div class="controls col-md-7">                    
+                <div class="col-md-7">                    
                     <input id="searchstring" name="searchstring" class="form-control k-textbox" data-role="text" type="text">
                 </div>     
 
-                <div class="controls col-md-1">
+                <div class="col-md-1">
                     <button id="zoek" name="zoek" value="zoek" type="submit" class="btn btn-info btn-lg">Zoek</button>
                 </div>
             </div>
+            
         </form>
 
         <form style="z-index: 3; position: fixed; bottom: 30px; right: 30px;" action="/projects/create" method="post" role="form">

@@ -27,7 +27,7 @@ Route::post('projects/invite', 'ProjectsController@sendInvitation');
 Route::post('/projects/save_existing/{project}', 'ProjectsController@save_existing')->where('project', '[0-9]+');
 
 //show input form for a new project
-Route::get('projects/create', 'ProjectsController@create');
+Route::post('projects/create', 'ProjectsController@create');
 
 //save a new project
 Route::post('/projects', 'ProjectsController@store');
@@ -49,7 +49,7 @@ Route::get('/messages/msg-index', 'MessagesController@showMessages');
 Route::get('/messages/msg-show/{message}', 'MessagesController@focusMessage')->where('message', '[0-9]+');
 
 
-Route::get('/organizations/org-input-form', 'OrganizationsController@showInputForm')->name('org.inputform');
+Route::post('/organizations/org-input-form', 'OrganizationsController@showInputForm')->name('org.inputform');
 Route::post('/organizations', 'OrganizationsController@saveOrganization');
 Route::get('organizations', 'OrganizationsController@org_index');
 

@@ -12,12 +12,35 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <style>
+        .navbar {
+            background-color: darkblue;
+            color: chartreuse;
+            /* position: fixed;
+            width: 100%;
+            top: 0; */
+        }
+
+        * a:hover {
+            background-color: black;
+            color: white;
+            text-decoration: none!important;
+        }
+
+        /* .py-4 {
+            position: absolute;
+            margin-top: 170px;
+            float: right;
+
+        } */
+
+    </style>
 </head>
 <body>
-    <div id="app">
-        {{--  <nav style="position:fixed; width:100%;" class="navbar navbar-expand-md navbar-light navbar-laravel">  --}}
-        {{--  <nav class="navbar navbar-default navbar-fixed-top">  --}}
-        <nav class="navbar navbar-expand-md navbar-light navbar-laravel">
+    <div id="app">        
+        {{--  <nav style="position:fixed; top:0; width:100%;" class="navbar navbar-expand-md navbar-laravel navbar-fixed-top">  --}}
+        
+        <nav class="navbar navbar-expand-md navbar-dark">
             <div class="container">
                 @guest
                 <a class="navbar-brand" href="{{ url('/') }}">
@@ -35,10 +58,10 @@
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav mr-auto">
+                    {{--  <ul class="navbar-nav mr-auto">
                         <li> <a  class="nav-link" href="/projects">Projects</a></li>
                         <li> <a  class="nav-link" href="/projects/create">Start Project</a></li>
-                    </ul>
+                    </ul>  --}}
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">

@@ -10,7 +10,7 @@
             <h3><b>{{$thisProject->name}}</b></h3>
         </div>
         <div class="col-md-6">
-        <h4><a href="/projects/{{$thisProject->id}}">&lt; Terug naar projectdetails</a></h4>
+            <h4><a href="/projects/{{$thisProject->id}}">&lt; Terug naar projectdetails</a></h4>
         </div>
 
         <table class="table table-responsive table-striped">

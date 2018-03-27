@@ -37,7 +37,7 @@ class MessagesController extends Controller
             default:
                 $messages = Array();
                 break;
-        }                        
+        }
         
         return view('messages.msg-index', compact('msg_type', 'messages'));
     }

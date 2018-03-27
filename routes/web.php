@@ -21,7 +21,9 @@ Route::post('projects/seekMembers', 'ProjectsController@seekMembers');
 Route::get('projects/showInvitee/{project}/{invitee}', 'ProjectsController@showInvitee')->where(['project' => '[0-9]+', 'invitee' => '[0-9]+']);
 
 // invite a volunteer to join project
-Route::post('projects/invite', 'ProjectsController@sendInvitation');
+Route::post('projects/prepare_invitation', 'ProjectsController@prepareInvitation');
+
+Route::post('projects/send_invitation', 'ProjectsController@sendInvitation');
 
 //save an existing/modified project
 Route::post('/projects/save_existing/{project}', 'ProjectsController@save_existing')->where('project', '[0-9]+');
@@ -32,16 +34,16 @@ Route::post('projects/create', 'ProjectsController@create');
 //save a new project
 Route::post('/projects', 'ProjectsController@store');
 
-//accept or refuse an applicant
+//accept or refuse an applicant (input from message)
 Route::post('/projects/decide', 'ProjectsController@decide');
 
 //show search results
 Route::post('projects.index', 'ProjectsController@search');
 
 //show join project form after pressing project join button
-Route::get('/projects/join/{project}', 'ProjectsController@join')->where('project', '[0-9]+');
+Route::get('/projects/join/{project}', 'ProjectsController@prepareJoinMessage')->where('project', '[0-9]+');
 // message to join is created and sent (linked to sender and receiver)
-Route::get('/messages/send/{project}', 'ProjectsController@joinProjectMessage')->where('project', '[0-9]+');
+Route::get('/messages/send/{project}', 'ProjectsController@sendJoinProjectMessage')->where('project', '[0-9]+');
 
 //show a list of messages
 Route::get('/messages/msg-index', 'MessagesController@showMessages');

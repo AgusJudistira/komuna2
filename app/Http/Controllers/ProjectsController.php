@@ -172,43 +172,56 @@ class ProjectsController extends Controller
 		}
 	}
 
+	public function prepareInvitation()
+	{
+		$project_id = request('project_id');
+		$invitee_id = request('invitee_id');
+
+		$invitee = User::find($invitee_id);
+		$project = Project::find($project_id);
+
+		return view('projects.invite', compact('project', 'invitee'));
+	}
 	// Uitnodigingsbericht maken
 	public function sendInvitation()
-	{		
+	{	
+		
 		$project_id = request('project_id');
 		$invitee_id = request('invitee_id');
 
 		$thisProject = Project::find($project_id);
 
-		$sender = Auth::guard('web')->user();		
-		$sender_fullname = $sender->firstname . " " . $sender->lastname;
-		$subject = "Wil je aan het project '$thisProject->name' meewerken?";
-		
-		$message = "<p>$sender_fullname nodigt je uit om aan het project <a href='/projects/$project_id' target='_blank'>$thisProject->name</a>.</p>";
-		$message .= "Klik op accepteren of weigeren.";		
-		//$action .= "<form id=\"decide\" method=\"POST\" action=\"/projects/decide\">";
-		
-		$actions  = "<div class=\"row\">";
-		$actions .= "<div class=\"col-md-4\"></div>";
-		$actions .= "<div class=\"col-md-4\"><button form=\"decide\" name=\"refuse\" value=\"refuse\" type=\"submit\" class=\"btn btn-info btn-lg\">Weigeren</button></div>";
-		$actions .= "<div class=\"col-md-4\"><button form=\"decide\" name=\"accept\" value=\"accept\" type=\"submit\" class=\"btn btn-primary btn-lg\">Accepteren</button></div>";
-		$actions .= "</div>";
-		$actions .= "<input type=\"hidden\" name=\"project_id\" value=\"$project_id\">";
-		$actions .= "<input type=\"hidden\" name=\"applicant_id\" value=\"$invitee_id\">";
-		$actions .= "<input type=\"hidden\" name=\"decider\" value=\"invitee\">";
-		//$action .= "</form>";
-		
-		$newMessage = App\Message::create([
-			'sender_id' => $sender->id,
-			'recipient_id' => $invitee_id,
-			'project_id' => $project_id,
-			'subject' => $subject,
-			'message' => $message,
-			'actions' => $actions,
-			'action_taken' => 0
-		]);
+		if (request('invite') == 'invite')	{
+			$sender = Auth::guard('web')->user();		
+			$sender_fullname = $sender->firstname . " " . $sender->lastname;
+			$subject = "Wil je aan het project '$thisProject->name' meewerken?";
+			
+			$message = "<p>$sender_fullname nodigt je uit om aan het project <a href='/projects/$project_id' target='_blank'>$thisProject->name</a>.</p>";
+			$message .= "Klik op accepteren of weigeren.";		
+			//$action .= "<form id=\"decide\" method=\"POST\" action=\"/projects/decide\">";
+			
+			$actions  = "<div class=\"row\">";
+			$actions .= "<div class=\"col-md-4\"></div>";
+			$actions .= "<div class=\"col-md-4\"><button form=\"decide\" name=\"refuse\" value=\"refuse\" type=\"submit\" class=\"btn btn-info btn-lg\">Weigeren</button></div>";
+			$actions .= "<div class=\"col-md-4\"><button form=\"decide\" name=\"accept\" value=\"accept\" type=\"submit\" class=\"btn btn-primary btn-lg\">Accepteren</button></div>";
+			$actions .= "</div>";
+			$actions .= "<input type=\"hidden\" name=\"project_id\" value=\"$project_id\">";
+			$actions .= "<input type=\"hidden\" name=\"applicant_id\" value=\"$invitee_id\">";
+			$actions .= "<input type=\"hidden\" name=\"decider\" value=\"invitee\">";
+			//$action .= "</form>";
+			
+			$newMessage = App\Message::create([
+				'sender_id' => $sender->id,
+				'recipient_id' => $invitee_id,
+				'project_id' => $project_id,
+				'subject' => $subject,
+				'message' => $message,
+				'actions' => $actions,
+				'action_taken' => 0
+			]);
+		}
 
-		$members = $thisProject->User()->get();
+		//$members = $thisProject->User()->get();
 
 		$invitable_members = Array();
 
@@ -223,16 +236,16 @@ class ProjectsController extends Controller
 	}
 
 	// voorbereidende data verzamelen voor een join message
-	public function join(Project $project)
+	public function prepareJoinMessage(Project $project)
 	{
 		return view('projects.join', compact('project'));
 	}
 
 
 	// verzoek om aan een project mee te werken wordt daadwerkerlijk verstuurd
-	public function joinProjectMessage(Project $project)	
+	public function sendJoinProjectMessage(Project $project)	
 	{
-		if (request('annuleren') == 'annuleren') {
+		if (request('cancel') == 'cancel') {
 			return redirect('/projects/' . $project->id);
 		}
 

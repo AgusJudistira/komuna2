@@ -14,6 +14,7 @@ class Message extends Model //iedere bericht heeft maar een zender en een ontvan
     {
         //return $this->hasOne(User::class, 'recipient_id');
         return $this->hasOne(User::class, 'id', 'recipient_id');
+        //return $this->hasOne(User::class);
     }
 
 }

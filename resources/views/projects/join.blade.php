@@ -22,10 +22,10 @@
             <div class="row">
                 <div class="col-md-3"></div>
                 <div class="col-md-2">                                    
-                    <button id="annuleren" name="annuleren" value="annuleren" type="submit" class="btn btn-info btn-lg">Annuleren</button>
+                    <button id="cancel" name="cancel" value="cancel" type="submit" class="btn btn-info btn-lg">Annuleren</button>
                 </div>
                 <div class="col-md-3">                                    
-                    <button id="invoeren" name="versturen" value="versturen" type="submit" class="btn btn-primary btn-lg">Aanmelding versturen</button>
+                    <button id="apply" name="apply" value="apply" type="submit" class="btn btn-primary btn-lg">Aanmelding versturen</button>
                 </div>           
             </div>
 

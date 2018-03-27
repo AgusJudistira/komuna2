@@ -79,10 +79,6 @@
                         {{ csrf_field() }}
                         <button id="dashboard-button" name="dashboard-button" value="dashboard-button" type="submit"><b>Naar<br />Dashboard</b></button>
                     </form>
-                    {{--  <ul class="navbar-nav mr-auto">
-                        <li> <a  class="nav-link" href="/projects">Projects</a></li>
-                        <li> <a  class="nav-link" href="/projects/create">Start Project</a></li>
-                    </ul>  --}}
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">

@@ -43,7 +43,7 @@
                 </div>                            
                 <div class="card-footer">
                     <div class="row">
-                        <form method="POST" action="/projects/invite">
+                        <form method="POST" action="/projects/prepare_invitation">
                             @csrf                        
                             <div class="col-md-12 offset-md-10"><button type="submit" class="btn btn-primary btn-lg">Uitnodigen</div>
                             <input type="hidden" name="project_id" value="{{$project->id}}">

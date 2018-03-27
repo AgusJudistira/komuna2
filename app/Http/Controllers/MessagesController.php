@@ -24,15 +24,18 @@ class MessagesController extends Controller
         switch (request('message_type')) {
             case 'sent':
                 $msg_type = "Verzonden berichten";
-                $messages = $user->message_sent()->latest()->get();
+                $messages = $user->message_sent()->whereHas('recipient')->latest()->get();
+                //$messages = $user->message_sent()->latest()->get();
                 break;
             case 'unread':
                 $msg_type = "Ongelezen berichten";
-                $messages = $user->message_received()->where('is_read', '=', false)->latest()->get();
+                //$messages = $user->message_received()->where('is_read', '=', false)->latest()->get();
+                $messages = $user->message_received()->whereHas('sender')->where('is_read', '=', false)->latest()->get();
                 break;
             case 'incoming':
                 $msg_type = "Ontvangen berichten";
-                $messages = $user->message_received()->latest()->get();
+                $messages = $user->message_received()->whereHas('sender')->latest()->get();
+                // $messages = $user->message_received()->latest()->get();
                 break;
             default:
                 $messages = Array();

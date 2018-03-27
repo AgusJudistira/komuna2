@@ -43,7 +43,7 @@ class UsersController extends Controller
             'phone_work' => 'required'
 
         ]);
-
+        $user->birthday=request('birthday');
         $user->gender = request('gender');
         $user->streetname_number = request('streetname_number');
         $user->postal_code = request('postal_code');

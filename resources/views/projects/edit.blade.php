@@ -29,12 +29,12 @@
                             <div class="form-group row" rel="popover" data-trigger="hover" data-content="Uitgebreide beschrijving van het project" data-original-title="">
                                 <label class="control-label control-label-left col-md-4" for="projectdescription">Projectomschrijving<span class="req"> *</span></label>
                                 <div class="controls col-md-8">                                        
-                                    <p><input id="projectdescription" name="description" value="{{ $project->description }}" class="form-control k-textbox" data-role="text" required="required" data-parsley-minwords="1" style="cursor: auto;" type="text"></p>
+                                    <textarea class="form-control" id="description" row="5" name="description" value="" class="form-control k-textbox" data-role="text" required="required" data-parsley-minwords="1" style="cursor: auto;" type="text">{{ $project->description }}</textarea>
                                 </div>
 
-                                @if ($errors->has('projectdescription'))
+                                @if ($errors->has('description'))
                                     <span class="invalid-feedback">
-                                        <strong>{{ $errors->first('projectdescription') }}</strong>
+                                        <strong>{{ $errors->first('description') }}</strong>
                                     </span>
                                 @endif
                             </div>               

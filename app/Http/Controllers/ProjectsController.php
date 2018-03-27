@@ -111,7 +111,7 @@ class ProjectsController extends Controller
 			
 			'name' => 'required', 
 			'description' => 'required', 
-			'start_date' => 'required', 
+			'start_date' => 'required',
 			'due_date' => 'required'
 
 		]);
@@ -196,7 +196,7 @@ class ProjectsController extends Controller
 			$sender_fullname = $sender->firstname . " " . $sender->lastname;
 			$subject = "Wil je aan het project '$thisProject->name' meewerken?";
 			
-			$message = "<p>$sender_fullname nodigt je uit om aan het project <a href='/projects/$project_id' target='_blank'>$thisProject->name</a>.</p>";
+			$message = "<p>$sender_fullname nodigt je uit om aan het project <a href='/projects/$project_id' target='_blank'>$thisProject->name</a> mee te werken.</p>";
 			$message .= "Klik op accepteren of weigeren.";		
 			//$action .= "<form id=\"decide\" method=\"POST\" action=\"/projects/decide\">";
 			

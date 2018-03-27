@@ -26,7 +26,8 @@
                 <label for="description">Beschrijving van het project:</label>
               </div>
               <div class="col-md-8">
-                <input type="text" class="form-control" id="description" name="description" required>
+                {{--  <input type="text" class="form-control" id="description" name="description" required>  --}}
+                <textarea class="form-control" rows="5" id="description" name="description" type="text" required></textarea>
               </div>            
             </div>
             <div class="form-group row">

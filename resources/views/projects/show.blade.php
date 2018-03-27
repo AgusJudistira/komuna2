@@ -13,7 +13,7 @@
            	<div class="form-group">
                 <div class="card">
                     <div class="card-header">  
-                    	<h1> {{ $project->name }} </h1>                     
+                    	<h1>Project: {{ $project->name }} </h1>                     
                     </div>
                     <div class="card-body">
                         <p> {{ $project->description }}</p>
@@ -26,12 +26,6 @@
                             </div>
                         </div>
                         <ul>                            
-
-                                Project user(s):
-                            </div>
-                        </div>
-                        <ul>
-                            
                             @foreach ($list_of_projectusers as $projectuser)                                
                                 <li class="col-md-6">{{ $projectuser->firstname . " " . $projectuser->lastname }}@if ($projectuser->pivot->projectowner) (eigenaar)@endif</li>
                             @endforeach                            
@@ -40,19 +34,27 @@
                     </div>
                     <div class="card-footer">
                         @if ($isProjectOwner)
-                            <form method="get" action="/projects/edit/{{$project->id}}">
-                                {{csrf_field()}}
-                                <div class="row"> 
-                                    <div class="col-md-4">     
+                            <div class="row text-right">
+                                <form method="POST" action="/projects/edit">
+                                    {{csrf_field()}}
+                                    <div class="col-md-6 text-right">     
+                                        <button id="edit" name="edit" value="edit" type="submit" class="btn btn-primary btn-lg">Project wijzigen</button>
                                     </div>
-                                    <div class="col-md-8">     
-                                        <button id="wijzigen" name="wijzigen" value="wijzigen" type="submit" class="btn btn-primary btn-lg">Project wijzigen</button>
-                                    </div>
-                                </div>                    
-                            </form>
+                                    <input type="hidden" name="project_id" value="{{$project->id}}">
+                                    
+                                </form>
 
+                                <form method="POST" action="/projects/seekMembers">
+                                    {{csrf_field()}}
+                                    <div class="col-md-6 text-right">
+                                        <button id="seek-members" name="seek-members" value="seek-members" type="submit" class="btn btn-primary btn-lg">Vrijwilligers zoeken</button>
+                                    </div>
+                                    <input type="hidden" name="project_id" value="{{$project->id}}">
+                                    </div>                    
+                                </form>
+                            </div>
                         @elseif (!$isProjectMember)
-                            <form method="get" action="/projects/join/{{$project->id}}">
+                            <form method="GET" action="/projects/join/{{$project->id}}">
                                 {{csrf_field()}}
                                 <div class="col-md-4">
                                 </div>

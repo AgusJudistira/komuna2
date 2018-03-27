@@ -37,14 +37,20 @@ class MessagesController extends Controller
             default:
                 $messages = Array();
                 break;
-        }                        
+        }
         
         return view('messages.msg-index', compact('msg_type', 'messages'));
     }
 
     public function focusMessage(Message $message)
     {
-        if ($message->sender_id != Auth::guard('web')->user()->id) {
+        $user_id = Auth::guard('web')->user()->id;
+
+        if ($message->sender_id != $user_id && $message->recipient_id != $user_id) {
+            return back();
+        }
+
+        if ($message->sender_id != $user_id) {
             $message->is_read = true; //Mark message as read
             $message->save();
         }

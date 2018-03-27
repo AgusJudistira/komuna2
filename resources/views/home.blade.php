@@ -3,15 +3,16 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-md-12 text-center"><h2>Dashboard</h2></div>
+        <div class="col-md-12">
             <div class="card">
                 <div class="card-header">Persoonlijke startpagina van <h5>{{ Auth::guard('web')->user()->firstname . " ". Auth::guard('web')->user()->lastname}}</h5></div>
 
                 <div class="card-body">
-                    <h5><a href="organizations">Organisatie aanmaken</a></h5>
+                    <h5><a href="organizations">Organisaties</a></h5>
                     <h5><a href="/users/{{Auth::guard('web')->user()->id}}">Profiel wijzigen</a></h5>
                     <h5><a href="/projects">Projecten</a></h5>
-                    <h5><a href="/projects/create">Een project starten</a></h5>   
+                    
                     
                     {{--  @if (session('status'))
                         <div class="alert alert-success">

@@ -24,7 +24,11 @@
                     {{--  You are logged in as {{ Auth::guard('web')->user()->firstname . " ". Auth::guard('web')->user()->lastname}}  --}}
                 </div>
             </div>
-            <div class="card-footer"><h5><a href="{{ route('org.inputform') }}">Nieuwe organisatie aanmaken</a></h5></div>
+            <form style="z-index: 3; position: fixed; bottom: 30px; right: 30px;" action="{{ route('org.inputform') }}" method="post" role="form">
+                {{ csrf_field() }}
+                <button id="create_orgnization" name="create_orgnization" value="create_orgnization" type="create_orgnization" class="btn btn-info btn-lg">Nieuwe oranisatie aanmaken</button>
+            </form>
+            {{--  <div class="card-footer"><h5><a href="{{ route('org.inputform') }}">Nieuwe organisatie aanmaken</a></h5></div>  --}}
         </div>
     </div>
 </div>

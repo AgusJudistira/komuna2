@@ -1,10 +1,10 @@
 <?php
 
+Auth::routes();
+
 Route::get('/', function () {
     return view('welcome');
 });
-
-Auth::routes();
 
 //show a list of projects
 Route::get('projects', 'ProjectsController@index');
@@ -13,27 +13,37 @@ Route::get('projects', 'ProjectsController@index');
 Route::get('projects/{project}', 'ProjectsController@show')->where('project', '[0-9]+');
 
 //show edit form of an existing project
-Route::get('projects/edit/{project}', 'ProjectsController@edit')->where('project', '[0-9]+');
+Route::post('projects/edit', 'ProjectsController@edit');
+
+Route::post('projects/seekMembers', 'ProjectsController@seekMembers');
+
+// get details about a volunteer before inviting.
+Route::get('projects/showInvitee/{project}/{invitee}', 'ProjectsController@showInvitee')->where(['project' => '[0-9]+', 'invitee' => '[0-9]+']);
+
+// invite a volunteer to join project
+Route::post('projects/prepare_invitation', 'ProjectsController@prepareInvitation');
+
+Route::post('projects/send_invitation', 'ProjectsController@sendInvitation');
 
 //save an existing/modified project
 Route::post('/projects/save_existing/{project}', 'ProjectsController@save_existing')->where('project', '[0-9]+');
 
 //show input form for a new project
-Route::get('projects/create', 'ProjectsController@create');
+Route::post('projects/create', 'ProjectsController@create');
 
 //save a new project
 Route::post('/projects', 'ProjectsController@store');
 
-//accept or refuse an applicant
+//accept or refuse an applicant (input from message)
 Route::post('/projects/decide', 'ProjectsController@decide');
 
 //show search results
 Route::post('projects.index', 'ProjectsController@search');
 
 //show join project form after pressing project join button
-Route::get('/projects/join/{project}', 'ProjectsController@join')->where('project', '[0-9]+');
+Route::get('/projects/join/{project}', 'ProjectsController@prepareJoinMessage')->where('project', '[0-9]+');
 // message to join is created and sent (linked to sender and receiver)
-Route::get('/messages/send/{project}', 'ProjectsController@joinProjectMessage')->where('project', '[0-9]+');
+Route::get('/messages/send/{project}', 'ProjectsController@sendJoinProjectMessage')->where('project', '[0-9]+');
 
 //show a list of messages
 Route::get('/messages/msg-index', 'MessagesController@showMessages');
@@ -41,7 +51,7 @@ Route::get('/messages/msg-index', 'MessagesController@showMessages');
 Route::get('/messages/msg-show/{message}', 'MessagesController@focusMessage')->where('message', '[0-9]+');
 
 
-Route::get('/organizations/org-input-form', 'OrganizationsController@showInputForm')->name('org.inputform');
+Route::post('/organizations/org-input-form', 'OrganizationsController@showInputForm')->name('org.inputform');
 Route::post('/organizations', 'OrganizationsController@saveOrganization');
 Route::get('organizations', 'OrganizationsController@org_index');
 
@@ -70,10 +80,6 @@ Route::post('/users/{user}/update_avatar',  ['as' => 'users.update_avatar', 'use
 Route::get('/users/{user}/edit_competences',  ['as' => 'users.edit_competences', 'uses' => 'UsersController@editCompetences'])->where('user', '[0-9]+');
 Route::post('/users/{user}/update_competences',  ['as' => 'users.update_competences', 'uses' => 'UsersController@updateCompetences'])->where('user', '[0-9]+');
 
-
-
-//Route::patch('/users/{user}/updateAvatar',  ['as' => 'users.update', 'uses' => 'UsersController@updateWorkExperience']);
-//show competences
 Route::get('competences', 'CompetencesController@index');
 
 //Route::post('/users/{user}/update_competences',  ['as' => 'users.update_competences', 'uses' => 'UsersController@updateCompetences']);
@@ -85,7 +91,7 @@ Route::post('/users/{user}/update_competences',  ['as' => 'users.update_competen
 =======
 Route::get('/users/{user}/edit_competences',  ['as' => 'users.edit_competences', 'uses' => 'CompetencesController@editCompetences']);
 Route::post('/users/{user}/update_competences',  ['as' => 'users.update_competences', 'uses' => 'CompetencesController@updateCompetences']);
-// create competences
+
 // create competences  
 >>>>>>> 9a8dc4a24973723fc4baacc0a26edcf7a1c7ac5a
 Route::get('/competences/create_competences',  ['as' => 'competences.create_competences', 'uses' => 'CompetencesController@createCompetences']);

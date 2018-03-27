@@ -50,10 +50,11 @@ class User extends Authenticatable
         return $this->belongsToMany(Organization::class, 'organizations_users', 'user_id', 'organization_id');
     }
 
-    public function competences()
+    public function competence()
 
     {
-        return $this->belongsToMany(Competence::class, 'competence_user', 'project_id', 'user_id');
+        //return $this->belongsToMany(Competence::class, 'competences_user', 'competence_id', 'user_id');
+        return $this->belongsToMany(Competence::class, 'competences_user');
     }
 
     public function message_sent()

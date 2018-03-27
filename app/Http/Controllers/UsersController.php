@@ -88,35 +88,44 @@ class UsersController extends Controller
 public function editCompetences(User $user)
     {   
         $competences = Competence::all();
+        $competences_selected = $user->competence()->get();
 
             if ($user->id == Auth::guard('web')->user()->id) {
-            return view('users.edit_competences', compact('competences', 'user'));
+            return view('users.edit_competences', compact( 'competences_selected','competences','user'));
         }
         else {
             return back();
         }
+    }
 
+    public function addCompetences(Request $request)
+        {   
+            $competences_select = $request->input('competences_select'); 
 
-}
+            $user_id = Auth::guard('web')->user()->id;
+            if ($competences_select !=null) {
+                foreach ($competences_select as $competence) {
+                    $foundCompetence = Competence::find($competence);
+                    $foundCompetence->user()->sync($user_id);
+                }
+            }
+            return back();
+        }
 
-    // public function updateCompetences(Request)
-    //     {   
-    //     dd();
-    //        // foreach ($newCompetence as $competence => $value) {
-                
-
-    //             // $newCompetence->user()->attach($user_id);
-            
-           
-
-    //         // dd();
-
-    //         // $user_id = Auth::guard('web')->user()->id;
-
-    //         //return redirect('/users.edit_competences');
-    //     }
+      
+    public function detachCompetences(Request $request)
+    {   
         
+        $competence = $request->input('competence');  
+        $user_id = Auth::guard('web')->user()->id;
+       
 
+        $foundCompetence = Competence::find($competence);
+        $foundCompetence->user()->detach($user_id);
+       
+                
+        return back();
+ 
+    }
+   
 }
-    //$competences = $user->competences()->get();
-

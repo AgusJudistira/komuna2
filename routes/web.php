@@ -68,27 +68,28 @@ Route::get('/logout', 'Auth\LoginController@userLogout')->name('user.logout');
 
 //update user profile
 
-//update personal
+//view NAW
 Route::get('/users/{user}',  ['as' => 'users.edit_personal', 'uses' => 'UsersController@edit'])->where('user', '[0-9]+');
+
+//updat NAW
 Route::patch('/users/{user}/update',  ['as' => 'users.update', 'uses' => 'UsersController@update'])->where('user', '[0-9]+');
 
-//update avatar
+//show active avatar
 Route::get('/users/{user}/edit_avatar',  ['as' => 'users.edit_avatar', 'uses' => 'UsersController@editAvatar'])->where('user', '[0-9]+');
+//update avatar
 Route::post('/users/{user}/update_avatar',  ['as' => 'users.update_avatar', 'uses' => 'UsersController@updateAvatar'])->where('user', '[0-9]+');
 
-//update competences
+//show active competences
 Route::get('/users/{user}/edit_competences',  ['as' => 'users.edit_competences', 'uses' => 'UsersController@editCompetences'])->where('user', '[0-9]+');
-Route::post('/users/{user}/update_competences',  ['as' => 'users.update_competences', 'uses' => 'UsersController@updateCompetences'])->where('user', '[0-9]+');
 
-Route::get('competences', 'CompetencesController@index');
+//attach competences to user
+Route::post('/users/{user}/update_competences',  ['as' => 'users.update_competences', 'uses' => 'UsersController@addCompetences'])->where('user', '[0-9]+');
 
-// Route::get('/users/{user}/edit_competences', 'CompetencesController@bindCompetences');
-//Route::post('/users/{user}/update_competences',  ['as' => 'users.update_competences', 'uses' => 'UsersController@updateCompetences']);
+//detacth competences from user
+Route::post('/users/{user}/detach_competences',  ['as' => 'users.detach_competences', 'uses' => 'UsersController@detachCompetences'])->where('user', '[0-9]+');
 
-Route::get('/users/{user}/edit_competences',  ['as' => 'users.edit_competences', 'uses' => 'CompetencesController@editCompetences']);
-Route::post('/users/{user}/update_competences',  ['as' => 'users.update_competences', 'uses' => 'CompetencesController@updateCompetences']);
-
-// create competences  
+//show competences for creations
 Route::get('/competences/create_competences',  ['as' => 'competences.create_competences', 'uses' => 'CompetencesController@createCompetences']);
-Route::post('/competences/update_competences',  ['as' => 'competences.update_competences', 'uses' => 'CompetencesController@storeCompetences']);
 
+//create competences
+Route::post('/competences/update_competences',  ['as' => 'competences.update_competences', 'uses' => 'CompetencesController@storeCompetences']);

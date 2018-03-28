@@ -13,19 +13,19 @@
                     <!-- Organization -->
                     <form class="form-group mt-4" method="POST" action="/">
                          <div class="form-group row">
-                            <label for="organization" class="col-md-4 col-form-label text-md-right">{{ __('Organisatie') }}</label>
+                            <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Organisatie') }}</label>
                             <div class="col-md-6">
-                                <input id="organization" type="text" class="form-control{{ $errors->has('organization') ? ' is-invalid' : '' }}" name="organization" value="" required>
-                                @if ($errors->has('organization'))
+                                <input id="name" type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" value="" required>
+                                @if ($errors->has('name'))
                                     <span class="invalid-feedback">
-                                        <strong>{{ $errors->first('organization') }}</strong>
+                                        <strong>{{ $errors->first('name') }}</strong>
                                     </span>
                                 @endif
                             </div>
                         </div>
-                    </form>
-                    <!-- Start datum -->
-                    <form class="form-group" method="POST" action="/">
+                    
+                        <!-- Start datum -->
+                    
                          <div class="form-group row">
                             <label for="start_date" class="col-md-4 col-form-label text-md-right">{{ __('start datum') }}</label>
                             <div class="col-md-6">
@@ -37,8 +37,8 @@
                                 @endif
                             </div>
                         </div>
-                    </form><!-- eind datum -->
-                    <form class="form-group" method="POST" action="/">
+                        <!-- eind datum -->
+                    
                          <div class="form-group row">
                             <label for="end_date" class="col-md-4 col-form-label text-md-right">{{ __('eind datum') }}</label>
                             <div class="col-md-6">
@@ -50,10 +50,20 @@
                                 @endif
                             </div>
                         </div>
-                    </form>
-                    <!-- functie -->
-                    <form class="form-group" method="POST" action="/">
-                         <div class="form-group row">
+                        <!-- afdeling -->
+                        <div class="form-group row">
+                            <label for="department" class="col-md-4 col-form-label text-md-right">{{ __('Afdeling') }}</label>
+                            <div class="col-md-6">
+                                <input id="department" type="text" class="form-control" name="department" value="" required>
+                                @if ($errors->has('department'))
+                                    <span class="invalid-feedback">
+                                        <strong>{{ $errors->first('department') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+                          <!-- functie -->
+                        <div class="form-group row">
                             <label for="position" class="col-md-4 col-form-label text-md-right">{{ __('Functie') }}</label>
                             <div class="col-md-6">
                                 <input id="position" type="text" class="form-control" name="position" value="" required>
@@ -64,10 +74,8 @@
                                 @endif
                             </div>
                         </div>
-                    </form>
-                    <!-- job description -->
-                    <form class="form-group" method="POST" action="/">
-                         <div class="form-group row">
+                        <!-- job description -->
+                        <div class="form-group row">
                             <label for="description" class="col-md-4 col-form-label text-md-right">{{ __('job description') }}</label>
                             <div class="col-md-6">
                                 <textarea class="form-control" rows="5"></textarea>
@@ -79,6 +87,51 @@
                             </div>
                         </div>
                     </form>
+                
+                <!-- Not in function right now -->
+                <div class="d-none">
+                    <!-- referentie  -->
+                    <form class="form-group" method="POST" action="/">
+                        <div class="card-header">  
+                            <h5>Voeg referentie toe</h5>                      
+                        </div>
+                         <div class="form-group row mt-4">
+                            <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Naam') }}</label>
+                            <div class="col-md-6">
+                                <input id="name" type="text" class="form-control" name="name" value="" required>
+                                @if ($errors->has('name'))
+                                    <span class="invalid-feedback">
+                                        <strong>{{ $errors->first('name') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+                         <!-- functie -->                    
+                         <div class="form-group row">
+                            <label for="phone" class="col-md-4 col-form-label text-md-right">{{ __('Telefoonnummer') }}</label>
+                            <div class="col-md-6">
+                                <input id="phone" type="text" class="form-control" name="phone" value="" required>
+                                @if ($errors->has('phone'))
+                                    <span class="invalid-feedback">
+                                        <strong>{{ $errors->first('phone') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>                    
+                     <!-- functie -->                    
+                         <div class="form-group row">
+                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('Email') }}</label>
+                            <div class="col-md-6">
+                                <input id="email" type="text" class="form-control" name="email" value="" required>
+                                @if ($errors->has('email'))
+                                    <span class="invalid-feedback">
+                                        <strong>{{ $errors->first('email') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+                    </form>
+                </div>
                     <!-- Terug naar competenties -->
                     <form class="col-md-2 float-right" method="GET" action="/users/{{Auth::user()->id}}/edit_competences"> 
                         <button type="submit" class="btn btn-primary ml-auto" role="button">

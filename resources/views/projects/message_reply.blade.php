@@ -6,23 +6,22 @@
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="form-group">
-                <form class="form-group row" method="POST" action="/projects/send_invitation">
+                <form class="form-group row" method="POST" action="/projects/send_inquiry">
                     {{csrf_field()}}
                     <div class="card">
                         <div class="card-header">  
-                            <h4>Uitnodiging voor het project <b>{{$project->name}}</b>.</h4>    
+                            <h4>Antwoord op uw vraag</h4>    
                         </div>                  
                         <div class="card-body">  
                             <div class="row">
-                                <div class="col-md-12">U bent van plan om {{$invitee->firstname . " " . $invitee->lastname}} uit te nodigen om aan het project: <b><i>{{ $project->name }}</i></b> te werken.</div>
-                                <div class="col-md-12">Klik op <span class="bg-primary" style="color: white;">Uitnodiging versturen</span> om uit te nodigen.</div>
-                                <div class="col-md-12">Een bericht naar de vrijwilliger zal verstuurd worden.</div>
-                                <div class="col-md-12">Na @if($invitee->gender == "Man") zijn @else haar @endif goedkeuring zal @if($invitee->gender == "Man") hij @else zij @endif direct aan het project gekoppeld worden.</div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-md-12"><b><i>U kunt hieronder eventueel een persoonlijke bericht intypen:</b></i></div>
-                                <textarea class="form-control" row="5" name="user_message"></textarea>                                
+                                <div class="col-md-6">Van: {{$this_message->sender()->first()->firstname . " " . $this_message->sender()->first()->lastname}}</div>
+                                <div class="col-md-6">Datum: {{$this_message->created_at}}</div>
+                                <div class="col-md-12">Onderwerp: {{ $this_message->subject }}</div>
+                                <div class="col-md-12">Bericht: {!! $this_message->message !!}</div>
+                                <div class="col-md-12">{!! $this_message->user_message !!}</div>
+                                
+                                <div class="col-md-12"><b><i>Typ uw antwoord hieronder:</b></i></div>
+                                <textarea class="form-control" row="5" name="user_message"></textarea>
                             </div>
                         </div>
                     </div>
@@ -34,10 +33,10 @@
                                 <button id="cancel" name="cancel" value="cancel" type="submit" class="btn btn-info btn-lg">Annuleren</button>
                             </div>
                             <div class="col-md-4">                                    
-                                <button id="invite" name="invite" value="invite" type="submit" class="btn btn-primary btn-lg">Uitnodiging versturen</button>
+                                <button id="invite" name="inquire" value="inquire" type="submit" class="btn btn-primary btn-lg">Antwoord versturen</button>
                             </div>
                             <input type="hidden" name="project_id" value="{{ $project->id }}">
-                            <input type="hidden" name="invitee_id" value="{{ $invitee->id }}">
+                            <input type="hidden" name="applicant_id" value="{{ $this_message->recipient_id }}">
                         </div>  
 
                         <div class="form-group">

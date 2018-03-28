@@ -41,18 +41,21 @@
                         <div class="col-md-7"></div>
                     </div>
                 </div>                            
-                <div class="card-footer">
-                    <div class="row">
-                        <form method="POST" action="/projects/prepare_invitation">
-                            @csrf                        
-                            <div class="col-md-12 offset-md-10"><button type="submit" class="btn btn-primary btn-lg">Uitnodigen</div>
-                            <input type="hidden" name="project_id" value="{{$project->id}}">
-		                    <input type="hidden" name="invitee_id" value="{{$invitee->id}}">
-                        </form>
-                    </div>
-                </div>                                                            
-            </div>
+                <div class="card-footer">                    
+                    <form method="POST" action="/projects/prepare_invitation">
+                        @csrf                        
+                        {{--  <div class="col-md-12 offset-md-10"><button type="submit" class="btn btn-primary btn-lg">Uitnodigen</div>  --}}
+                        <div class="row">
+                            <div class="col-md-6"><button name="inquire" value="inquire" type="submit" class="btn btn-primary btn-lg">Vraagje...</div>
+                            <div class="col-md-6"><button name="invite" value="invite" type="submit" class="btn btn-primary btn-lg">Uitnodigen</div>
+                        </div>
+                        <input type="hidden" name="project_id" value="{{$project->id}}">
+                        <input type="hidden" name="invitee_id" value="{{$invitee->id}}">                            
+                    </form>
+                </div>
+            </div>                                                            
         </div>
     </div>
 </div>
+
 @endsection

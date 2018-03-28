@@ -22,8 +22,13 @@ Route::get('projects/showInvitee/{project}/{invitee}', 'ProjectsController@showI
 
 // invite a volunteer to join project
 Route::post('projects/prepare_invitation', 'ProjectsController@prepareInvitation');
-
 Route::post('projects/send_invitation', 'ProjectsController@sendInvitation');
+
+//inquiry without possible action
+Route::post('projects/send_inquiry', 'ProjectsController@sendInquiry');
+
+//reply to an inquiry
+Route::post('projects/send_reply', 'ProjectsController@sendReplyMessage');
 
 //save an existing/modified project
 Route::post('/projects/save_existing/{project}', 'ProjectsController@save_existing')->where('project', '[0-9]+');

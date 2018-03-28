@@ -43,8 +43,8 @@ Route::post('projects.index', 'ProjectsController@search');
 //show join project form after pressing project join button
 Route::get('/projects/join/{project}', 'ProjectsController@prepareJoinMessage')->where('project', '[0-9]+');
 // message to join is created and sent (linked to sender and receiver)
-Route::get('/messages/send/{project}', 'ProjectsController@sendJoinProjectMessage')->where('project', '[0-9]+');
-
+//Route::get('/messages/send/{project}', 'ProjectsController@sendJoinProjectMessage')->where('project', '[0-9]+');
+Route::get('/projects/send_join_request/{project}', 'ProjectsController@sendJoinProjectMessage');
 //show a list of messages
 Route::get('/messages/msg-index', 'MessagesController@showMessages');
 //read one message

@@ -175,19 +175,19 @@ class ProjectsController extends Controller
 	public function prepareInvitation()
 	{
 		$project_id = request('project_id');
-		$invitee_id = request('invitee_id');
+		$invitee_id = request('invitee_id');		
 
 		$invitee = User::find($invitee_id);
 		$project = Project::find($project_id);
 
 		return view('projects.invite', compact('project', 'invitee'));
 	}
+
 	// Uitnodigingsbericht maken
 	public function sendInvitation()
-	{	
-		
+	{		
 		$project_id = request('project_id');
-		$invitee_id = request('invitee_id');
+		$invitee_id = request('invitee_id');				
 
 		$thisProject = Project::find($project_id);
 
@@ -196,8 +196,8 @@ class ProjectsController extends Controller
 			$sender_fullname = $sender->firstname . " " . $sender->lastname;
 			$subject = "Wil je aan het project '$thisProject->name' meewerken?";
 			
-			$message = "<p>$sender_fullname nodigt je uit om aan het project <a href='/projects/$project_id' target='_blank'>$thisProject->name</a> mee te werken.</p>";
-			$message .= "Klik op accepteren of weigeren.";		
+			$message = "<p>$sender_fullname nodigt je uit om aan het project&nbsp;<a href='/projects/$project_id' target='_blank'>$thisProject->name</a>&nbsp;mee te werken.</p>";
+			$message .= "<p>Klik op accepteren of weigeren.</p>";
 			//$action .= "<form id=\"decide\" method=\"POST\" action=\"/projects/decide\">";
 			
 			$actions  = "<div class=\"row\">";
@@ -216,6 +216,7 @@ class ProjectsController extends Controller
 				'project_id' => $project_id,
 				'subject' => $subject,
 				'message' => $message,
+				'user_message' => request('user_message'),
 				'actions' => $actions,
 				'action_taken' => 0
 			]);
@@ -249,12 +250,14 @@ class ProjectsController extends Controller
 			return redirect('/projects/' . $project->id);
 		}
 
-		$projectmembers = $project->user()->withPivot('projectowner')->get();
+		$user_message = request('user_message');
 
+		$projectmembers = $project->user()->withPivot('projectowner')->get();
+		
 		//verstuur een bericht aan iedere projecteigenaar
 		foreach($projectmembers as $member) {
 			if ($member->pivot->projectowner) {
-				$this->sendPermissionToJoinMessage($project, Auth::guard('web')->user()->id, $member->id);
+				$this->sendPermissionToJoinMessage($project, Auth::guard('web')->user()->id, $member->id, $user_message);
 			}
 		}
 
@@ -262,15 +265,15 @@ class ProjectsController extends Controller
 	}
 
 	//bericht wordt aangemaakt en gelinkt aan de ontvanger
-	public function sendPermissionToJoinMessage(Project $project, $sender_id, $recipient_id)
+	public function sendPermissionToJoinMessage(Project $project, $sender_id, $recipient_id, $user_message)
 	{
 		$project_id = $project->id;
 		$sender = User::find($sender_id);
 		$sender_fullname = $sender->firstname . " " . $sender->lastname;
 		$subject = "Mag ik aan het project '$project->name' meewerken?";
 		
-		$message = "<p>$sender_fullname wilt graag meewerken aan het project <a href='/projects/$project_id' target='_blank'>$project->name</a>.</p>";
-		$message .= "Klik op accepteren of weigeren.";		
+		$message = "<p>$sender_fullname wilt graag meewerken aan het project&nbsp;<a href='/projects/$project_id' target='_blank'>$project->name</a>.</p>";
+		$message .= "<p>Klik op accepteren of weigeren.</p>";		
 		//$action .= "<form id=\"decide\" method=\"POST\" action=\"/projects/decide\">";
 		
 		$actions  = "<div class=\"row\">";
@@ -289,6 +292,7 @@ class ProjectsController extends Controller
 			'project_id' => $project_id,
 			'subject' => $subject,
 			'message' => $message,
+			'user_message' => $user_message,
 			'actions' => $actions,
 			'action_taken' => 0
 		]);
@@ -342,11 +346,12 @@ class ProjectsController extends Controller
 		$project = Project::find($project_id);
 		$thisuser_id = Auth::guard('web')->user()->id;
 
+		//dd($project->user()->find($applicant_id));
 		if ($thisuser_id != $applicant_id && $decider == "project owner") {
 			if (request('accept') == 'accept') {
 				//make applicant a projectmember by linking it to the project via a pivot table
 				//first check if the applicant is already member
-				if (count($project->user()->find($applicant_id)) == 0) {
+				if (!$project->user()->find($applicant_id)) {				
 					$this_message->action_taken = 1;
 					$this_message->save();
 					$project->user()->attach($applicant_id);
@@ -365,7 +370,8 @@ class ProjectsController extends Controller
 			if (request('accept') == 'accept') {
 				//make applicant a projectmember by linking it to the project via a pivot table
 				//first check if the applicant is already member
-				if (count($project->user()->find($applicant_id)) == 0) {
+				// if (count($project->user()->find($applicant_id)) == 0) {
+				if (!$project->user()->find($applicant_id)) {
 					$this_message->action_taken = 1;
 					$this_message->save();
 					$project->user()->attach($applicant_id);

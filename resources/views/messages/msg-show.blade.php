@@ -21,7 +21,16 @@
         <form id="decide" method="POST" action="/projects/decide">		
             {{csrf_field()}}
             <div class="card-body">
-                {!! $message->message !!}
+                <div class="row">
+                    <div class="col-md-12">
+                        <b><i>{!! $message->user_message !!}</i></b>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        {!! $message->message !!}
+                    </div>
+                </div>
                 
                 @if ($message->action_taken == 0)
                     @if ($message->recipient_id == Auth::guard('web')->user()->id)

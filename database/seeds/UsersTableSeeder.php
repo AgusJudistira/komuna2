@@ -24,6 +24,5 @@ class UsersTableSeeder extends Seeder
                 'city' => $faker->city
             ]);
         }
-        
     }
 }

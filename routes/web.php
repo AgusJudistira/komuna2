@@ -93,3 +93,6 @@ Route::get('/competences/create_competences',  ['as' => 'competences.create_comp
 
 //create competences
 Route::post('/competences/update_competences',  ['as' => 'competences.update_competences', 'uses' => 'CompetencesController@storeCompetences']);
+
+//view Workexperience
+Route::get('/users/{user}/edit_workExperience',  ['as' => 'users.edit_workExperience', 'uses' => 'UsersController@editWorkExperience'])->where('user', '[0-9]+');

@@ -127,5 +127,10 @@ public function editCompetences(User $user)
         return back();
  
     }
+
+    public function editWorkExperience()
+    {
+        return view('users.edit_workExperience');
+    }
    
 }

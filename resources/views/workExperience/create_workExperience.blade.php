@@ -10,7 +10,7 @@
                         <h4>Voeg werkervaring toe</h4>                      
                     </div>
                     <!-- Organization -->
-                    <form class="form-group mt-4" method="POST" action="{{route('users.update_workExperience', $user)}}">
+                    <form class="form-group mt-4" method="POST" action="/workExperience/update_workExperience">
                         {{csrf_field()}}
                             
                                 <input id="user_id" type="text" class="form-control d-none" name="user_id" value="{{ Auth::guard('web')->user()->id}}" required>
@@ -95,30 +95,6 @@
                         </button> 
                     </form>
                 
-                    <div class="card-header">  
-                        <h5>Werkervaring</h5>                      
-                    </div>
-                        <div class="center">
-                            <table class="table table-responsive table-striped ">
-                                <thead>
-                                    <th>Organisatie</th>
-                                    <th>Functie</th>                
-                                    <th>Begonnen op</th>                                
-                                    <th>Beindigd op</th>                
-                                </thead>
-                                @foreach ($workExperiences as $workExperience)
-                                    <tr>
-                                        <td> {{$workExperience->name}}</td>
-                                        <td> {{$workExperience->position}}</td>
-                                        <td> {{$workExperience->start_date}}</a></td>
-                                        <td> {{$workExperience->end_date}}</a></td>
-                                    </tr>
-                                @endforeach
-                            </table>
-                        </div>
-                    
-
-
                 <!-- Not in function right now -->
                 <div class="d-none">
                     <!-- referentie  -->
@@ -183,3 +159,4 @@
  </div>
 
 @endsection
+

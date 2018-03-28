@@ -9,5 +9,7 @@ class Model extends Eloquent
 
     protected $guarded =['id'];
 
+    protected $fillable =['user_id'];
+
 
  }

@@ -129,43 +129,94 @@ public function editCompetences(User $user)
  
     }
 
+
     public function editWorkExperience(User $user)
-    {   
-        $workExperience = $user->workExperience()->get();
+    {
+        $workExperiences = $user->workExperience()->get();
         
-        return view('users.edit_workExperience');
+        return view('users.edit_workExperience', compact('user', 'workExperiences'));
     }
 
-    public function storeCompetences(Request $request)
+    public function storeWorkExperience(Request $request, User $user)
     {   
-        $user_id = Auth::guard('web')->user()->id;
-
+        //$user = Auth::guard('web')->user()->id;
+        $workExperiences = $user->workExperience()->get();
+    
         $this->validate(request(),[
-            
+            'user_id' => 'required',
             'name' => 'required',
             'start_date' => 'required',
             'end_date' => 'required',
             'department' => 'required',
             'position' => 'required',
             'description' => 'required',
-            'phone_work' => 'required'
+          
             
             ]);
 
-
-        $newWorkExperience = WorkExperience::create(request([
-
+      $newWorkExperience = WorkExperience::create(request([
+            'user_id',
             'name',
             'start_date',
             'end_date',
             'department',
             'position',
             'description',
-            'phone_work'
 
             ]));
 
-       return view('users.edit_workExperience');
+    return view('users.edit_workExperience', compact('user', 'workExperiences'));
     }
-   
+
+
 }
+
+
+
+
+
+
+    // public function editWorkExperience(User $user)
+    // {   
+    
+    //  return view('users.edit_workExperience', compact('user'));
+    // }
+
+    // public function storeWorkExperience(Request $request)
+    // {   
+    //     $user_id = Auth::guard('web')->user()->id;
+
+    //     $this->validate(request(),[
+            
+    //         'name' => 'required',
+    //         'start_date' => 'required',
+    //         'end_date' => 'required',
+    //         'department' => 'required',
+    //         'position' => 'required',
+    //         'description' => 'required',
+    //         'phone_work' => 'required'
+            
+    //         ]);
+
+        
+    //     $newWorkExperience = WorkExperience::create(request([
+
+    //         'name',
+    //         'start_date',
+    //         'end_date',
+    //         'department',
+    //         'position',
+    //         'description',
+    //         'phone_work'
+
+    //         ]));
+    //     dd($newWorkExperience);
+        
+        
+    //     save();
+
+    // }
+   
+
+      // return view('users.edit_workExperience', compact('user'));
+        // $workExperience = $user->work_experiences()->get();

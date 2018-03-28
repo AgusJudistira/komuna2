@@ -94,7 +94,15 @@ Route::get('/competences/create_competences',  ['as' => 'competences.create_comp
 //create competences (need admin auth)
 Route::post('/competences/update_competences',  ['as' => 'competences.update_competences', 'uses' => 'CompetencesController@storeCompetences']);
 
-//view Workexperience
+
+
+//edit work experience
 Route::get('/users/{user}/edit_workExperience',  ['as' => 'users.edit_workExperience', 'uses' => 'UsersController@editWorkExperience'])->where('user', '[0-9]+');
+
 //update workExperience
 Route::post('/users/{user}/update_workExperience',  ['as' => 'users.update_workExperience', 'uses' => 'UsersController@storeWorkExperience'])->where('user', '[0-9]+');
+
+
+
+
+

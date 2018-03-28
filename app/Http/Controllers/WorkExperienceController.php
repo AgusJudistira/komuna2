@@ -12,14 +12,22 @@ use App\WorkExperience;
 
 class WorkExperienceController extends Controller
 {
+	protected $fillable = [
+        'user_id' 
+    ];
+
     public function __construct()
     {
         $this->middleware('auth');
     }
 
-    public function createCompetences()
+
+    public function index() 
+
 	{
-		return view('competences.create_competences');
+		$WorkExperience = DB::table('work_experiences')->user()->get();
+		return view('competences.index');		
 	}
+
 
 }

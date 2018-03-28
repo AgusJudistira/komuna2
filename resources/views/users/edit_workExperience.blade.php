@@ -11,7 +11,7 @@
                         <h4>Voeg werkervaring toe</h4>                      
                     </div>
                     <!-- Organization -->
-                    <form class="form-group mt-4" method="POST" action="/">
+                    <form class="form-group mt-4" method="POST" action={{route('users.update_workExperience', $user)}}>
                          <div class="form-group row">
                             <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Organisatie') }}</label>
                             <div class="col-md-6">
@@ -86,6 +86,9 @@
                                 @endif
                             </div>
                         </div>
+                        <button type="submit" class="btn btn-primary ml-auto" role="button">
+                            {{ __('Vorige') }}
+                        </button> 
                     </form>
                 
                 <!-- Not in function right now -->

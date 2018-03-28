@@ -91,8 +91,10 @@ Route::post('/users/{user}/detach_competences',  ['as' => 'users.detach_competen
 //show competences for creations
 Route::get('/competences/create_competences',  ['as' => 'competences.create_competences', 'uses' => 'CompetencesController@createCompetences']);
 
-//create competences
+//create competences (need admin auth)
 Route::post('/competences/update_competences',  ['as' => 'competences.update_competences', 'uses' => 'CompetencesController@storeCompetences']);
 
 //view Workexperience
 Route::get('/users/{user}/edit_workExperience',  ['as' => 'users.edit_workExperience', 'uses' => 'UsersController@editWorkExperience'])->where('user', '[0-9]+');
+//update workExperience
+Route::post('/users/{user}/update_workExperience',  ['as' => 'users.update_workExperience', 'uses' => 'UsersController@storeWorkExperience'])->where('user', '[0-9]+');

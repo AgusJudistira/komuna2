@@ -15,10 +15,11 @@ class CreateWorkExperiencesTable extends Migration
     {
         Schema::create('work_experiences', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('user_id');
             $table->string('name');
             $table->date('start_date');
             $table->date('end_date');
-            $table->date('department');
+            $table->string('department');
             $table->string('position');
             $table->text('description');
             $table->timestamps();

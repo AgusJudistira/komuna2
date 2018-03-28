@@ -53,7 +53,6 @@ class User extends Authenticatable
     public function competence()
 
     {
-        //return $this->belongsToMany(Competence::class, 'competences_user', 'competence_id', 'user_id');
         return $this->belongsToMany(Competence::class, 'competences_user');
     }
 
@@ -65,6 +64,11 @@ class User extends Authenticatable
     public function message_received()
     {
         return $this->hasMany(Message::class, 'recipient_id');
+    }
+
+    public function workExperience()
+    {
+        return $this->hasMany(WorkExperience::class);
     }
 
 }

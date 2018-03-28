@@ -7,7 +7,7 @@ Route::get('/', function () {
 });
 
 //show a list of projects
-Route::get('projects', 'ProjectsController@index');
+Route::get('projects', 'ProjectsController@index')->name('project_index');
 
 //detailed view of ONE project
 Route::get('projects/{project}', 'ProjectsController@show')->where('project', '[0-9]+');

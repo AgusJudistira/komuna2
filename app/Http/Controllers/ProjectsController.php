@@ -473,10 +473,7 @@ class ProjectsController extends Controller
 			]));
 		}
 
-		$projects = Project::with('user')->get(); // als voorbereiding op projects.index view
-
-		// return view('projects', compact('projects', 'user'));
-		return redirect()->route('project_index');
+		return redirect('/projects/' . $project->id);
 	}
 
 }

@@ -29,7 +29,7 @@
         }
 
         .py-4 {
-            margin-top: 70px;
+            margin-top: 72px;
         }
 
         #dashboard-button {

@@ -6,23 +6,20 @@
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="form-group">
-                <form class="form-group row" method="POST" action="/projects/send_invitation">
+                <form class="form-group row" method="POST" action="/projects/send_project_inquiry">
                     {{csrf_field()}}
                     <div class="card">
                         <div class="card-header">  
-                            <h4>Uitnodiging voor het project <b>{{$project->name}}</b>.</h4>    
+                            <h4>Vraag over het project '{{$project->name}}'</h4>    
                         </div>                  
                         <div class="card-body">  
                             <div class="row">
-                                <div class="col-md-12">U bent van plan om {{$invitee->firstname . " " . $invitee->lastname}} uit te nodigen om aan het project: <b><i>{{ $project->name }}</i></b> te werken.</div>
-                                <div class="col-md-12">Klik op <span class="bg-primary" style="color: white;">Uitnodiging versturen</span> om uit te nodigen.</div>
-                                <div class="col-md-12">Een bericht naar de vrijwilliger zal verstuurd worden.</div>
-                                <div class="col-md-12">Na @if($invitee->gender == "Man") zijn @else haar @endif goedkeuring zal @if($invitee->gender == "Man") hij @else zij @endif direct aan het project gekoppeld worden.</div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-md-12"><b><i>U kunt hieronder eventueel een persoonlijke bericht intypen:</b></i></div>
-                                <textarea class="form-control" row="5" name="user_message"></textarea>                                
+                                <div class="col-md-12">U bent benieuwd of <b><i>{{$project->name}}</i></b> <u>geschikt</u> is voor u.</div>
+                                <div class="col-md-12">Denk bijv. aan de werklocatie, werktijden, verwachte duur, benodigde kennis en kunde, benodigde persoonlijke eigenschappen, benodigde gereedschappen en voertuigen.</div>
+                                <div class="col-md-12">Het is goed om hierover eerst wat vragen te stellen.</div>
+                                <div class="col-md-12">Misschien is het handig om hierover eerst een persoonlijk gesprek met de projecteigenaar te houden.</div>
+                                <div class="col-md-12"><b><i>Typ uw vraag hieronder in of probeer een persoonlijk gesprek af te spreken:</b></i></div>
+                                <textarea class="form-control" row="5" name="user_message"></textarea>
                             </div>
                         </div>
                     </div>
@@ -34,10 +31,10 @@
                                 <button id="cancel" name="cancel" value="cancel" type="submit" class="btn btn-info btn-lg">Annuleren</button>
                             </div>
                             <div class="col-md-4">                                    
-                                <button id="invite" name="invite" value="invite" type="submit" class="btn btn-primary btn-lg">Uitnodiging versturen</button>
+                                <button id="inquire" name="inquire" value="inquire" type="submit" class="btn btn-primary btn-lg">Vraag versturen</button>
                             </div>
                             <input type="hidden" name="project_id" value="{{ $project->id }}">
-                            <input type="hidden" name="invitee_id" value="{{ $invitee->id }}">
+                            <input type="hidden" name="applicant_id" value="{{ Auth::guard('web')->user()->id }}">
                         </div>  
 
                         <div class="form-group">

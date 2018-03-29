@@ -21,17 +21,17 @@
         <form id="decide" method="POST" action="/projects/decide">		
             {{csrf_field()}}
             <div class="card-body">
-                <div class="row">
-                    <div class="col-md-12">
-                        <b><i>{!! $message->user_message !!}</i></b>
-                    </div>
-                </div>
+                
                 <div class="row">
                     <div class="col-md-12">
                         {!! $message->message !!}
                     </div>
                 </div>
-                
+                <div class="row">
+                    <div class="col-md-12">
+                        <b><i>{!! $message->user_message !!}</i></b>
+                    </div>
+                </div>
                 @if ($message->action_taken == 0)
                     @if ($message->recipient_id == Auth::guard('web')->user()->id)
                         {!! $message->actions !!}
@@ -40,6 +40,8 @@
                     <p class="text-success">Het verzoek is al geaccepteerd.</p>
                 @elseif ($message->action_taken == 2)
                     <p class="text-danger">Het verzoek is al geweigerd.</p>
+                @elseif ($message->action_taken == 3)
+                    <p class="text-info">Dit bericht is al beantwoord.</p>
                 @endif
             </div>
             <input type="hidden" name="message_id" value="{{$message->id}}">

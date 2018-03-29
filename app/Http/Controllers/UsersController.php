@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use App\User;
 use App\Competence;
 use App\WorkExperience;
+use App\StudyExperience;
 
 use Image;
 
@@ -132,15 +133,14 @@ public function editCompetences(User $user)
 
     public function editWorkExperience(User $user)
     {
-        $workExperiences = $user->workExperience()->orderBy('start_date', 'DESC')->get();
+        $workExperiences = $user->WorkExperience()->orderBy('start_date', 'DESC')->get();
 
         return view('users.edit_workExperience', compact('user', 'workExperiences'));
     }
 
     public function storeWorkExperience(User $user)
     {   
-        //$user = Auth::guard('web')->user()->id;
-    
+       
         $this->validate(request(),[
             'user_id' => 'required',
             'name' => 'required',
@@ -164,11 +164,48 @@ public function editCompetences(User $user)
 
             ]));
 
-    $workExperiences = $user->workExperience()->orderBy('start_date', 'DESC')->get();
+    $workExperiences = $user->WorkExperience()->orderBy('start_date', 'DESC')->get();
     
     return back();
     
     }
+
+    public function editStudyExperience(User $user)
+    {
+        $studyExperiences = $user->StudyExperience()->orderBy('start_date', 'DESC')->get();
+
+        return view('users.edit_studyExperience', compact('user', 'studyExperiences'));
+    }
+
+    public function storeStudyExperience(User $user)
+    {   
+
+        $this->validate(request(),[
+            'user_id' => 'required',
+            'name' => 'required',
+            'start_date' => 'required',
+            'end_date' => 'required',
+            'level' => 'required',
+            'diploma' => 'required'
+      
+            ]);
+
+        $newStudyExperience = StudyExperience::create(request([
+            'user_id',
+            'name',
+            'start_date',
+            'end_date',
+            'level',
+            'diploma'
+     
+            ]));
+
+        $studyExperiences = $user->studyExperience()->orderBy('start_date', 'DESC')->get();
+    
+        return back();
+    
+    }
+
 
 
 }

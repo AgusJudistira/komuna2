@@ -90,22 +90,35 @@
                                 @endif
                             </div>
                         </div>
-                        <button type="submit" class="btn btn-primary ml-auto" role="button">
+                        <button type="submit" class="btn btn-primary ml-auto float-right" role="button">
                             {{ __('Sla op') }}
                         </button> 
                     </form>
+                    <!-- Terug naar competenties -->
+                    <form class="col-md-2 float-right" method="GET" action="/users/{{Auth::user()->id}}/edit_competences"> 
+                        <button type="submit" class="btn btn-primary ml-auto" role="button">
+                            {{ __('Vorige') }}
+                        </button> 
+                    </form>
                 
+                    <!-- Naar volgende
+                    <form class="col-md-2 float-right" method="GET" action="/users/{{Auth::user()->id}}/edit_workExperience"> 
+                         <button type="submit" class="btn btn-primary ml-auto" role="button">
+                             {{ __('Volgende') }}
+                         </button> 
+                    </form>  -->   
                     <div class="card-header">  
                         <h5>Werkervaring</h5>                      
                     </div>
-                        <div class="center">
-                            <table class="table table-responsive table-striped ">
-                                <thead>
+                        <div class="row">
+                            <div class="col-md-12">
+                            <table class="table table-striped col-md-12">
+                                <tr>
                                     <th>Organisatie</th>
                                     <th>Functie</th>                
                                     <th>Begonnen op</th>                                
                                     <th>Beindigd op</th>                
-                                </thead>
+                                </tr>
                                 @foreach ($workExperiences as $workExperience)
                                     <tr>
                                         <td> {{$workExperience->name}}</td>
@@ -115,6 +128,7 @@
                                     </tr>
                                 @endforeach
                             </table>
+                            </div>
                         </div>
                     
 
@@ -163,19 +177,6 @@
                         </div>
                     </form>
                 </div>
-                    <!-- Terug naar competenties -->
-                    <form class="col-md-2 float-right" method="GET" action="/users/{{Auth::user()->id}}/edit_competences"> 
-                        <button type="submit" class="btn btn-primary ml-auto" role="button">
-                            {{ __('Vorige') }}
-                        </button> 
-                    </form>
-      
-                    <!-- Naar volgende
-                    <form class="col-md-2 float-right" method="GET" action="/users/{{Auth::user()->id}}/edit_workExperience"> 
-                         <button type="submit" class="btn btn-primary ml-auto" role="button">
-                             {{ __('Volgende') }}
-                         </button> 
-                    </form>  -->   
                  </div>
              </div>
          </div>

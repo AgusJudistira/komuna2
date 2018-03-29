@@ -10,10 +10,10 @@
           <div class="card-header">  
             <h4>Creeer een competentie</h4>                      
           </div>
-          <form class="form-group" method="POST" action="/competences/update_competences">
+          <form class="form-group" method="POST" action="/admin/update_competences">
             {{csrf_field()}}
             <div class="form-group">
-              <label for="competence">Competentie:</label>
+              <label for="competence">Creëer competentie:</label>
               <input type="text" class="form-control" id="competence" name="competence" required>
             </div>
             <button type="submit" class="btn btn-default">Creeer</button>
@@ -29,6 +29,24 @@
               @endif
             </div >
           </form>
+          <div class="row">
+            <div class="col-md-12">
+              <form method="POST" action="/admin/delete_competences">{{csrf_field()}}
+                <table class="table table-striped col-md-12">
+                  <tr>
+                    <th>Delete competentie</th>
+                  </tr>
+                  @foreach ($competences as $competence)
+                    <tr>
+                      <td>
+                        <button type="submit" name='competence' value='{{ $competence->id }}' class="btn btn-block float-right" > {{$competence->competence}}</button>
+                      </td>
+                    </tr>
+                  @endforeach
+                </table>
+              </form>
+            </div>
+          </div>
         </div>
       </div>
     </div>

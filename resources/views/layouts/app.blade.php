@@ -12,12 +12,52 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <style>
+        .navbar {
+            background-color: darkblue;
+            color: chartreuse;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 5;
+        }
+
+        * a:hover {
+            background-color: black;
+            color: white;
+            text-decoration: none!important;
+        }
+
+        .py-4 {
+            margin-top: 72px;
+        }
+
+        #dashboard-button {
+            z-index: 3; 
+            position: fixed; 
+            top: 33px;
+            left: 50px; 
+            border-radius: 50%;
+            background-color: darkred;
+            color: white;
+            padding-left: 15px;
+            padding-right: 15px;
+            padding-top: 27px;
+            padding-bottom: 27px;
+        }
+
+        #dashboard-button:hover {
+            background-color: darkgreen;
+            color: white;
+        }
+
+    </style>
 </head>
 <body>
-    <div id="app">
-        {{--  <nav style="position:fixed; width:100%;" class="navbar navbar-expand-md navbar-light navbar-laravel">  --}}
-        {{--  <nav class="navbar navbar-default navbar-fixed-top">  --}}
-        <nav class="navbar navbar-expand-md navbar-light navbar-laravel">
+    <div id="app">        
+        {{--  <nav style="position:fixed; top:0; width:100%;" class="navbar navbar-expand-md navbar-laravel navbar-fixed-top">  --}}
+        
+        <nav class="navbar navbar-expand-md navbar-dark">
             <div class="container">
                 @guest
                 <a class="navbar-brand" href="{{ url('/') }}">
@@ -35,10 +75,10 @@
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav mr-auto">
-                        <li> <a  class="nav-link" href="/projects">Projects</a></li>
-                        <li> <a  class="nav-link" href="/projects/create">Start Project</a></li>
-                    </ul>
+                    <form action="/home" method="get" role="form">
+                        {{ csrf_field() }}
+                        <button id="dashboard-button" name="dashboard-button" value="dashboard-button" type="submit"><b>Naar<br />Dashboard</b></button>
+                    </form>
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">

@@ -6,38 +6,30 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">{{ __('persoonlijke gegevens') }}</div>
-
+                <!-- NAW Form -->
                 <div class="card-body">
                     <form method="POST" action="{{route('users.update', $user)}}">
                         @csrf
                         {{ method_field('patch') }}
-                        
-
+                        <!-- Geboorte datum -->
                             <div class="form-group row ">
-                                <label for="birthday" class="col-md-4 col-form-label text-md-right">{{ __('Geboorte datum') }}</label>
-
-                                <div class="col-md-6">
+                                <label for="birthday" class="col-md-4 col-form-label text-md-right">{{ __('Geboorte datum') }}</label><div class="col-md-6">
                                 <input id="birthday" type="date" class="form-control{{ $errors->has('birthday') ? ' is-invalid' : '' }}" name="birthday" value="{{ Auth::guard('web')->user()->birthday }}" required autofocus>
-
-                                @if ($errors->has('birthday'))
+                                 @if ($errors->has('birthday'))
                                     <span class="invalid-feedback">
                                         <strong>{{ $errors->first('birthday') }}</strong>
                                     </span>
                                 @endif
                                 </div>
-
-
                             </div>
-                        
+                        <!-- Geslacht -->
                          <div class="form-group row ">
                             <label for="gender" class="col-md-4 col-form-label text-md-right">{{ __('Geslacht') }}</label>
-
                             <div class="col-md-6 ">
                                 <select id="gender" type="text" class="form-control{{ $errors->has('gender') ? ' is-invalid' : '' }}" name="gender" value="{{ $user->gender }}" required>
                                     <option selected>{{ Auth::guard('web')->user()->gender }} </option>
                                     <option>Man</option>
                                     <option>Vrouw</option>
-
                                 </select>
                                 @if ($errors->has('gender'))
                                     <span class="invalid-feedback">
@@ -46,13 +38,11 @@
                                 @endif
                             </div>
                         </div>
-
+                        <!-- Straatnaam en Nummer -->
                         <div class="form-group row">
                             <label for="streetname_number" class="col-md-4 col-form-label text-md-right">{{ __('Straatnaam en nummer') }}</label>
-
                             <div class="col-md-6">
                                 <input id="streetname_number" type="text" class="form-control{{ $errors->has('streetname_number') ? ' is-invalid' : '' }}" name="streetname_number" value="{{ $user->streetname_number }}" required>
-
                                 @if ($errors->has('streetname_number'))
                                     <span class="invalid-feedback">
                                         <strong>{{ $errors->first('streetname_number') }}</strong>
@@ -60,13 +50,11 @@
                                 @endif
                             </div>
                         </div>
-
+                        <!-- Postcode -->
                         <div class="form-group row">
                             <label for="postal_code" class="col-md-4 col-form-label text-md-right">{{ __('Postcode') }}</label>
-
                             <div class="col-md-6">
                                 <input id="postal_code" type="text" class="form-control{{ $errors->has('postal_code') ? ' is-invalid' : '' }}" name="postal_code" value="{{ $user->postal_code }}" required>
-
                                 @if ($errors->has('postal_code'))
                                     <span class="invalid-feedback">
                                         <strong>{{ $errors->first('postal_code') }}</strong>
@@ -77,7 +65,6 @@
 
                         <div class="form-group row">
                             <label for="city" class="col-md-4 col-form-label text-md-right">{{ __('Woonplaats') }}</label>
-
                             <div class="col-md-6">
                                 <input id="city" type="city" class="form-control{{ $errors->has('city') ? ' is-invalid' : '' }}" name="city" value="{{ $user->city }}" required>
 

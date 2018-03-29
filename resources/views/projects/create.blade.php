@@ -4,7 +4,7 @@
 
 <div class="container">
   <div class="row justify-content-center">
-    <div class="col-md-8">
+    <div class="col-md-12">
       <div class="form-group">
         <div class="card">
           <div class="card-header">  
@@ -12,23 +12,45 @@
           </div>
           <form class="form-group" method="POST" action="/projects">
             {{csrf_field()}}
-            <div class="form-group">
-              <label for="name ">Project naam:</label>
-              <input type="text" class="form-control" id="name" name="name" required>
-            </div>            
-            <div class="form-group">
-              <label for="description">Beschrijving van het project:</label>
-              <input type="text" class="form-control" id="description" name="description" required>
-            </div>            
-            <div class="form-group">
-              <label for="start_date">Start van het project</label>
-              <input type="date" class="form-control" id="start_date" name="start_date" required>
+            <br>
+            <div class="form-group row">
+              <div class="col-md-3 text-right">
+                <label for="name ">Project naam:</label>
+              </div>
+              <div class="col-md-8 text-left">
+                <input type="text" class="form-control" id="name" name="name" required>
+              </div>
+            </div> 
+            <div class="form-group row">
+              <div class="col-md-3 text-right">
+                <label for="description">Beschrijving van het project:</label>
+              </div>
+              <div class="col-md-8">
+                {{--  <input type="text" class="form-control" id="description" name="description" required>  --}}
+                <textarea class="form-control" rows="5" id="description" name="description" type="text" required></textarea>
+              </div>            
             </div>
-            <div class="form-group">
-              <label for="due_date">deadline van het project</label>
-              <input type="date" class="form-control" id="due_date" name="due_date" required>
+            <div class="form-group row">
+              <div class="col-md-3 text-right">
+                <label for="start_date">Start van het project</label>
+              </div>
+              <div class="col-md-8 text-left">
+                <input type="date" class="form-control" id="start_date" name="start_date" required>
+              </div>
             </div>
-            <button type="submit" class="btn btn-default">Start project</button>
+            <div class="form-group row">
+              <div class="col-md-3 text-right">
+                <label for="due_date">Deadline van het project</label>
+              </div>
+              <div class="col-md-8 text-left">
+                <input type="date" class="form-control" id="due_date" name="due_date" required>
+              </div>
+            </div>
+            <br>
+            <div class="col-md-4">
+              <button type="submit" class="btn btn-primary btn-lg">Start project</button>
+            </div>
+                        
             <div class="form-group">
               @if(count($errors))
               <div class="alert alert-danger">

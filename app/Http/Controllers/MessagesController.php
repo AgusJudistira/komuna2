@@ -24,27 +24,36 @@ class MessagesController extends Controller
         switch (request('message_type')) {
             case 'sent':
                 $msg_type = "Verzonden berichten";
-                $messages = $user->message_sent()->latest()->get();
+                $messages = $user->message_sent()->whereHas('recipient')->latest()->get();
+                //$messages = $user->message_sent()->latest()->get();
                 break;
             case 'unread':
                 $msg_type = "Ongelezen berichten";
-                $messages = $user->message_received()->where('is_read', '=', false)->latest()->get();
+                //$messages = $user->message_received()->where('is_read', '=', false)->latest()->get();
+                $messages = $user->message_received()->whereHas('sender')->where('is_read', '=', false)->latest()->get();
                 break;
             case 'incoming':
                 $msg_type = "Ontvangen berichten";
-                $messages = $user->message_received()->latest()->get();
+                $messages = $user->message_received()->whereHas('sender')->latest()->get();
+                // $messages = $user->message_received()->latest()->get();
                 break;
             default:
                 $messages = Array();
                 break;
-        }                        
+        }
         
         return view('messages.msg-index', compact('msg_type', 'messages'));
     }
 
     public function focusMessage(Message $message)
     {
-        if ($message->sender_id != Auth::guard('web')->user()->id) {
+        $user_id = Auth::guard('web')->user()->id;
+
+        if ($message->sender_id != $user_id && $message->recipient_id != $user_id) {
+            return back();
+        }
+
+        if ($message->sender_id != $user_id) {
             $message->is_read = true; //Mark message as read
             $message->save();
         }

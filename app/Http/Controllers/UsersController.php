@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use App\User;
 use App\Competence;
+use App\WorkExperience;
 
 use Image;
 
@@ -43,7 +44,7 @@ class UsersController extends Controller
             'phone_work' => 'required'
 
         ]);
-
+        $user->birthday=request('birthday');
         $user->gender = request('gender');
         $user->streetname_number = request('streetname_number');
         $user->postal_code = request('postal_code');
@@ -88,35 +89,88 @@ class UsersController extends Controller
 public function editCompetences(User $user)
     {   
         $competences = Competence::all();
+        $competences_selected = $user->competence()->get();
 
             if ($user->id == Auth::guard('web')->user()->id) {
-            return view('users.edit_competences', compact('competences', 'user'));
+            return view('users.edit_competences', compact( 'competences_selected','competences','user'));
         }
         else {
             return back();
         }
+    }
 
+    public function addCompetences(Request $request)
+        {   
+            $competences_select = $request->input('competences_select'); 
 
-}
+            $user_id = Auth::guard('web')->user()->id;
+            if ($competences_select !=null) {
+                foreach ($competences_select as $competence) {
+                    $foundCompetence = Competence::find($competence);
+                    $foundCompetence->user()->sync($user_id);
+                }
+            }
+            return back();
+        }
 
-    // public function updateCompetences(Request)
-    //     {   
-    //     dd();
-    //        // foreach ($newCompetence as $competence => $value) {
-                
-
-    //             // $newCompetence->user()->attach($user_id);
-            
-           
-
-    //         // dd();
-
-    //         // $user_id = Auth::guard('web')->user()->id;
-
-    //         //return redirect('/users.edit_competences');
-    //     }
+      
+    public function detachCompetences(Request $request)
+    {   
         
+        $competence = $request->input('competence');  
+        $user_id = Auth::guard('web')->user()->id;
+       
+
+        $foundCompetence = Competence::find($competence);
+        $foundCompetence->user()->detach($user_id);
+       
+                
+        return back();
+ 
+    }
+
+
+    public function editWorkExperience(User $user)
+    {        
+        $workExperiences = $user->workExperience()->orderBy('start_date', 'DESC')->get();
+
+        return view('users.edit_workExperience', compact('user', 'workExperiences'));
+    }
+
+    public function storeWorkExperience(User $user)
+    {   
+        //$user = Auth::guard('web')->user()->id;
+    
+        $this->validate(request(),[
+            'user_id' => 'required',
+            'name' => 'required',
+            'start_date' => 'required',
+            'end_date' => 'required',
+            'department' => 'required',
+            'position' => 'required',
+            'description' => 'required',
+          
+            
+            ]);
+
+      $newWorkExperience = WorkExperience::create(request([
+            'user_id',
+            'name',
+            'start_date',
+            'end_date',
+            'department',
+            'position',
+            'description',
+
+            ]));
+
+    $workExperiences = $user->workExperience()->orderBy('start_date', 'DESC')->get();
+    
+    return back();
+    
+    }
+
 
 }
-    //$competences = $user->competences()->get();
+
 

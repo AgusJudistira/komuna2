@@ -72,6 +72,14 @@ Route::get('/user-login', 'Auth\LoginController@showLoginForm')->name('user.logi
 Route::post('/user-login', 'Auth\LoginController@userLogin')->name('user.login.submit');
 Route::get('/logout', 'Auth\LoginController@userLogout')->name('user.logout');
 
+//Admin edit competences
+Route::get('/admin/edit_competences',  ['as' => 'admin.edit_competences', 'uses' => 'CompetencesController@editCompetences']);
+
+//Admin edit create competences
+Route::post('/admin/update_competences',  ['as' => 'admin.update_competences', 'uses' => 'CompetencesController@storeCompetences']);
+//Admin delete competences
+Route::post('/admin/delete_competences',  ['as' => 'admin.delete_competences', 'uses' => 'CompetencesController@deleteCompetences']);
+
 //update user profile
 
 //view NAW
@@ -94,16 +102,17 @@ Route::post('/users/{user}/update_competences',  ['as' => 'users.update_competen
 //detacth competences from user
 Route::post('/users/{user}/detach_competences',  ['as' => 'users.detach_competences', 'uses' => 'UsersController@detachCompetences'])->where('user', '[0-9]+');
 
-//Admin create competences
-Route::get('/admin/edit_competences',  ['as' => 'admin.edit_competences', 'uses' => 'CompetencesController@editCompetences']);
-Route::post('/admin/update_competences',  ['as' => 'admin.update_competences', 'uses' => 'CompetencesController@storeCompetences']);
-Route::post('/admin/delete_competences',  ['as' => 'admin.delete_competences', 'uses' => 'CompetencesController@deleteCompetences']);
-
 //edit work experience
 Route::get('/users/{user}/edit_workExperience',  ['as' => 'users.edit_workExperience', 'uses' => 'UsersController@editWorkExperience'])->where('user', '[0-9]+');
 
 //update workExperience
 Route::post('/users/{user}/update_workExperience',  ['as' => 'users.update_workExperience', 'uses' => 'UsersController@storeWorkExperience'])->where('user', '[0-9]+');
+
+//edit study experience
+Route::get('/users/{user}/edit_studyExperience',  ['as' => 'users.edit_studyExperience', 'uses' => 'UsersController@editStudyExperience'])->where('user', '[0-9]+');
+
+//study workExperience
+Route::post('/users/{user}/update_studyExperience',  ['as' => 'users.update_studyExperience', 'uses' => 'UsersController@storeStudyExperience'])->where('user', '[0-9]+');
 
 
 

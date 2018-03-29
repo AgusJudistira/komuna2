@@ -19,5 +19,5 @@ class WorkExperience extends Model
      public function workExperience()
     {
         return $this->hasOne(User::class);
-    }//
+    }
 }

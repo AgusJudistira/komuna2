@@ -7,17 +7,17 @@
             <div class="form-group">
                 <div class="card">
                     <div class="card-header">  
-                        <h4>Voeg werkervaring toe</h4>                      
+                        <h4>Voeg studieervaring toe</h4>                      
                     </div>
                     <!-- Organization -->
-                    <form class="form-group mt-4" method="POST" action="{{route('users.update_workExperience', $user)}}">
+                    <form class="form-group mt-4" method="POST" action="{{route('users.update_studyExperience', $user)}}">
                         {{csrf_field()}}
                             
                                 <input id="user_id" type="text" class="form-control d-none" name="user_id" value="{{ Auth::guard('web')->user()->id}}" required>
                             
                         
                          <div class="form-group row">
-                            <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Organisatie') }}</label>
+                            <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Opleiding') }}</label>
                             <div class="col-md-6">
                                 <input id="name" type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" value="" required>
                                 @if ($errors->has('name'))
@@ -31,7 +31,7 @@
                         <!-- Start datum -->
                     
                          <div class="form-group row">
-                            <label for="start_date" class="col-md-4 col-form-label text-md-right">{{ __('start datum') }}</label>
+                            <label for="start_date" class="col-md-4 col-form-label text-md-right">{{ __('Van') }}</label>
                             <div class="col-md-6">
                                 <input id="start_date" type="date" class="form-control" name="start_date" value="" required>
                                 @if ($errors->has('start_date'))
@@ -44,7 +44,7 @@
                         <!-- eind datum -->
                     
                          <div class="form-group row">
-                            <label for="end_date" class="col-md-4 col-form-label text-md-right">{{ __('eind datum') }}</label>
+                            <label for="end_date" class="col-md-4 col-form-label text-md-right">{{ __('Tot') }}</label>
                             <div class="col-md-6">
                                 <input id="end_date" type="date" class="form-control" name="end_date" value="" required>
                                 @if ($errors->has('end_date'))
@@ -56,78 +56,106 @@
                         </div>
                         <!-- afdeling -->
                         <div class="form-group row">
-                            <label for="department" class="col-md-4 col-form-label text-md-right">{{ __('Afdeling') }}</label>
+                            <label for="level" class="col-md-4 col-form-label text-md-right">{{ __('Opleidingsniveau') }}</label>
                             <div class="col-md-6">
-                                <input id="department" type="text" class="form-control" name="department" value="" required>
-                                @if ($errors->has('department'))
+                                 <select id="level" type="text" class="form-control" name="level" value="{{ $user->level }}" required>
+                                    <option value="7">Post-Doc</option>
+                                    <option value="6">MBA</option>
+                                    <option value="5">WO</option>
+                                    <option value="4" selected>HBO</option>
+                                    <option value="3">MBO</option>
+                                    <option value="2">Cursus</option>
+                                   
+                                    
+                                </select>
+                                @if ($errors->has('level'))
                                     <span class="invalid-feedback">
-                                        <strong>{{ $errors->first('department') }}</strong>
+                                        <strong>{{ $errors->first('level') }}</strong>
                                     </span>
                                 @endif
                             </div>
                         </div>
-                          <!-- functie -->
+                          <!-- diploma -->
                         <div class="form-group row">
-                            <label for="position" class="col-md-4 col-form-label text-md-right">{{ __('Functie') }}</label>
+                            <label for="diploma" class="col-md-4 col-form-label text-md-right">{{ __('Diploma/certifcaat') }}</label>
                             <div class="col-md-6">
-                                <input id="position" type="text" class="form-control" name="position" value="" required>
-                                @if ($errors->has('position'))
+                                <label class="">
+                                    <input name="diploma" type="checkbox" value="Ja">Ja
+                                </label><br />
+                                <label class="">
+                                  <input name="diploma" type="checkbox" value="Nee">Nee
+                                </label>
+                                @if ($errors->has('diploma'))
                                     <span class="invalid-feedback">
-                                        <strong>{{ $errors->first('position') }}</strong>
+                                        <strong>{{ $errors->first('diploma') }}</strong>
                                     </span>
                                 @endif
                             </div>
                         </div>
-                        <!-- job description -->
-                        <div class="form-group row">
-                            <label for="description" class="col-md-4 col-form-label text-md-right">{{ __('job description') }}</label>
-                            <div class="col-md-6">
-                                <textarea class="form-control" name="description" rows="5"></textarea>
-                                @if ($errors->has('description'))
-                                    <span class="invalid-feedback">
-                                        <strong>{{ $errors->first('description') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-                        <button type="submit" class="btn btn-primary ml-auto float-right" role="button">
+                         <button type="submit" class="btn btn-primary ml-auto float-right" role="button">
                             {{ __('Sla op') }}
                         </button> 
                     </form>
+                    
+
                     <!-- Terug naar competenties -->
-                    <form class="col-md-2 float-right" method="GET" action="/users/{{Auth::user()->id}}/edit_competences"> 
+                    <form class="col-md-2 float-left" method="GET" action="/users/{{Auth::user()->id}}/edit_workExperience"> 
                         <button type="submit" class="btn btn-primary ml-auto" role="button">
                             {{ __('Vorige') }}
                         </button> 
                     </form>
-                
-                    <!-- Naar volgende -->
+                   <!--  Naar volgende
                     <form class="col-md-2 float-right" method="GET" action="/users/{{Auth::user()->id}}/edit_studyExperience"> 
                          <button type="submit" class="btn btn-primary ml-auto" role="button">
                              {{ __('Volgende') }}
                          </button> 
-                    </form>  
-                    <!-- Werkervaringsgeschiedenis -->
+                    </form>      -->
+                
                     <div class="card-header">  
-                        <h5>Werkervaring</h5>                      
+                        <h5>Studiervaring</h5>                      
                     </div>
                         <div class="row">
                             <div class="col-md-12">
                             <table class="table table-striped col-md-12">
                                 <tr>
-                                    <th>Organisatie</th>
-                                    <th>Functie</th>                
+                                    <th>Opleiding</th>
+                                    <th>Niveau</th>                
                                     <th>Begonnen op</th>                                
-                                    <th>Beindigd op</th>                
+                                    <th>Beindigd op</th>
+                                    <th>Diploma</th>               
                                 </tr>
-                                @foreach ($workExperiences as $workExperience)
+                                @foreach ($studyExperiences as $studyExperience)
                                     <tr>
-                                        <td> {{$workExperience->name}}</td>
-                                        <td> {{$workExperience->position}}</td>
-                                        <td> {{$workExperience->start_date}}</a></td>
-                                        <td> {{$workExperience->end_date}}</a></td>
+                                        <td>{{$studyExperience->name}}</td>
+                                        <td>@switch($studyExperience)
+                                                @case($studyExperience->level == 2)
+                                                     <span>Cursus</span>
+                                                @break
+                                                @case($studyExperience->level == 3)
+                                                     <span>MBO</span>
+                                                @break
+                                                @case($studyExperience->level == 4)
+                                                     <span>HBO</span>
+                                                @break
+                                                @case($studyExperience->level == 5)
+                                                     <span>WO</span>
+                                                @break
+                                                @case($studyExperience->level == 6)
+                                                     <span>MBA</span>
+                                                @break
+                                                @case($studyExperience->level == 7)
+                                                     <span>Post-doc</span>
+                                                @break
+                                            
+                                                @default
+                                                    <span></span>
+                                            @endswitch
+                                        </td>
+                                        <td>{{$studyExperience->start_date}}</td>
+                                        <td>{{$studyExperience->end_date}}</td>
+                                        <td>{{$studyExperience->diploma}}</td>
                                     </tr>
-                                @endforeach
+                                @endforeach    
                             </table>
                             </div>
                         </div>

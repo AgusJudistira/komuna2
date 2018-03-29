@@ -25,8 +25,8 @@ class WorkExperienceController extends Controller
     public function index() 
 
 	{
-		$WorkExperience = DB::table('work_experiences')->user()->get();
-		return view('competences.index');		
+		$workExperience = DB::table('work_experiences')->user()->get();
+		return view('workExperience.index');		
 	}
 
 

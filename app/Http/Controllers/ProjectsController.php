@@ -243,7 +243,52 @@ class ProjectsController extends Controller
 	}
 
 
-	public function sendInquiry()
+	public function sendProjectInquiry()
+	{
+		$project_id = request('project_id');
+		$applicant_id = request('applicant_id');
+		$user_message = request('user_message');
+
+		$thisProject = Project::find($project_id);
+
+		if (request('inquire') == 'inquire')	{
+			$sender = Auth::guard('web')->user();
+			$sender_fullname = $sender->firstname . " " . $sender->lastname;
+			$subject = "Over '$thisProject->name'... ";
+			
+			$message = "<p><i>$sender_fullname heeft met betrekking tot&nbsp;<a href='/projects/$project_id' target='_blank'>$thisProject->name</a>&nbsp;wat vragen:</i></p>";
+
+			//$action .= "<form id=\"decide\" method=\"POST\" action=\"/projects/decide\">";
+			$actions  = "<div class=\"row\">";
+			$actions .= "<div class=\"col-md-4\"></div>";
+			$actions .= "<div class=\"col-md-8 text-right\"><button form=\"decide\" name=\"reply\" value=\"reply\" type=\"submit\" class=\"btn btn-info btn-lg\">Beantwoorden</button></div>";			
+			$actions .= "</div>";
+			$actions .= "<input type=\"hidden\" name=\"project_id\" value=\"$project_id\">";
+			$actions .= "<input type=\"hidden\" name=\"applicant_id\" value=\"$applicant_id\">";
+			$actions .= "<input type=\"hidden\" name=\"decider\" value=\"applicant\">";
+			//$action .= "</form>";
+			
+			$project_owners = $thisProject->user()->withPivot('projectowner')->where('projectowner', true)->get();
+
+			foreach ($project_owners as $project_owner) {
+				$newMessage = App\Message::create([
+					'sender_id' => $sender->id,
+					'recipient_id' => $project_owner->id,
+					'project_id' => $project_id,
+					'subject' => $subject,
+					'message' => $message,
+					'user_message' => $user_message,
+					'actions' => $actions,
+					'action_taken' => 0
+				]);
+			}
+		}
+
+		return redirect()->route('project_index');
+	}
+
+
+	public function sendPersonalInquiry()
 	{		
 		$project_id = request('project_id');
 		$invitee_id = request('invitee_id');
@@ -261,7 +306,7 @@ class ProjectsController extends Controller
 			//$action .= "<form id=\"decide\" method=\"POST\" action=\"/projects/decide\">";
 			$actions  = "<div class=\"row\">";
 			$actions .= "<div class=\"col-md-4\"></div>";
-			$actions .= "<div class=\"col-md-4\"><button form=\"decide\" name=\"reply\" value=\"reply\" type=\"submit\" class=\"btn btn-info btn-lg\">Beantwoorden</button></div>";			
+			$actions .= "<div class=\"col-md-8 text-right\"><button form=\"decide\" name=\"reply\" value=\"reply\" type=\"submit\" class=\"btn btn-info btn-lg\">Beantwoorden</button></div>";
 			$actions .= "</div>";
 			$actions .= "<input type=\"hidden\" name=\"project_id\" value=\"$project_id\">";
 			$actions .= "<input type=\"hidden\" name=\"applicant_id\" value=\"$invitee_id\">";
@@ -334,7 +379,12 @@ class ProjectsController extends Controller
 	// voorbereidende data verzamelen voor een join message
 	public function prepareJoinMessage(Project $project)
 	{
-		return view('projects.join', compact('project'));
+		if (request('inquire') == 'inquire') {
+			return view('projects.inquire_project', compact('project'));
+		}
+		else {
+			return view('projects.join', compact('project'));
+		}
 	}
 
 
@@ -347,13 +397,13 @@ class ProjectsController extends Controller
 
 		$user_message = request('user_message');
 
-		$projectmembers = $project->user()->withPivot('projectowner')->get();
-		
+		//$projectmembers = $project->user()->withPivot('projectowner')->get();
+		$project_owners = $project->user()->withPivot('projectowner')->where('projectowner', true)->get();
 		//verstuur een bericht aan iedere projecteigenaar
-		foreach($projectmembers as $member) {
-			if ($member->pivot->projectowner) {
-				$this->sendPermissionToJoinMessage($project, Auth::guard('web')->user()->id, $member->id, $user_message);
-			}
+		foreach($project_owners as $project_owner) {
+			//if ($member->pivot->projectowner) {
+			$this->sendPermissionToJoinMessage($project, Auth::guard('web')->user()->id, $project_owner->id, $user_message);
+			//}
 		}
 
 		return redirect('home');

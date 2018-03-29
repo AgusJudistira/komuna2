@@ -4,6 +4,9 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-12">
+            <div class="col-md-12 text-right">
+                <h4><a href="{{ url()->previous() }}">&lt; Terug naar overzicht</a></h4>
+            </div>
             <div class="card">
                 <h4><div class="card-header">Misschien uitnodigen voor het project <a href='/projects/{{$project->id}}' target='_blank'>{{$project->name}}</a>?</div></h4>
 
@@ -46,7 +49,7 @@
                         @csrf                        
                         {{--  <div class="col-md-12 offset-md-10"><button type="submit" class="btn btn-primary btn-lg">Uitnodigen</div>  --}}
                         <div class="row">
-                            <div class="col-md-6"><button name="inquire" value="inquire" type="submit" class="btn btn-primary btn-lg">Vraagje...</div>
+                            <div class="col-md-6 text-right"><button name="inquire" value="inquire" type="submit" class="btn btn-primary btn-lg">Vraagje...</div>
                             <div class="col-md-6"><button name="invite" value="invite" type="submit" class="btn btn-primary btn-lg">Uitnodigen</div>
                         </div>
                         <input type="hidden" name="project_id" value="{{$project->id}}">

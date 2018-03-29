@@ -189,57 +189,7 @@ class ProjectsController extends Controller
 		}
 	}
 
-
-	public function sendInquiry()
-	{		
-		$project_id = request('project_id');
-		$invitee_id = request('invitee_id');
-		$user_message = request('user_message');
-
-		$thisProject = Project::find($project_id);
-
-		if (request('inquire') == 'inquire')	{
-			$sender = Auth::guard('web')->user();		
-			$sender_fullname = $sender->firstname . " " . $sender->lastname;
-			$subject = "Over '$thisProject->name'... ";
-			
-			$message = "<p><i>$sender_fullname heeft met betrekking tot&nbsp;<a href='/projects/$project_id' target='_blank'>$thisProject->name</a>&nbsp;wat vragen:</i></p>";
-
-			//$action .= "<form id=\"decide\" method=\"POST\" action=\"/projects/decide\">";
-			$actions  = "<div class=\"row\">";
-			$actions .= "<div class=\"col-md-4\"></div>";
-			$actions .= "<div class=\"col-md-4\"><button form=\"decide\" name=\"reply\" value=\"reply\" type=\"submit\" class=\"btn btn-info btn-lg\">Beantwoorden</button></div>";			
-			$actions .= "</div>";
-			$actions .= "<input type=\"hidden\" name=\"project_id\" value=\"$project_id\">";
-			$actions .= "<input type=\"hidden\" name=\"applicant_id\" value=\"$invitee_id\">";
-			$actions .= "<input type=\"hidden\" name=\"decider\" value=\"invitee\">";
-			//$action .= "</form>";
-			
-			$newMessage = App\Message::create([
-				'sender_id' => $sender->id,
-				'recipient_id' => $invitee_id,
-				'project_id' => $project_id,
-				'subject' => $subject,
-				'message' => $message,
-				'user_message' => $user_message,
-				'actions' => $actions,
-				'action_taken' => 0
-			]);
-		}
-
-		$invitable_members = Array();
-
-		$volunteers = User::all();
-		// leden die al lid zijn van het project eruit filteren.
-		foreach ($volunteers as $volunteer) {			
-			if	(!$this->isMember($volunteer, $thisProject)) {
-				array_push($invitable_members, $volunteer);				
-			}
-		}
-		return view('projects.seekMembers', compact('thisProject', 'invitable_members'));
-	}
-
-	// Uitnodigingsbericht maken
+		// Uitnodigingsbericht maken
 	public function sendInvitation()
 	{		
 		$project_id = request('project_id');
@@ -291,6 +241,95 @@ class ProjectsController extends Controller
 		}
 		return view('projects.seekMembers', compact('thisProject', 'invitable_members'));
 	}
+
+
+	public function sendInquiry()
+	{		
+		$project_id = request('project_id');
+		$invitee_id = request('invitee_id');
+		$user_message = request('user_message');
+
+		$thisProject = Project::find($project_id);
+
+		if (request('inquire') == 'inquire')	{
+			$sender = Auth::guard('web')->user();
+			$sender_fullname = $sender->firstname . " " . $sender->lastname;
+			$subject = "Over '$thisProject->name'... ";
+			
+			$message = "<p><i>$sender_fullname heeft met betrekking tot&nbsp;<a href='/projects/$project_id' target='_blank'>$thisProject->name</a>&nbsp;wat vragen:</i></p>";
+
+			//$action .= "<form id=\"decide\" method=\"POST\" action=\"/projects/decide\">";
+			$actions  = "<div class=\"row\">";
+			$actions .= "<div class=\"col-md-4\"></div>";
+			$actions .= "<div class=\"col-md-4\"><button form=\"decide\" name=\"reply\" value=\"reply\" type=\"submit\" class=\"btn btn-info btn-lg\">Beantwoorden</button></div>";			
+			$actions .= "</div>";
+			$actions .= "<input type=\"hidden\" name=\"project_id\" value=\"$project_id\">";
+			$actions .= "<input type=\"hidden\" name=\"applicant_id\" value=\"$invitee_id\">";
+			$actions .= "<input type=\"hidden\" name=\"decider\" value=\"invitee\">";
+			//$action .= "</form>";
+			
+			$newMessage = App\Message::create([
+				'sender_id' => $sender->id,
+				'recipient_id' => $invitee_id,
+				'project_id' => $project_id,
+				'subject' => $subject,
+				'message' => $message,
+				'user_message' => $user_message,
+				'actions' => $actions,
+				'action_taken' => 0
+			]);
+		}
+
+		$invitable_members = Array();
+
+		$volunteers = User::all();
+		// leden die al lid zijn van het project eruit filteren.
+		foreach ($volunteers as $volunteer) {			
+			if	(!$this->isMember($volunteer, $thisProject)) {
+				array_push($invitable_members, $volunteer);				
+			}
+		}
+		return view('projects.seekMembers', compact('thisProject', 'invitable_members'));
+	}
+
+
+	public function prepareReplyMessage(Project $project, App\Message $old_message) 
+	{
+		//dd($old_message);
+		return view('projects.message_reply', compact('project', 'old_message'));
+	}
+
+
+	public function sendReplyMessage() 
+	{	
+		if (request('reply') == 'reply') {
+			$user_message = request('user_message');
+			$project_id = request('project_id');
+			$recipient_id = request('recipient_id');
+			$old_message = App\Message::find(request('old_message_id'));		
+			$sender = Auth::guard('web')->user();
+			$sender_fullname = $sender->firstname . " " . $sender->lastname;
+			$old_message->action_taken = 3; // 1 = accepted, 2 = refused, 3 = replied
+			$old_message->save();
+
+			// $new_message  = $old_message->message;
+			// $new_message .= "<p>" . $old_message->user_message . "</p>";
+
+			$this_message = App\Message::create([
+				'sender_id' => $sender->id,
+				'recipient_id' => $recipient_id,
+				'project_id' => $project_id,
+				'subject' => $old_message->subject,
+				'message' => $old_message->message . "<br />" . $old_message->user_message,
+				'user_message' => "<b><i>$sender_fullname</i></b>: " . $user_message,
+				'actions' => $old_message->actions,
+				'action_taken' => 0
+			]);
+		}
+
+		return redirect('home');
+	}
+
 
 	// voorbereidende data verzamelen voor een join message
 	public function prepareJoinMessage(Project $project)
@@ -391,23 +430,7 @@ class ProjectsController extends Controller
 		]);
 	}
 
-	public function sendReplyMessage(Project $project, Message $message) {
-		$old_message = "<hr><p>Datum:" . $message->created_at . "</p>" . $message->message . $message->user_message;
-		$user_message = require('user_message');
 
-		$newMessage = App\Message::create([
-			'sender_id' => $message->recipient_id,
-			'recipient_id' => $message->sender_id,
-			'project_id' => $project->id,
-			'subject' => $message->subject,
-			'message' => $user_message . $old_message,
-			'user_message' => $user_message,
-			'actions' => $message->actions,
-			'action_taken' => 0
-		]);
-
-		return redirect('home');
-	}
 
 	public function decide() // decider = "project owner" or "invitee"
 	{
@@ -421,12 +444,11 @@ class ProjectsController extends Controller
 		$thisuser_id = Auth::guard('web')->user()->id;
 
 		if (request('reply') == 'reply') {
+			//var_dump($thisuser_id, $this_message->sender_id);
 			if ($thisuser_id != $this_message->sender_id) {
-				$this_message->action_taken = 3; // 1 = accepted, 2 = refused, 3 = replied
-				$this_message->save();
-
-				$this->sendReplyMessage($project, $this_message);
-				//return view('projects.message_reply', compact('project', 'this_message'));
+				$old_message = $this_message;
+				return view('projects.message_reply', compact('project', 'old_message'));
+				//$this->prepareReplyMessage($project, $this_message);				
 			}
 		}
 		elseif ($thisuser_id != $applicant_id && $decider == "project owner") {

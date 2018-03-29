@@ -40,6 +40,8 @@
                     <p class="text-success">Het verzoek is al geaccepteerd.</p>
                 @elseif ($message->action_taken == 2)
                     <p class="text-danger">Het verzoek is al geweigerd.</p>
+                @elseif ($message->action_taken == 3)
+                    <p class="text-info">Dit bericht is al beantwoord.</p>
                 @endif
             </div>
             <input type="hidden" name="message_id" value="{{$message->id}}">

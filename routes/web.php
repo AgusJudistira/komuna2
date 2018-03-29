@@ -88,13 +88,10 @@ Route::post('/users/{user}/update_competences',  ['as' => 'users.update_competen
 //detacth competences from user
 Route::post('/users/{user}/detach_competences',  ['as' => 'users.detach_competences', 'uses' => 'UsersController@detachCompetences'])->where('user', '[0-9]+');
 
-//show competences for creations
+//Admin create competences
 Route::get('/admin/edit_competences',  ['as' => 'admin.edit_competences', 'uses' => 'CompetencesController@editCompetences']);
-
-//create competences (need admin auth)
 Route::post('/admin/update_competences',  ['as' => 'admin.update_competences', 'uses' => 'CompetencesController@storeCompetences']);
-
-
+Route::post('/admin/delete_competences',  ['as' => 'admin.delete_competences', 'uses' => 'CompetencesController@deleteCompetences']);
 
 //edit work experience
 Route::get('/users/{user}/edit_workExperience',  ['as' => 'users.edit_workExperience', 'uses' => 'UsersController@editWorkExperience'])->where('user', '[0-9]+');

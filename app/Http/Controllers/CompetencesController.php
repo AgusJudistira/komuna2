@@ -26,7 +26,7 @@ class CompetencesController extends Controller
 
 	public function storeCompetences(Request $request)
 	{	
-		$user_id = Auth::guard('web')->user()->id;
+		$user_id = Auth::guard('admin')->user()->id;
 
 		$this->validate(request(),[
 			

@@ -131,7 +131,7 @@ public function editCompetences(User $user)
 
 
     public function editWorkExperience(User $user)
-    {
+    {        
         $workExperiences = $user->workExperience()->orderBy('start_date', 'DESC')->get();
 
         return view('users.edit_workExperience', compact('user', 'workExperiences'));

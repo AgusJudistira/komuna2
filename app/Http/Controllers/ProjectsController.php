@@ -205,8 +205,10 @@ class ProjectsController extends Controller
 			$message = "<p>$sender_fullname nodigt je uit om aan het project&nbsp;<a href='/projects/$project_id' target='_blank'>$thisProject->name</a>&nbsp;mee te werken.</p>";
 			$message .= "<p>Klik op accepteren of weigeren.</p>";
 			//$action .= "<form id=\"decide\" method=\"POST\" action=\"/projects/decide\">";
-			
-			$actions  = "<div class=\"row\">";
+			$actions  = "<div class=\"row\"><div class=\"col-md-12\"><b><i>Eventuele persoonlijke bericht:</i></b></div>";
+			$actions .= "<div class=\"col-md-12\"><textarea class=\"form-control\" type=\"text\" name=\"user_message\"></textarea></div>";
+			$actions .= "</div>";
+			$actions .= "<div class=\"row\">";
 			$actions .= "<div class=\"col-md-4\"></div>";
 			$actions .= "<div class=\"col-md-4\"><button form=\"decide\" name=\"refuse\" value=\"refuse\" type=\"submit\" class=\"btn btn-info btn-lg\">Weigeren</button></div>";
 			$actions .= "<div class=\"col-md-4\"><button form=\"decide\" name=\"accept\" value=\"accept\" type=\"submit\" class=\"btn btn-primary btn-lg\">Accepteren</button></div>";
@@ -261,7 +263,7 @@ class ProjectsController extends Controller
 			//$action .= "<form id=\"decide\" method=\"POST\" action=\"/projects/decide\">";
 			$actions  = "<div class=\"row\">";
 			$actions .= "<div class=\"col-md-4\"></div>";
-			$actions .= "<div class=\"col-md-8 text-right\"><button form=\"decide\" name=\"reply\" value=\"reply\" type=\"submit\" class=\"btn btn-info btn-lg\">Beantwoorden</button></div>";			
+			$actions .= "<div class=\"col-md-8 text-right\"><button form=\"decide\" name=\"reply\" value=\"reply\" type=\"submit\" class=\"btn btn-info btn-lg\">Beantwoorden</button></div>";
 			$actions .= "</div>";
 			$actions .= "<input type=\"hidden\" name=\"project_id\" value=\"$project_id\">";
 			$actions .= "<input type=\"hidden\" name=\"applicant_id\" value=\"$applicant_id\">";
@@ -420,8 +422,9 @@ class ProjectsController extends Controller
 		$message = "<p>$sender_fullname wilt graag meewerken aan het project&nbsp;<a href='/projects/$project_id' target='_blank'>$project->name</a>.</p>";
 		$message .= "<p>Klik op accepteren of weigeren.</p>";		
 		//$action .= "<form id=\"decide\" method=\"POST\" action=\"/projects/decide\">";
-		
-		$actions  = "<div class=\"row\">";
+		$actions  = "<div class=\"row\"><div class=\"col-md-12\"><b><i>Eventuele persoonlijke bericht:</i></b></div>";
+		$actions .= "<div class=\"col-md-12\"><textarea class=\"form-control\" type=\"text\" name=\"user_message\"></textarea></div>";
+		$actions .= "<div class=\"row col-md-12\">";
 		$actions .= "<div class=\"col-md-4\"></div>";
 		$actions .= "<div class=\"col-md-4\"><button form=\"decide\" name=\"refuse\" value=\"refuse\" type=\"submit\" class=\"btn btn-info btn-lg\">Weigeren</button></div>";
 		$actions .= "<div class=\"col-md-4\"><button form=\"decide\" name=\"accept\" value=\"accept\" type=\"submit\" class=\"btn btn-primary btn-lg\">Accepteren</button></div>";
@@ -458,7 +461,8 @@ class ProjectsController extends Controller
 			'recipient_id' => $recipient_id,
 			'project_id' => $project_id,
 			'subject' => $subject,
-			'message' => $message
+			'message' => $message,
+			'user_message' => request('user_message')
 		]);
 	}
 
@@ -476,7 +480,8 @@ class ProjectsController extends Controller
 			'recipient_id' => $applicant_id,
 			'project_id' => $project_id,
 			'subject' => $subject,
-			'message' => $message
+			'message' => $message,
+			'user_message' => request('user_message')
 		]);
 	}
 
@@ -578,7 +583,8 @@ class ProjectsController extends Controller
 				'recipient_id' => $projectOwner->id,
 				'project_id' => $project->id,
 				'subject' => $subject,
-				'message' => $message
+				'message' => $message,
+				'user_message' => request('user_message')
 			]);
 		}
 	} 
@@ -594,7 +600,9 @@ class ProjectsController extends Controller
 		$subject = $sender_fullname . " heeft de uitnodiging van om aan het project '$project->name' mee te werken geweigerd.";
 		$message = "<p>Helaas...</p>";
 		$message .= "<p>$sender_fullname heeft de uitnodiging van $inviter->fullname om aan het project <a href='/projects/$project->id' target='_blank'>$project->name</a> mee te werken <b>geweigerd</b>.</p>";
+		//$message .= "<p>$original_message->user_message</p>";
 		
+
 		$projectOwners = $this->getProjectOwners($project);
 
 		foreach ($projectOwners as $projectOwner) {
@@ -603,7 +611,8 @@ class ProjectsController extends Controller
 				'recipient_id' => $projectOwner->id,
 				'project_id' => $project->id,
 				'subject' => $subject,
-				'message' => $message
+				'message' => $message,
+				'user_message' => request('user_message')
 			]);
 		}
 	} 

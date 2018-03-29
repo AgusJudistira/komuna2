@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use App\User;
 use App\Competence;
+use App\WorkExperience;
 
 use Image;
 
@@ -127,5 +128,49 @@ public function editCompetences(User $user)
         return back();
  
     }
-   
+
+
+    public function editWorkExperience(User $user)
+    {
+        $workExperiences = $user->workExperience()->orderBy('start_date', 'DESC')->get();
+
+        return view('users.edit_workExperience', compact('user', 'workExperiences'));
+    }
+
+    public function storeWorkExperience(User $user)
+    {   
+        //$user = Auth::guard('web')->user()->id;
+    
+        $this->validate(request(),[
+            'user_id' => 'required',
+            'name' => 'required',
+            'start_date' => 'required',
+            'end_date' => 'required',
+            'department' => 'required',
+            'position' => 'required',
+            'description' => 'required',
+          
+            
+            ]);
+
+      $newWorkExperience = WorkExperience::create(request([
+            'user_id',
+            'name',
+            'start_date',
+            'end_date',
+            'department',
+            'position',
+            'description',
+
+            ]));
+
+    $workExperiences = $user->workExperience()->orderBy('start_date', 'DESC')->get();
+    
+    return back();
+    
+    }
+
+
 }
+
+

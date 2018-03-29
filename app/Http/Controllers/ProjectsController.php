@@ -351,7 +351,9 @@ class ProjectsController extends Controller
 			if (request('accept') == 'accept') {
 				//make applicant a projectmember by linking it to the project via a pivot table
 				//first check if the applicant is already member
+
 				if (!$project->user()->find($applicant_id)) {				
+
 					$this_message->action_taken = 1;
 					$this_message->save();
 					$project->user()->attach($applicant_id);
@@ -370,8 +372,10 @@ class ProjectsController extends Controller
 			if (request('accept') == 'accept') {
 				//make applicant a projectmember by linking it to the project via a pivot table
 				//first check if the applicant is already member
+
 				// if (count($project->user()->find($applicant_id)) == 0) {
 				if (!$project->user()->find($applicant_id)) {
+
 					$this_message->action_taken = 1;
 					$this_message->save();
 					$project->user()->attach($applicant_id);

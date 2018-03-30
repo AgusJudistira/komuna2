@@ -16,18 +16,26 @@
                     	<h1>Project: {{ $project->name }} </h1>                     
                     </div>
                     <div class="card-body">
-                        <p> {{ $project->description }}</p>
+                        <p class="card-text"> {{ $project->description }}</p>
 						<p> start: {{ $project->start_date }} </p>
                         <p> deadline: {{ $project->due_date }}</p>
 
+                        @if ($project->enough_members)
+                            <p class="text-danger">Er zijn al genoeg vrijwilligers. Ledenwerving gestopt</p>
+                        @endif
+                        
                         <div class="row">
                             <div class="col-md-12">
                                 Projectleden:
                             </div>
                         </div>
-                        <ul>                            
-                            @foreach ($list_of_projectusers as $projectuser)                                
-                                <li class="col-md-6">{{ $projectuser->firstname . " " . $projectuser->lastname }}@if ($projectuser->pivot->projectowner) (eigenaar)@endif</li>
+                        <ul class="list-group">                            
+                            @foreach ($list_of_projectusers as $projectuser)
+                                @if ($projectuser->pivot->projectowner)
+                                    <li class="list-group-item list-group-item-info">{{ $projectuser->firstname . " " . $projectuser->lastname }}  (eigenaar)</li>
+                                @else
+                                    <li class="list-group-item list-group-item-secondary">{{ $projectuser->firstname . " " . $projectuser->lastname }}</li>
+                                @endif
                             @endforeach                            
                         </ul>
                                   
@@ -59,9 +67,12 @@
                                 <div class="col-md-6 text-right">
                                     <button name="inquire" value="inquire" type="submit" class="btn btn-primary btn-lg">Vraagje...</button>
                                 </div>
-                                <div class="col-md-6">
-                                    <button id="join" name="join" value="join" type="submit" class="btn btn-primary btn-lg">Voor het project aanmelden</button>
-                                </div>
+
+                                @if (!$project->enough_members)
+                                    <div class="col-md-6">
+                                        <button id="join" name="join" value="join" type="submit" class="btn btn-primary btn-lg">Voor het project aanmelden</button>
+                                    </div>
+                                @endif
                             </form>                            
                         @endif
                     </div>

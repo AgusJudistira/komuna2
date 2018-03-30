@@ -29,13 +29,23 @@
         }
 
         .py-4 {
-            margin-top: 72px;
+            @if (Auth::guard('admin')->check() && Auth::guard('web')->check())
+                margin-top: 144px;
+            @else
+                margin-top: 72px;
+            @endif
         }
 
         #dashboard-button {
             z-index: 3; 
             position: fixed; 
-            top: 33px;
+
+            @if (Auth::guard('admin')->check() && Auth::guard('web')->check())
+                top: 78px;
+            @else
+                top: 33px;
+            @endif
+            
             left: 50px; 
             border-radius: 50%;
             background-color: darkred;

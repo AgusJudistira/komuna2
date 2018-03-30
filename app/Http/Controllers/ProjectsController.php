@@ -626,13 +626,19 @@ class ProjectsController extends Controller
 	{			
 		if (request('invoeren') == 'invoeren') {
 			$user_id = Auth::guard('web')->user()->id;
+			if (request('enough_members') == 'enough_members') {
+				$enough_members = true;
+			}
+			else {
+				$enough_members = false;
+			}
 			
 			$this->validate(request(),[
 
 				'name' => 'required', 
 				'description' => 'required', 
-				'start_date' => 'required', 
-				'due_date' => 'required'
+				'start_date' => 'required'
+				//'due_date' => 'required'
 
 			]);
 
@@ -644,6 +650,9 @@ class ProjectsController extends Controller
 				'due_date'
 
 			]));
+
+			$project->enough_members = $enough_members;
+			$project->save();
 		}
 
 		return redirect('/projects/' . $project->id);

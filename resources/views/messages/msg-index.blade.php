@@ -9,7 +9,7 @@
             <h2>{{$msg_type}}</h2>
         </div>        
 
-        <table class="table table-responsive table-striped">
+        <table class="table table-striped">
             <thead>
                 @if ($msg_type == "Verzonden berichten")
                     <th>Naar</th>

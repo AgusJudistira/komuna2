@@ -5,15 +5,15 @@
 <div class="container">
 
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-8">
             <h3>Vrijwilligers vinden voor het project: </h3>
             <h3><b>{{$thisProject->name}}</b></h3>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-4 text-right">
             <h4><a href="/projects/{{$thisProject->id}}">&lt; Terug naar projectdetails</a></h4>
         </div>
 
-        <table class="table table-responsive table-striped">
+        <table class="table table-striped">
             <thead>
                 <th>Naam</th>                
                 <th>Geslacht</th>                                

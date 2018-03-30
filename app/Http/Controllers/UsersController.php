@@ -45,6 +45,7 @@ class UsersController extends Controller
             'phone_work' => 'required'
 
         ]);
+        
         $user->birthday=request('birthday');
         $user->gender = request('gender');
         $user->streetname_number = request('streetname_number');
@@ -56,8 +57,8 @@ class UsersController extends Controller
 
 
 		return redirect('/users/' . $user->id . '/edit_avatar');
-    
     }
+
 
     public function editAvatar(User $user)
     {   
@@ -71,9 +72,10 @@ class UsersController extends Controller
         
     }
 
+
     public function updateAvatar(Request $request)
     { 
-        if($request->hasFile('avatar')){
+        if ($request->hasFile('avatar')){
         	$avatar= $request->file('avatar');
         	$filename = time() . '.' . $avatar->getClientOriginalExtension();
         	Image::make($avatar)->resize(300, 300)->save(public_path('/uploads/avatars/' . $filename));
@@ -82,17 +84,17 @@ class UsersController extends Controller
         	$user->avatar = $filename;
         	$user->save();
 
-        	 return view('users.edit_avatar', compact('user'));
+        	return view('users.edit_avatar', compact('user'));
         }
     }
 
    
-public function editCompetences(User $user)
+    public function editCompetences(User $user)
     {   
         $competences = Competence::all();
         $competences_selected = $user->competence()->get();
 
-            if ($user->id == Auth::guard('web')->user()->id) {
+        if ($user->id == Auth::guard('web')->user()->id) {
             return view('users.edit_competences', compact( 'competences_selected','competences','user'));
         }
         else {
@@ -100,19 +102,20 @@ public function editCompetences(User $user)
         }
     }
 
-    public function addCompetences(Request $request)
-        {   
-            $competences_select = $request->input('competences_select'); 
 
-            $user_id = Auth::guard('web')->user()->id;
-            if ($competences_select !=null) {
-                foreach ($competences_select as $competence) {
-                    $foundCompetence = Competence::find($competence);
-                    $foundCompetence->user()->sync($user_id);
-                }
+    public function addCompetences(Request $request)
+    {   
+        $competences_select = $request->input('competences_select'); 
+
+        $user_id = Auth::guard('web')->user()->id;
+        if ($competences_select !=null) {
+            foreach ($competences_select as $competence) {
+                $foundCompetence = Competence::find($competence);
+                $foundCompetence->user()->sync($user_id);
             }
-            return back();
         }
+        return back();
+    }
 
       
     public function detachCompetences(Request $request)
@@ -139,6 +142,7 @@ public function editCompetences(User $user)
         return view('users.edit_workExperience', compact('user', 'workExperiences'));
     }
 
+
     public function storeWorkExperience(User $user)
     {   
        
@@ -149,12 +153,11 @@ public function editCompetences(User $user)
             'end_date' => 'required',
             'department' => 'required',
             'position' => 'required',
-            'description' => 'required',
-          
+            'description' => 'required',      
             
-            ]);
+        ]);
 
-      $newWorkExperience = WorkExperience::create(request([
+        $newWorkExperience = WorkExperience::create(request([
             'user_id',
             'name',
             'start_date',
@@ -163,11 +166,11 @@ public function editCompetences(User $user)
             'position',
             'description',
 
-            ]));
+        ]));
 
-    $workExperiences = $user->WorkExperience()->orderBy('start_date', 'DESC')->get();
+        $workExperiences = $user->WorkExperience()->orderBy('start_date', 'DESC')->get();
     
-    return back();
+        return back();
     
     }
 
@@ -189,7 +192,7 @@ public function editCompetences(User $user)
             'level' => 'required',
             'diploma' => 'required'
       
-            ]);
+        ]);
 
         $newStudyExperience = StudyExperience::create(request([
             'user_id',
@@ -199,7 +202,7 @@ public function editCompetences(User $user)
             'level',
             'diploma'
      
-            ]));
+        ]));
 
         $studyExperiences = $user->studyExperience()->orderBy('start_date', 'DESC')->get();
     

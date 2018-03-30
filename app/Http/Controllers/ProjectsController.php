@@ -6,6 +6,7 @@ use App\Project;
 use Auth;
 use App;
 use App\User;
+use App\Competence;
 use Carbon\Carbon;
 use Session;
 
@@ -39,9 +40,9 @@ class ProjectsController extends Controller
 		}
 		
 		$list_of_projectusers = $project->user()->withPivot('projectowner')->get();
-		
+		$competences = $project->competence()->get();
 
-		return view('projects.show', compact('project', 'isProjectOwner', 'isProjectMember', 'list_of_projectusers'));
+		return view('projects.show', compact('project', 'isProjectOwner', 'isProjectMember', 'list_of_projectusers', 'competences'));
 	}
 
 
@@ -60,7 +61,8 @@ class ProjectsController extends Controller
 
 	public function create()
 	{
-		return view('projects.create');
+		$competences = Competence::all();
+		return view('projects.create', compact('competences'));
 	}
 
 	public function isMember($check_user, $project)
@@ -104,7 +106,7 @@ class ProjectsController extends Controller
 	}
 
 	public function store()
-	{	
+	{			
 		$user_id = Auth::guard('web')->user()->id;
 
 		$this->validate(request(),[
@@ -128,6 +130,15 @@ class ProjectsController extends Controller
 
 		$newProject->user()->attach($user_id, ['projectowner' => true]);
 
+		$competences_select = request()->input('competences_select');
+
+		if ($competences_select) {
+            foreach ($competences_select as $competence) {
+                $foundCompetence = Competence::find($competence);
+                $foundCompetence->project()->attach($newProject->id);
+            }
+        }
+
 		return redirect('/projects');
 	}
 
@@ -139,9 +150,11 @@ class ProjectsController extends Controller
 		$isProjectOwner = $this->isOwner(Auth::guard('web')->user(), $project);
 
 		$list_of_projectusers = $project->user()->withPivot('projectowner')->get();
+		$competences = Competence::all();
+		//$selected_competences = $project->competence()->get();
+		//dd($selected_competences);
 
-
-		return view('projects.edit', compact('project', 'isProjectOwner', 'list_of_projectusers'));
+		return view('projects.edit', compact('project', 'isProjectOwner', 'list_of_projectusers', 'competences'));
 	}
 
 	public function seekMembers()
@@ -655,7 +668,63 @@ class ProjectsController extends Controller
 			$project->save();
 		}
 
+		$competences_select = request()->input('competences_select');
+
+		$project->competence()->sync($competences_select);
+
+
 		return redirect('/projects/' . $project->id);
+	}
+
+
+   
+	public function editCompetences(Project $project)
+	{   
+		$competences = Competence::all();
+		$competences_selected = $project->competence()->get();
+
+		$project_id = request('project_id');
+		$project = Project::find($project_id);
+		$isProjectOwner = $this->isOwner(Auth::guard('web')->user(), $project);
+
+		$list_of_projectusers = $project->user()->withPivot('projectowner')->get();
+
+		if ($isProjectOwner)
+			return view('projects.edit', compact('project', 'isProjectOwner', 'list_of_projectusers', 'competences_selected','competences'));
+		else {
+			return back();
+		}
+	}
+
+
+	public function addCompetences(Request $request)
+	{   
+		$competences_select = $request->input('competences_select'); 
+
+		$user_id = Auth::guard('web')->user()->id;
+		if ($competences_select !=null) {
+			foreach ($competences_select as $competence) {
+				$foundCompetence = Competence::find($competence);
+				$foundCompetence->user()->sync($user_id);
+			}
+		}
+		return back();
+	}
+
+	
+	public function detachCompetences(Request $request)
+	{   
+		
+		$competence = $request->input('competence');  
+		$user_id = Auth::guard('web')->user()->id;
+	
+
+		$foundCompetence = Competence::find($competence);
+		$foundCompetence->user()->detach($user_id);
+	
+				
+		return back();
+
 	}
 
 }

@@ -15,6 +15,11 @@ class Project extends Model
         return $this->belongsToMany(User::class, 'projects_users', 'project_id', 'user_id');
     }
 
+    public function competence()
+    {
+        return $this->belongsToMany(Competence::class, 'competences_projects', 'project_id', 'competence_id');
+    }
+
     public function isCompleted()
     {
     	return false;

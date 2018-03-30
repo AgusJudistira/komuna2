@@ -2,11 +2,10 @@
 
 @section('content')
 
-
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
-        <form method="post" action="/projects/save_existing/{{$project->id}}">
+            <form method="post" action="/projects/save_existing/{{$project->id}}">
                 {{ csrf_field() }}
                 <div class="form-group">
                     <div class="card">
@@ -79,8 +78,26 @@
                                         <strong>{{ $errors->first('due_date') }}</strong>
                                     </span>
                                 @endif
-                            </div>    
+                            </div>
                             
+                            <div class="form-group row">
+                                <div class="col-md-3 text-right">Selecteer de benodigde competenties voor dit project:</div>
+
+                                <div class="col-md-4">
+
+                                    <select name="competences_select[]" class="form-control" multiple>
+                                        @foreach ($competences as $competence)
+
+                                            @if ($competence->project()->get()->find($project->id))
+                                                <option name='competence' value='{{ $competence->id }}' selected>{{ $competence->competence }}</option>
+                                            @else
+                                                <option name='competence' value='{{ $competence->id }}'>{{ $competence->competence }}</option>
+                                            @endif
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+
                             <div class="form-group row" rel="popover" data-trigger="hover" data-content="Genoeg leden" data-original-title="">
                                 <label class="control-label control-label-right col-md-4">Heeft genoeg medewerkers:</label>
                                 <div class="col-md-1">
@@ -96,17 +113,14 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     Projectleden:
-                                    <ul class="list-group">
-                                        @foreach ($list_of_projectusers as $projectuser)
-                                            @if ($projectuser->pivot->projectowner)
-                                                <li class="list-group-item list-group-item-info">{{ $projectuser->firstname . " " . $projectuser->lastname }}
-                                                <span> (eigenaar)</span>
-                                            @else
-                                                <li class="list-group-item list-group-item-secondary">{{ $projectuser->firstname . " " . $projectuser->lastname }}
-                                            @endif
-                                                </li>                                            
-                                        @endforeach
-                                    </ul>
+                                    @foreach ($list_of_projectusers as $projectuser)
+                                        @if ($projectuser->pivot->projectowner)
+                                            <span class="badge badge-pill badge-info">{{ $projectuser->firstname . " " . $projectuser->lastname }} (eigenaar)</span>                                            
+                                        @else
+                                            <span class="badge badge-pill badge-secondary">{{ $projectuser->firstname . " " . $projectuser->lastname }}</span>
+                                        @endif
+                                    @endforeach
+
                                 </div>
                             </div>
 

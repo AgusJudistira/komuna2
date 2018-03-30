@@ -25,19 +25,27 @@
                         @endif
                         
                         <div class="row">
+                            <div class="col-md-12">Benodigde competenties:</div>
+                        </div>
+                        @foreach ($competences as $competence)
+                            <span class="badge badge-pill badge-success">{{ $competence->competence }}</span>
+                        @endforeach
+                        
+
+                        <div class="row">
                             <div class="col-md-12">
                                 Projectleden:
                             </div>
                         </div>
-                        <ul class="list-group">                            
-                            @foreach ($list_of_projectusers as $projectuser)
-                                @if ($projectuser->pivot->projectowner)
-                                    <li class="list-group-item list-group-item-info">{{ $projectuser->firstname . " " . $projectuser->lastname }}  (eigenaar)</li>
-                                @else
-                                    <li class="list-group-item list-group-item-secondary">{{ $projectuser->firstname . " " . $projectuser->lastname }}</li>
-                                @endif
-                            @endforeach                            
-                        </ul>
+                        
+                        @foreach ($list_of_projectusers as $projectuser)
+                            @if ($projectuser->pivot->projectowner)
+                                <span class="badge badge-pill badge-info">{{ $projectuser->firstname . " " . $projectuser->lastname }}  (eigenaar)</span>
+                            @else
+                                <span class="badge badge-pill badge-secondary">{{ $projectuser->firstname . " " . $projectuser->lastname }}</span>
+                            @endif
+                        @endforeach                            
+                        
                                   
                     </div>
                     <div class="card-footer">

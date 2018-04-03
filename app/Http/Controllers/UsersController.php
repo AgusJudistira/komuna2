@@ -38,13 +38,13 @@ class UsersController extends Controller
     public function update(User $user)
     { 
         $this->validate(request(), [
-        	'birthday' => 'required',
-        	'gender' => 'required',
-            'streetname_number' => 'required',
-            'postal_code' => 'required',
+        	'birthday',
+        	'gender',
+            'streetname_number',
+            'postal_code',
             'city' => 'required',
-            'phone_private' => 'required',
-            'phone_work' => 'required'
+            'phone_private',
+            'phone_work' 
 
         ]);
         
@@ -152,10 +152,10 @@ class UsersController extends Controller
             'user_id' => 'required',
             'name' => 'required',
             'start_date' => 'required',
-            'end_date' => 'required',
-            'department' => 'required',
-            'position' => 'required',
-            'description' => 'required',      
+            'end_date',
+            'department',
+            'position',
+            'description',      
             
         ]);
 
@@ -190,10 +190,9 @@ class UsersController extends Controller
             'user_id' => 'required',
             'name' => 'required',
             'start_date' => 'required',
-            'end_date' => 'required',
-            'level' => 'required',
-            'diploma' => 'required'
-      
+            'end_date',
+            'level',
+            'diploma'
         ]);
 
         $newStudyExperience = StudyExperience::create(request([

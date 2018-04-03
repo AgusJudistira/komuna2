@@ -8,7 +8,7 @@
                 <div class="card">
 
                     <div class="card-header">  
-                        <h4>Toegevoegde vaardigheden</h4>                      
+                        <h4>Voeg vaardigheden toe</h4>                      
                     </div>
 
                     <form class="form-group float-left ml-1" method="POST" action="{{route('users.detach_skills', $user)}}">
@@ -30,7 +30,6 @@
                     </div >
 
                     <!-- voeg een vardigheid toe -->
-
                     <form class="form-group mt-4" method="POST" action="{{route('users.store_skills', $user)}}">
                         {{csrf_field()}}                   
                             
@@ -75,5 +74,4 @@
          </div>
      </div>
  </div>
-
 @endsection

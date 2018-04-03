@@ -46,7 +46,7 @@
                          <div class="form-group row">
                             <label for="end_date" class="col-md-4 col-form-label text-md-right">{{ __('Tot') }}</label>
                             <div class="col-md-6">
-                                <input id="end_date" type="date" class="form-control" name="end_date" value="" required>
+                                <input id="end_date" type="date" class="form-control" name="end_date" value="">
                                 @if ($errors->has('end_date'))
                                     <span class="invalid-feedback">
                                         <strong>{{ $errors->first('end_date') }}</strong>
@@ -58,7 +58,7 @@
                         <div class="form-group row">
                             <label for="level" class="col-md-4 col-form-label text-md-right">{{ __('Opleidingsniveau') }}</label>
                             <div class="col-md-6">
-                                 <select id="level" type="text" class="form-control" name="level" value="{{ $user->level }}" required>
+                                 <select id="level" type="text" class="form-control" name="level" value="{{ $user->level }}">
                                     <option value="7">Post-Doc</option>
                                     <option value="6">MBA</option>
                                     <option value="5">WO</option>

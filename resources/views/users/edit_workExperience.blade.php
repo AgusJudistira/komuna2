@@ -46,7 +46,7 @@
                          <div class="form-group row">
                             <label for="end_date" class="col-md-4 col-form-label text-md-right">{{ __('eind datum') }}</label>
                             <div class="col-md-6">
-                                <input id="end_date" type="date" class="form-control" name="end_date" value="" required>
+                                <input id="end_date" type="date" class="form-control" name="end_date" value="">
                                 @if ($errors->has('end_date'))
                                     <span class="invalid-feedback">
                                         <strong>{{ $errors->first('end_date') }}</strong>
@@ -58,7 +58,7 @@
                         <div class="form-group row">
                             <label for="department" class="col-md-4 col-form-label text-md-right">{{ __('Afdeling') }}</label>
                             <div class="col-md-6">
-                                <input id="department" type="text" class="form-control" name="department" value="" required>
+                                <input id="department" type="text" class="form-control" name="department" value="" >
                                 @if ($errors->has('department'))
                                     <span class="invalid-feedback">
                                         <strong>{{ $errors->first('department') }}</strong>
@@ -70,7 +70,7 @@
                         <div class="form-group row">
                             <label for="position" class="col-md-4 col-form-label text-md-right">{{ __('Functie') }}</label>
                             <div class="col-md-6">
-                                <input id="position" type="text" class="form-control" name="position" value="" required>
+                                <input id="position" type="text" class="form-control" name="position" value="" >
                                 @if ($errors->has('position'))
                                     <span class="invalid-feedback">
                                         <strong>{{ $errors->first('position') }}</strong>

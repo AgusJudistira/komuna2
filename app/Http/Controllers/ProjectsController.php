@@ -106,15 +106,19 @@ class ProjectsController extends Controller
 	}
 
 	public function store()
-	{			
+	{	
+		if (request('cancel') == 'cancel') {
+			return redirect('/projects');
+		}
+
 		$user_id = Auth::guard('web')->user()->id;
 
 		$this->validate(request(),[
 			
 			'name' => 'required', 
-			'description' => 'required', 
+			//'description' => 'required', 
 			'start_date' => 'required',
-			'due_date' => 'required'
+			//'due_date' => 'required'
 
 		]);
 
@@ -140,6 +144,49 @@ class ProjectsController extends Controller
         }
 
 		return redirect('/projects');
+	}
+
+
+	public function save_existing(Project $project)
+	{			
+		//dd(request('competences_select'));
+		if (request('invoeren') == 'invoeren') {
+			$user_id = Auth::guard('web')->user()->id;
+			if (request('enough_members') == 'enough_members') {
+				$enough_members = true;
+			}
+			else {
+				$enough_members = false;
+			}
+			
+			$this->validate(request(),[
+
+				'name' => 'required', 
+				//'description' => 'required', 
+				'start_date' => 'required'
+				//'due_date' => 'required'
+
+			]);
+
+			$savedProject = $project->update(request([
+
+				'name', 
+				'description', 
+				'start_date', 
+				'due_date'
+
+			]));
+
+			$project->enough_members = $enough_members;
+			$project->save();
+		}
+
+		$competences_select = request()->input('competences_select');
+
+		$project->competence()->sync($competences_select);
+
+
+		return redirect('/projects/' . $project->id);
 	}
 
 
@@ -415,10 +462,8 @@ class ProjectsController extends Controller
 		//$projectmembers = $project->user()->withPivot('projectowner')->get();
 		$project_owners = $project->user()->withPivot('projectowner')->where('projectowner', true)->get();
 		//verstuur een bericht aan iedere projecteigenaar
-		foreach($project_owners as $project_owner) {
-			//if ($member->pivot->projectowner) {
+		foreach($project_owners as $project_owner) {			
 			$this->sendPermissionToJoinMessage($project, Auth::guard('web')->user()->id, $project_owner->id, $user_message);
-			//}
 		}
 
 		return redirect('home');
@@ -515,8 +560,7 @@ class ProjectsController extends Controller
 			//var_dump($thisuser_id, $this_message->sender_id);
 			if ($thisuser_id != $this_message->sender_id) {
 				$old_message = $this_message;
-				return view('projects.message_reply', compact('project', 'old_message'));
-				//$this->prepareReplyMessage($project, $this_message);				
+				return view('projects.message_reply', compact('project', 'old_message'));				
 			}
 		}
 		elseif ($thisuser_id != $applicant_id && $decider == "project owner") {
@@ -575,8 +619,9 @@ class ProjectsController extends Controller
 		}
 
 		$list_of_projectusers = $project->user()->withPivot('projectowner')->get();
+		$competences = $project->competence()->get();
 
-		return view('projects.show', compact('project', 'isProjectOwner', 'isProjectMember', 'list_of_projectusers'));
+		return view('projects.show', compact('project', 'isProjectOwner', 'isProjectMember', 'list_of_projectusers', 'competences'));
 	}
 
 
@@ -633,49 +678,6 @@ class ProjectsController extends Controller
 			]);
 		}
 	} 
-
-
-	public function save_existing(Project $project)
-	{			
-		if (request('invoeren') == 'invoeren') {
-			$user_id = Auth::guard('web')->user()->id;
-			if (request('enough_members') == 'enough_members') {
-				$enough_members = true;
-			}
-			else {
-				$enough_members = false;
-			}
-			
-			$this->validate(request(),[
-
-				'name' => 'required', 
-				'description' => 'required', 
-				'start_date' => 'required'
-				//'due_date' => 'required'
-
-			]);
-
-			$savedProject = $project->update(request([
-
-				'name', 
-				'description', 
-				'start_date', 
-				'due_date'
-
-			]));
-
-			$project->enough_members = $enough_members;
-			$project->save();
-		}
-
-		$competences_select = request()->input('competences_select');
-
-		$project->competence()->sync($competences_select);
-
-
-		return redirect('/projects/' . $project->id);
-	}
-
 
    
 	public function editCompetences(Project $project)

@@ -114,7 +114,8 @@ Route::get('/users/{user}/edit_studyExperience',  ['as' => 'users.edit_studyExpe
 //study workExperience
 Route::post('/users/{user}/update_studyExperience',  ['as' => 'users.update_studyExperience', 'uses' => 'UsersController@storeStudyExperience'])->where('user', '[0-9]+');
 
-
-
+//edit skills
+Route::get('/users/{user}/edit_skills',  ['as' => 'users.edit_skills', 'uses' => 'UsersController@editSkills'])->where('user', '[0-9]+');
+Route::post('/users/{user}/store_skills',  ['as' => 'users.store_skills', 'uses' => 'SkillController@storeSkill'])->where('user', '[0-9]+');
 
 

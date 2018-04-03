@@ -9,6 +9,7 @@ use App\User;
 use App\Competence;
 use App\WorkExperience;
 use App\StudyExperience;
+use App\Skill;
 
 use Image;
 
@@ -206,8 +207,26 @@ public function editCompetences(User $user)
         return back();
     
     }
+    public function editSkills(User $user)
+    {   
 
+        $skills = Skill::all();
+        $skills_selected = $user->skill()->get();
 
+            if ($user->id == Auth::guard('web')->user()->id) {
+
+             return view('users.edit_skills', compact('user', 'skills', 'skills_selected'));
+            
+        }
+        else {
+            return back();
+        }
+
+    }
+
+    public function Attach(){
+
+    }
 
 }
 

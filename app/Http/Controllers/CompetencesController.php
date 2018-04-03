@@ -30,18 +30,20 @@ class CompetencesController extends Controller
 
 		$this->validate(request(),[
 			
-			'competence' => 'required'
+			'competence' => 'required',
+			'description' =>'required'
 			
 			]);
 
 
-		$newCompetence = Competence::create(request([
+		$newCompetence = Competence::updateOrCreate(request([
 
 			'competence' 
 
 			]));
+
 		return back();
-		//return redirect('/admin/create_competences');
+		
 	}
 
 	public function deleteCompetences(Request $request)

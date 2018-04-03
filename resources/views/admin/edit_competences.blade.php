@@ -16,6 +16,10 @@
               <label for="competence">Creëer competentie:</label>
               <input type="text" class="form-control" id="competence" name="competence" required>
             </div>
+             <div class="form-group">
+              <label for="description">geef een bescrijving van de competentie:</label>
+              <textarea type="text" class="form-control" id="description" name="description" required></textarea>
+            </div>
             <button type="submit" class="btn btn-default">Creeer</button>
             <div class="form-group">
               @if(count($errors))

@@ -52,6 +52,14 @@ Route::get('/projects/join/{project}', 'ProjectsController@prepareJoinMessage')-
 //Route::get('/messages/send/{project}', 'ProjectsController@sendJoinProjectMessage')->where('project', '[0-9]+');
 Route::get('/projects/send_join_request/{project}', 'ProjectsController@sendJoinProjectMessage');
 //show a list of messages
+
+Route::get('/projects/{project}/edit_competences',  ['as' => 'projects.edit_competences', 'uses' => 'ProjectsController@editCompetences'])->where('project', '[0-9]+');
+//attach competences to project
+Route::post('/projects/{project}/update_competences',  ['as' => 'projects.update_competences', 'uses' => 'UsersController@addCompetences'])->where('project', '[0-9]+');
+//detacth competences from project
+Route::post('/projects/{project}/detach_competences',  ['as' => 'projects.detach_competences', 'uses' => 'UsersController@detachCompetences'])->where('project', '[0-9]+');
+
+
 Route::get('/messages/msg-index', 'MessagesController@showMessages');
 //read one message
 Route::get('/messages/msg-show/{message}', 'MessagesController@focusMessage')->where('message', '[0-9]+');
@@ -114,7 +122,8 @@ Route::get('/users/{user}/edit_studyExperience',  ['as' => 'users.edit_studyExpe
 //study workExperience
 Route::post('/users/{user}/update_studyExperience',  ['as' => 'users.update_studyExperience', 'uses' => 'UsersController@storeStudyExperience'])->where('user', '[0-9]+');
 
-
-
+//edit skills
+Route::get('/users/{user}/edit_skills',  ['as' => 'users.edit_skills', 'uses' => 'UsersController@editSkills'])->where('user', '[0-9]+');
+Route::post('/users/{user}/store_skills',  ['as' => 'users.store_skills', 'uses' => 'SkillController@storeSkill'])->where('user', '[0-9]+');
 
 

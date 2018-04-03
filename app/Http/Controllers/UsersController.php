@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use App\User;
+use App\Skill;
 use App\Competence;
 use App\WorkExperience;
 use App\StudyExperience;
@@ -205,6 +206,19 @@ public function editCompetences(User $user)
     
         return back();
     
+    }
+
+    public function editSkills(User $user)
+    {   
+        $skills = Skill::all();
+        $skills_selected = $user->competence()->get();
+
+            if ($user->id == Auth::guard('web')->user()->id) {
+            return view('users.edit_skills', compact( 'skills_selected','skills','user'));
+        }
+        else {
+            return back();
+        }
     }
 
 

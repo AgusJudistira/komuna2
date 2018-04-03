@@ -19,6 +19,7 @@ class CreateProjectsTable extends Migration
             $table->text('description')->nullable();
             $table->dateTime('start_date');
             $table->dateTime('due_date')->nullable();
+            $table->boolean('enough_members')->default(false);
             $table->timestamps();
         });
     }

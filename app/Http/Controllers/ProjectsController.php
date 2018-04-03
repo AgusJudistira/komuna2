@@ -6,6 +6,7 @@ use App\Project;
 use Auth;
 use App;
 use App\User;
+use App\Competence;
 use Carbon\Carbon;
 use Session;
 
@@ -39,9 +40,9 @@ class ProjectsController extends Controller
 		}
 		
 		$list_of_projectusers = $project->user()->withPivot('projectowner')->get();
-		
+		$competences = $project->competence()->get();
 
-		return view('projects.show', compact('project', 'isProjectOwner', 'isProjectMember', 'list_of_projectusers'));
+		return view('projects.show', compact('project', 'isProjectOwner', 'isProjectMember', 'list_of_projectusers', 'competences'));
 	}
 
 
@@ -60,7 +61,8 @@ class ProjectsController extends Controller
 
 	public function create()
 	{
-		return view('projects.create');
+		$competences = Competence::all();
+		return view('projects.create', compact('competences'));
 	}
 
 	public function isMember($check_user, $project)
@@ -104,7 +106,7 @@ class ProjectsController extends Controller
 	}
 
 	public function store()
-	{	
+	{			
 		$user_id = Auth::guard('web')->user()->id;
 
 		$this->validate(request(),[
@@ -128,6 +130,15 @@ class ProjectsController extends Controller
 
 		$newProject->user()->attach($user_id, ['projectowner' => true]);
 
+		$competences_select = request()->input('competences_select');
+
+		if ($competences_select) {
+            foreach ($competences_select as $competence) {
+                $foundCompetence = Competence::find($competence);
+                $foundCompetence->project()->attach($newProject->id);
+            }
+        }
+
 		return redirect('/projects');
 	}
 
@@ -139,9 +150,11 @@ class ProjectsController extends Controller
 		$isProjectOwner = $this->isOwner(Auth::guard('web')->user(), $project);
 
 		$list_of_projectusers = $project->user()->withPivot('projectowner')->get();
+		$competences = Competence::all();
+		//$selected_competences = $project->competence()->get();
+		//dd($selected_competences);
 
-
-		return view('projects.edit', compact('project', 'isProjectOwner', 'list_of_projectusers'));
+		return view('projects.edit', compact('project', 'isProjectOwner', 'list_of_projectusers', 'competences'));
 	}
 
 	public function seekMembers()
@@ -205,8 +218,10 @@ class ProjectsController extends Controller
 			$message = "<p>$sender_fullname nodigt je uit om aan het project&nbsp;<a href='/projects/$project_id' target='_blank'>$thisProject->name</a>&nbsp;mee te werken.</p>";
 			$message .= "<p>Klik op accepteren of weigeren.</p>";
 			//$action .= "<form id=\"decide\" method=\"POST\" action=\"/projects/decide\">";
-			
-			$actions  = "<div class=\"row\">";
+			$actions  = "<div class=\"row\"><div class=\"col-md-12\"><b><i>Eventuele persoonlijke bericht:</i></b></div>";
+			$actions .= "<div class=\"col-md-12\"><textarea class=\"form-control\" type=\"text\" name=\"user_message\"></textarea></div>";
+			$actions .= "</div>";
+			$actions .= "<div class=\"row\">";
 			$actions .= "<div class=\"col-md-4\"></div>";
 			$actions .= "<div class=\"col-md-4\"><button form=\"decide\" name=\"refuse\" value=\"refuse\" type=\"submit\" class=\"btn btn-info btn-lg\">Weigeren</button></div>";
 			$actions .= "<div class=\"col-md-4\"><button form=\"decide\" name=\"accept\" value=\"accept\" type=\"submit\" class=\"btn btn-primary btn-lg\">Accepteren</button></div>";
@@ -261,7 +276,7 @@ class ProjectsController extends Controller
 			//$action .= "<form id=\"decide\" method=\"POST\" action=\"/projects/decide\">";
 			$actions  = "<div class=\"row\">";
 			$actions .= "<div class=\"col-md-4\"></div>";
-			$actions .= "<div class=\"col-md-8 text-right\"><button form=\"decide\" name=\"reply\" value=\"reply\" type=\"submit\" class=\"btn btn-info btn-lg\">Beantwoorden</button></div>";			
+			$actions .= "<div class=\"col-md-8 text-right\"><button form=\"decide\" name=\"reply\" value=\"reply\" type=\"submit\" class=\"btn btn-info btn-lg\">Beantwoorden</button></div>";
 			$actions .= "</div>";
 			$actions .= "<input type=\"hidden\" name=\"project_id\" value=\"$project_id\">";
 			$actions .= "<input type=\"hidden\" name=\"applicant_id\" value=\"$applicant_id\">";
@@ -420,8 +435,9 @@ class ProjectsController extends Controller
 		$message = "<p>$sender_fullname wilt graag meewerken aan het project&nbsp;<a href='/projects/$project_id' target='_blank'>$project->name</a>.</p>";
 		$message .= "<p>Klik op accepteren of weigeren.</p>";		
 		//$action .= "<form id=\"decide\" method=\"POST\" action=\"/projects/decide\">";
-		
-		$actions  = "<div class=\"row\">";
+		$actions  = "<div class=\"row\"><div class=\"col-md-12\"><b><i>Eventuele persoonlijke bericht:</i></b></div>";
+		$actions .= "<div class=\"col-md-12\"><textarea class=\"form-control\" type=\"text\" name=\"user_message\"></textarea></div>";
+		$actions .= "<div class=\"row col-md-12\">";
 		$actions .= "<div class=\"col-md-4\"></div>";
 		$actions .= "<div class=\"col-md-4\"><button form=\"decide\" name=\"refuse\" value=\"refuse\" type=\"submit\" class=\"btn btn-info btn-lg\">Weigeren</button></div>";
 		$actions .= "<div class=\"col-md-4\"><button form=\"decide\" name=\"accept\" value=\"accept\" type=\"submit\" class=\"btn btn-primary btn-lg\">Accepteren</button></div>";
@@ -458,7 +474,8 @@ class ProjectsController extends Controller
 			'recipient_id' => $recipient_id,
 			'project_id' => $project_id,
 			'subject' => $subject,
-			'message' => $message
+			'message' => $message,
+			'user_message' => request('user_message')
 		]);
 	}
 
@@ -476,7 +493,8 @@ class ProjectsController extends Controller
 			'recipient_id' => $applicant_id,
 			'project_id' => $project_id,
 			'subject' => $subject,
-			'message' => $message
+			'message' => $message,
+			'user_message' => request('user_message')
 		]);
 	}
 
@@ -582,7 +600,8 @@ class ProjectsController extends Controller
 				'recipient_id' => $projectOwner->id,
 				'project_id' => $project->id,
 				'subject' => $subject,
-				'message' => $message
+				'message' => $message,
+				'user_message' => request('user_message')
 			]);
 		}
 	} 
@@ -598,7 +617,9 @@ class ProjectsController extends Controller
 		$subject = $sender_fullname . " heeft de uitnodiging van om aan het project '$project->name' mee te werken geweigerd.";
 		$message = "<p>Helaas...</p>";
 		$message .= "<p>$sender_fullname heeft de uitnodiging van $inviter->fullname om aan het project <a href='/projects/$project->id' target='_blank'>$project->name</a> mee te werken <b>geweigerd</b>.</p>";
+		//$message .= "<p>$original_message->user_message</p>";
 		
+
 		$projectOwners = $this->getProjectOwners($project);
 
 		foreach ($projectOwners as $projectOwner) {
@@ -607,7 +628,8 @@ class ProjectsController extends Controller
 				'recipient_id' => $projectOwner->id,
 				'project_id' => $project->id,
 				'subject' => $subject,
-				'message' => $message
+				'message' => $message,
+				'user_message' => request('user_message')
 			]);
 		}
 	} 
@@ -617,13 +639,19 @@ class ProjectsController extends Controller
 	{			
 		if (request('invoeren') == 'invoeren') {
 			$user_id = Auth::guard('web')->user()->id;
+			if (request('enough_members') == 'enough_members') {
+				$enough_members = true;
+			}
+			else {
+				$enough_members = false;
+			}
 			
 			$this->validate(request(),[
 
 				'name' => 'required', 
 				'description' => 'required', 
-				'start_date' => 'required', 
-				'due_date' => 'required'
+				'start_date' => 'required'
+				//'due_date' => 'required'
 
 			]);
 
@@ -635,9 +663,68 @@ class ProjectsController extends Controller
 				'due_date'
 
 			]));
+
+			$project->enough_members = $enough_members;
+			$project->save();
 		}
 
+		$competences_select = request()->input('competences_select');
+
+		$project->competence()->sync($competences_select);
+
+
 		return redirect('/projects/' . $project->id);
+	}
+
+
+   
+	public function editCompetences(Project $project)
+	{   
+		$competences = Competence::all();
+		$competences_selected = $project->competence()->get();
+
+		$project_id = request('project_id');
+		$project = Project::find($project_id);
+		$isProjectOwner = $this->isOwner(Auth::guard('web')->user(), $project);
+
+		$list_of_projectusers = $project->user()->withPivot('projectowner')->get();
+
+		if ($isProjectOwner)
+			return view('projects.edit', compact('project', 'isProjectOwner', 'list_of_projectusers', 'competences_selected','competences'));
+		else {
+			return back();
+		}
+	}
+
+
+	public function addCompetences(Request $request)
+	{   
+		$competences_select = $request->input('competences_select'); 
+
+		$user_id = Auth::guard('web')->user()->id;
+		if ($competences_select !=null) {
+			foreach ($competences_select as $competence) {
+				$foundCompetence = Competence::find($competence);
+				$foundCompetence->user()->sync($user_id);
+			}
+		}
+		return back();
+	}
+
+	
+	public function detachCompetences(Request $request)
+	{   
+		
+		$competence = $request->input('competence');  
+		$user_id = Auth::guard('web')->user()->id;
+	
+
+		$foundCompetence = Competence::find($competence);
+		$foundCompetence->user()->detach($user_id);
+	
+				
+		return back();
+
 	}
 
 }

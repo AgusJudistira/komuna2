@@ -47,22 +47,37 @@
               </div>
             </div>
             <br>
+            <div class="form-group row">
+              <div class="col-md-3 text-right">Selecteer de benodigde competenties voor dit project:</div>
+
+              <div class="col-md-4">
+                  <select name="competences_select[]" class="form-control" multiple>
+                    @foreach ($competences as $competence)
+                      <option name='competence' value='{{ $competence->id }}'>{{ $competence->competence }}</option>
+                    @endforeach
+                  </select>
+              </div>
+            </div>
+
             <div class="col-md-4">
               <button type="submit" class="btn btn-primary btn-lg">Start project</button>
             </div>
-                        
+        				
+					</form>
+
+
             <div class="form-group">
               @if(count($errors))
               <div class="alert alert-danger">
                 <ul>
                   @foreach($errors->all() as $error) 
-                  <li>{{$error}}</li>
+                    <li>{{$error}}</li>
                   @endforeach
                 </ul>
               </div>
               @endif
             </div >
-          </form>
+          
         </div>
       </div>
     </div>

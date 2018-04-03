@@ -16,20 +16,36 @@
                     	<h1>Project: {{ $project->name }} </h1>                     
                     </div>
                     <div class="card-body">
-                        <p> {{ $project->description }}</p>
+                        <p class="card-text"> {{ $project->description }}</p>
 						<p> start: {{ $project->start_date }} </p>
                         <p> deadline: {{ $project->due_date }}</p>
+
+                        @if ($project->enough_members)
+                            <p class="text-danger">Er zijn al genoeg vrijwilligers. Ledenwerving gestopt</p>
+                        @endif
+                        
+                        <div class="row">
+                            <div class="col-md-12">Benodigde competenties:</div>
+                        </div>
+                        @foreach ($competences as $competence)
+                            <span class="badge badge-pill badge-success">{{ $competence->competence }}</span>
+                        @endforeach
+                        
 
                         <div class="row">
                             <div class="col-md-12">
                                 Projectleden:
                             </div>
                         </div>
-                        <ul>                            
-                            @foreach ($list_of_projectusers as $projectuser)                                
-                                <li class="col-md-6">{{ $projectuser->firstname . " " . $projectuser->lastname }}@if ($projectuser->pivot->projectowner) (eigenaar)@endif</li>
-                            @endforeach                            
-                        </ul>
+                        
+                        @foreach ($list_of_projectusers as $projectuser)
+                            @if ($projectuser->pivot->projectowner)
+                                <span class="badge badge-pill badge-info">{{ $projectuser->firstname . " " . $projectuser->lastname }}  (eigenaar)</span>
+                            @else
+                                <span class="badge badge-pill badge-secondary">{{ $projectuser->firstname . " " . $projectuser->lastname }}</span>
+                            @endif
+                        @endforeach                            
+                        
                                   
                     </div>
                     <div class="card-footer">
@@ -59,9 +75,12 @@
                                 <div class="col-md-6 text-right">
                                     <button name="inquire" value="inquire" type="submit" class="btn btn-primary btn-lg">Vraagje...</button>
                                 </div>
-                                <div class="col-md-6">
-                                    <button id="join" name="join" value="join" type="submit" class="btn btn-primary btn-lg">Voor het project aanmelden</button>
-                                </div>
+
+                                @if (!$project->enough_members)
+                                    <div class="col-md-6">
+                                        <button id="join" name="join" value="join" type="submit" class="btn btn-primary btn-lg">Voor het project aanmelden</button>
+                                    </div>
+                                @endif
                             </form>                            
                         @endif
                     </div>

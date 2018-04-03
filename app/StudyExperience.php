@@ -9,7 +9,7 @@ use App\Competence;
 use App\WorkExperience;
 use Illuminate\Database\Eloquent\Model;
 
-class studyExperience extends Model
+class StudyExperience extends Model
 {
     protected $fillable = [
         'user_id', 

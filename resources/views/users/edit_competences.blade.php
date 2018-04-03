@@ -33,9 +33,9 @@
 						{{csrf_field()}}
 						
 						<div class="form-group">
-							<select name="competences_select[]" class="form-control" multiple>
+							<select name="competences_select[]" class="form-control" size="12" multiple>
 								@foreach ($competences as $competence)
-								<option name='competence' value='{{ $competence->id }}' data-toggle="tooltip" title="{{ $competence->description }}" class="btn btn-default float-left ml-1 mb-1"  >{{ $competence->competence }}</option>
+								<option name='competence' value='{{ $competence->id }}' data-toggle="tooltip" title="{{ $competence->description }}" >{{ $competence->competence }}</option>
 								@endforeach
 							</select>
 						</div>
@@ -60,7 +60,7 @@
                     </form>
       
                    <!--  Naar volgende -->
-            		<form class="col-md-2 float-right" method="GET" action="/users/{{Auth::user()->id}}/edit_workExperience"> 
+            		<form class="col-md-2 float-right" method="GET" action="/users/{{Auth::user()->id}}/edit_skills"> 
                          <button type="submit" class="btn btn-primary ml-auto" role="button">
                              {{ __('Volgende') }}
                          </button> 

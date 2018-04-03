@@ -5,6 +5,8 @@ namespace App;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\Competence;
+use App\Skill;
+
 class User extends Authenticatable
 {
     use Notifiable;
@@ -70,9 +72,16 @@ class User extends Authenticatable
     {
         return $this->hasMany(WorkExperience::class);
     }
+    
     public function studyExperience()
     {
         return $this->hasMany(StudyExperience::class);
+    }
+
+    public function skill()
+
+    {
+        return $this->belongsToMany(Skill::class, 'skill_user');
     }
 
 }

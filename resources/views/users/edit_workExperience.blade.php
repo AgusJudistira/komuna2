@@ -94,8 +94,8 @@
                             {{ __('Sla op') }}
                         </button> 
                     </form>
-                    <!-- Terug naar competenties -->
-                    <form class="col-md-2 float-right" method="GET" action="/users/{{Auth::user()->id}}/edit_competences"> 
+                    <!-- Terug naar skills -->
+                    <form class="col-md-2 float-right" method="GET" action="/users/{{Auth::user()->id}}/edit_skills"> 
                         <button type="submit" class="btn btn-primary ml-auto" role="button">
                             {{ __('Vorige') }}
                         </button> 

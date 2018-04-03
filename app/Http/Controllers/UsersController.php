@@ -211,7 +211,7 @@ public function editCompetences(User $user)
     public function editSkills(User $user)
     {   
         $skills = Skill::all();
-        $skills_selected = $user->competence()->get();
+        $skills_selected = $user->Skill()->get();
 
             if ($user->id == Auth::guard('web')->user()->id) {
             return view('users.edit_skills', compact( 'skills_selected','skills','user'));
@@ -221,7 +221,39 @@ public function editCompetences(User $user)
         }
     }
 
+    public function storeSkill(Request $request) 
+    {
 
+        $this->validate(request(),[
+            
+            'skill' => 'required'
+            
+            ]);
+        $newSkill = Skill::updateOrCreate(request([
+
+            'skill' 
+
+            ]));
+                    
+        $user_id = Auth::guard('web')->user()->id;
+        $newSkill->user()->sync($user_id);
+
+        return back();
+    }
+
+    public function detachSkills(Request $request)
+    {   
+        
+        $skill = $request->input('skill');  
+        $user_id = Auth::guard('web')->user()->id;
+       
+
+        $foundSkill = Skill::find($skill);
+        $foundSkill->user()->detach($user_id);
+       
+                
+        return back();
+    }
 
 }
 

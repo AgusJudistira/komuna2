@@ -29,7 +29,7 @@
                         </div>
                         <h5>
                             @foreach ($competences as $competence)
-                                <span class="badge badge-pill badge-success">{{ $competence->competence }}</span>
+                                <span data-toggle="tooltip" title='{{$competence->description}}' class="badge badge-pill badge-success">{{ $competence->competence }}</span>
                             @endforeach
                         </h5>
 

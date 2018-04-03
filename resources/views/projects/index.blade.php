@@ -28,7 +28,7 @@
         </form>
 
         <div class="col-md-12">        
-            @foreach ($projects as $project)
+            @foreach ($projects as $project)                
                 <div class="form-group">
                     <div class="card">
                         <div class="card-header">  
@@ -47,8 +47,13 @@
 
                             </div>
                         </div>
+                        <div class="card-footer">
+                            @if ($project->enough_members)
+                                <p class="text-danger">Er zijn al genoeg vrijwilligers. Ledenwerving gestopt</p>
+                            @endif
+                        </div>
                     </div>
-                </div>
+                </div>                
             @endforeach
         </div>   
     </div>         

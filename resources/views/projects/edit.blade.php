@@ -2,9 +2,20 @@
 
 @section('content')
 
+<style>
+
+#selector {
+    height: 200px;
+    background-color: red;
+    overflow-wrap: normal;
+    /* min-width:120px; */
+}
+
+</style>
+
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-md-12">
             <form method="post" action="/projects/save_existing/{{$project->id}}">
                 {{ csrf_field() }}
                 <div class="form-group">
@@ -80,24 +91,22 @@
                                 @endif
                             </div>
                             
-                            <div class="form-group row">
-                                <div class="col-md-3 text-right">Selecteer de benodigde competenties voor dit project:</div>
-
-                                <div class="col-md-4">
-
-                                    <select name="competences_select[]" class="form-control" multiple>
+                            
+                            <div class="col-md- text-left row">
+                                <div class="col-md-4  text-right">Selecteer de benodigde competenties voor dit project (druk op CTRL om meer dan een te selecteren):</div>
+                                <div class="col-md-8">
+                                    <select size="10" name="competences_select[]" class="form-control" multiple>
                                         @foreach ($competences as $competence)
-
                                             @if ($competence->project()->get()->find($project->id))
                                                 <option name='competence' value='{{ $competence->id }}' selected>{{ $competence->competence }}</option>
                                             @else
                                                 <option name='competence' value='{{ $competence->id }}'>{{ $competence->competence }}</option>
                                             @endif
-                                        @endforeach
-                                    </select>
+                                        @endforeach                                                                       
+                                    </select>                                            
                                 </div>
                             </div>
-
+                            <br />
                             <div class="form-group row" rel="popover" data-trigger="hover" data-content="Genoeg leden" data-original-title="">
                                 <label class="control-label control-label-right col-md-4">Heeft genoeg medewerkers:</label>
                                 <div class="col-md-1">
@@ -113,6 +122,7 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     Projectleden:
+                                    <h5>
                                     @foreach ($list_of_projectusers as $projectuser)
                                         @if ($projectuser->pivot->projectowner)
                                             <span class="badge badge-pill badge-info">{{ $projectuser->firstname . " " . $projectuser->lastname }} (eigenaar)</span>                                            
@@ -120,7 +130,7 @@
                                             <span class="badge badge-pill badge-secondary">{{ $projectuser->firstname . " " . $projectuser->lastname }}</span>
                                         @endif
                                     @endforeach
-
+                                    </h5>
                                 </div>
                             </div>
 

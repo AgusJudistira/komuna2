@@ -25,16 +25,17 @@
                             </div>
                         </div>
                     </div>
-                    <div class="card-footer">                          
-                        <div class="row">
-                            <div class="col-md-8"></div>
-                            <div class="col-md-4">                                    
+                    <div class="card-footer col-md-12">                          
+                        <div class="row">                        
+                            <div class="col-md-12 text-right">
                                 <button id="invite" name="reply" value="reply" type="submit" class="btn btn-primary btn-lg">Antwoord versturen</button>
                             </div>
-                            <input type="hidden" name="project_id" value="{{ $project->id }}">
-                            <input type="hidden" name="recipient_id" value="{{ $old_message->sender_id }}">
-                            <input type="hidden" name="old_message_id" value="{{ $old_message->id }}">
-                        </div>  
+                        </div>
+
+                        <input type="hidden" name="project_id" value="{{ $project->id }}">
+                        <input type="hidden" name="recipient_id" value="{{ $old_message->sender_id }}">
+                        <input type="hidden" name="old_message_id" value="{{ $old_message->id }}">
+                        
 
                         <div class="form-group">
                             @if(count($errors))

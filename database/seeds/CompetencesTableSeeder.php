@@ -679,7 +679,10 @@ class competencesTableSeeder extends Seeder
 
 
 
-//Nog niet live gebruiken. Eerst toestemming uitgever nodig.
+//toestemming gekregen onder voorwaarden:
+// 1. Het project is op vrijwillige basis en er is geen commercieel gewin.
+// 2. Een bronvermelding naar: https://www.sollicitego.nl/sollicitatietips/curriculum-vitae/competentielijst/
+
 
 
 // Uitgegeven in eigen beheer.

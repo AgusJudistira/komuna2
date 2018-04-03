@@ -16,20 +16,4 @@ class SkillController extends Controller
     {
         $this->middleware('web');
     }
-
-	public function storeSkill(Request $request) 
-	{
-
-		$this->validate(request(),[
-			
-			'skill' => 'required'
-			
-			]);
-		$newSkill = Skill::updateOrCreate(request([
-
-			'skill' 
-
-			]));
-		return back();
-	}
 }

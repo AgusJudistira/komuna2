@@ -6,10 +6,11 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use App\User;
+use App\Skill;
 use App\Competence;
 use App\WorkExperience;
 use App\StudyExperience;
-use App\Skill;
+
 
 use Image;
 
@@ -210,24 +211,52 @@ class UsersController extends Controller
         return back();
     
     }
+
     public function editSkills(User $user)
     {   
-
         $skills = Skill::all();
-        $skills_selected = $user->skill()->get();
+        $skills_selected = $user->Skill()->get();
 
             if ($user->id == Auth::guard('web')->user()->id) {
-
-             return view('users.edit_skills', compact('user', 'skills', 'skills_selected'));
-            
+            return view('users.edit_skills', compact( 'skills_selected','skills','user'));
         }
         else {
             return back();
         }
-
     }
 
-    public function Attach(){
+    public function storeSkill(Request $request) 
+    {
+
+        $this->validate(request(),[
+            
+            'skill' => 'required'
+            
+            ]);
+        $newSkill = Skill::updateOrCreate(request([
+
+            'skill' 
+
+            ]));
+                    
+        $user_id = Auth::guard('web')->user()->id;
+        $newSkill->user()->sync($user_id);
+
+        return back();
+    }
+
+    public function detachSkills(Request $request)
+    {   
+        
+        $skill = $request->input('skill');  
+        $user_id = Auth::guard('web')->user()->id;
+       
+
+        $foundSkill = Skill::find($skill);
+        $foundSkill->user()->detach($user_id);
+       
+                
+        return back();
 
     }
 

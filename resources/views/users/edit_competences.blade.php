@@ -14,7 +14,7 @@
 					<form class="form-group float-left ml-1" method="POST" action="{{route('users.detach_competences', $user)}}">
 						@foreach ($competences_selected as $competence_selected)
 						{{csrf_field()}}
-						<button type="submit" name='competence' value='{{ $competence_selected->id }}' data-toggle="tooltip" title="{{ $competence_selected->description }}" class="btn btn-default float-left ml-1 mb-1" >{{ $competence_selected->competence }}</button>
+						<button type="submit" name='competence' value='{{ $competence_selected->id }}' data-toggle="tooltip" title="{{ $competence_selected->description }}"class="btn btn-default float-left ml-1 mb-1" >{{ $competence_selected->competence }}</button>
 						@endforeach
 					</form>
 					<div class="form-group">
@@ -33,9 +33,9 @@
 						{{csrf_field()}}
 						
 						<div class="form-group">
-							<select name="competences_select[]" class="form-control" multiple>
+							<select name="competences_select[]" class="form-control" size="12" multiple>
 								@foreach ($competences as $competence)
-								<option name='competence' value='{{ $competence->id }}' data-toggle="tooltip" title="{{ $competence->description }}" class="btn btn-default float-left ml-1 mb-1"  >{{ $competence->competence }}</option>
+									<option name='competence' value='{{ $competence->id }}' data-toggle="tooltip">
 								@endforeach
 							</select>
 						</div>

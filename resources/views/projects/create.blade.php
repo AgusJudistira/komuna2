@@ -52,7 +52,7 @@
               <div class="col-md-8">
                   <select name="competences_select[]" class="form-control" size="10" multiple>
                     @foreach ($competences as $competence)
-                      <option name='competence' value='{{ $competence->id }}'>{{ $competence->competence }}</option>
+                  <option name='competence' data-toggle="tooltip" title='{{$competence->description}}' value='{{ $competence->id }}'>{{ $competence->competence }}</option>
                     @endforeach
                   </select>
               </div>

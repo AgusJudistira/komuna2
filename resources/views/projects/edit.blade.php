@@ -100,9 +100,9 @@
                                     <select size="10" name="competences_select[]" class="form-control" multiple>
                                         @foreach ($competences as $competence)
                                             @if ($competence->project()->get()->find($project->id))
-                                                <option name='competence' value='{{ $competence->id }}' selected>{{ $competence->competence }}</option>
+                                                <option name='competence' data-toggle="tooltip" title='{{$competence->description}}' value='{{ $competence->id }}' selected>{{ $competence->competence }}</option>
                                             @else
-                                                <option name='competence' value='{{ $competence->id }}'>{{ $competence->competence }}</option>
+                                                <option name='competence' data-toggle="tooltip" title='{{$competence->description}}' value='{{ $competence->id }}'>{{ $competence->competence }}</option>
                                             @endif
                                         @endforeach                                                                       
                                     </select>                                            

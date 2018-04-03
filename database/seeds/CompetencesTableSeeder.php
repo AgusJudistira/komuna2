@@ -3,7 +3,7 @@
 use Illuminate\Database\Seeder;
 use App\Competence;
 
-class competencesTableSeeder extends Seeder
+class CompetencesTableSeeder extends Seeder
 {
     /*'description' => *
      * Run the database seeds.

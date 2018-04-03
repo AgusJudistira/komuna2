@@ -23,9 +23,8 @@
                                 </span>
                                 @endif
                             </div>
-                        </form>
-                            <div class="form-group row mb-0">
-                                <div class="col-md-6 offset-md-10">
+                            </form>
+                                <div class="col-md-12">
                                     <!-- Terug naar NAW-gegevens -->
                                     <form class="col-md-2 float-left" method="GET" action="/users/{{Auth::user()->id}}/"> 
                                         <button type="submit" class="btn btn-primary ml-auto" role="button">
@@ -34,11 +33,11 @@
                                     </form>
                                     <!-- Naar competenitei selectie --> 
                                     <form class="col-md-2 float-right" method="GET" action="/users/{{Auth::user()->id}}/edit_competences"> 
+                                    
                                     <button type="submit" class="btn btn-primary ml-auto" role="button">
                                      {{ __('Volgende') }}
                                     </button> 
                                 </form>                        
-                                </div>
                             </div>
                         </div>
                     </div>

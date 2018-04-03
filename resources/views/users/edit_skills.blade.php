@@ -51,14 +51,13 @@
                                 @endif
                             </div>
                         </div>
-
-
-                    
-                         <button type="submit" class="btn btn-primary ml-auto float-right" role="button">
+                        <button type="submit" class="btn btn-primary ml-auto float-right" role="button">
                             {{ __('Sla op') }}
                         </button> 
                     </form>
+                    
                      <!-- Terug naar competenties -->
+                    <div class="col-md-12">
                     <form class="col-md-2 float-left" method="GET" action="/users/{{Auth::user()->id}}/edit_competences"> 
                         <button type="submit" class="btn btn-primary ml-auto" role="button">
                             {{ __('Vorige') }}
@@ -69,6 +68,8 @@
                          <button type="submit" class="btn btn-primary ml-auto" role="button">
                              {{ __('Volgende') }}
                          </button> 
+                    </form>
+                    </div>
                  </div>
              </div>
          </div>

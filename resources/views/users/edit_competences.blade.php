@@ -35,7 +35,7 @@
 						<div class="form-group">
 							<select name="competences_select[]" class="form-control" size="12" multiple>
 								@foreach ($competences as $competence)
-									<option name='competence' value='{{ $competence->id }}' data-toggle="tooltip">
+									<option name='competence' value='{{ $competence->id }}' data-toggle="tooltip" title="{{ $competence->description }}" >{{ $competence->competence }}</option>
 								@endforeach
 							</select>
 						</div>
@@ -53,7 +53,9 @@
 						</div >
 					</form>
 					<!-- Terug naar NAW-gegevens -->
-                    <form class="col-md-2 float-right" method="GET" action="/users/{{Auth::user()->id}}/edit_avatar"> 
+					
+                                <div class="col-md-12 ">
+                    <form class="col-md-2 float-left" method="GET" action="/users/{{Auth::user()->id}}/edit_avatar"> 
                         <button type="submit" class="btn btn-primary ml-auto" role="button">
                             {{ __('Vorige') }}
                         </button> 
@@ -64,8 +66,10 @@
                          <button type="submit" class="btn btn-primary ml-auto" role="button">
                              {{ __('Volgende') }}
                          </button> 
-                    </form>    
-                 </div>
+                    </form>
+                    	</div>  
+                    </div>  
+                 
              </div>
          </div>
      </div>

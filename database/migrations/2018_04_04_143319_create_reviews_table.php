@@ -15,7 +15,7 @@ class CreateReviewsTable extends Migration
     {
         Schema::create('reviews', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('liked_user_id');
+            $table->integer('liked_id');
             $table->integer('liking_user_id');
             $table->boolean('like')->default(false);
             $table->integer('stars')->nullable();

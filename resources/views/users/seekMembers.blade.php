@@ -19,13 +19,12 @@
                 <th>Woonplaats</th>                
             </thead>
                 @foreach ($users as $user)
-                    @if ($user->id != Auth::guard('web')->user()->id)
+                @if ($user->id != Auth::guard('web')->user()->id)
                 <tr>
                     <td><a href="/users/{{$user->id}}/show">{{$user->firstname}} {{$user->lastname}}</a>
-                    <td><a href="/users/{{$user->id}}/show">{{$user->city}}</a></a></td>
-                    
+                    <td><a href="/users/{{$user->id}}/show">{{$user->city}}</a></a></td> 
                 </tr> 
-                    @endif
+                @endif
                 @endforeach
         </table>
     </div>

@@ -100,17 +100,20 @@
                     
 
                     <!-- Terug naar competenties -->
+                <div class="col-md-11">
                     <form class="col-md-2 float-left" method="GET" action="/users/{{Auth::user()->id}}/edit_workExperience"> 
                         <button type="submit" class="btn btn-primary ml-auto" role="button">
                             {{ __('Vorige') }}
                         </button> 
                     </form>
-                   <!--  Naar volgende
-                    <form class="col-md-2 float-right" method="GET" action="/users/{{Auth::user()->id}}/edit_studyExperience"> 
+                   <!--  Naar overzicht  -->
+                    <form class="col-md-2 float-right" method="GET" action="/users/{{Auth::user()->id}}/show"> 
                          <button type="submit" class="btn btn-primary ml-auto" role="button">
-                             {{ __('Volgende') }}
+                             {{ __('Profiel overzicht') }}
                          </button> 
-                    </form>      -->
+                    </form>     
+                </div>
+                    
                 
                     <div class="card-header">  
                         <h5>Studiervaring</h5>                      
@@ -156,10 +159,10 @@
                                             @endswitch
                                         </td>
                                         <td>{{$studyExperience->start_date}}</td>
-                                           @if($workExperience->end_date == null)
+                                           @if($studyExperience->end_date == null)
                                             <td> Nog bezig </td>
                                             @else
-                                            <td> {{$workExperience->end_date}}</td>
+                                            <td> {{$studyExperience->end_date}}</td>
                                             @endif
                                             <td>{{$studyExperience->diploma}}</td>
                                     </tr>
@@ -188,7 +191,7 @@
                                 @endif
                             </div>
                         </div>
-                         <!-- functie -->                    
+                         <!-- functie -->
                          <div class="form-group row">
                             <label for="phone" class="col-md-4 col-form-label text-md-right">{{ __('Telefoonnummer') }}</label>
                             <div class="col-md-6">
@@ -213,6 +216,7 @@
                             </div>
                         </div>
                     </form>
+
                 </div>
                  </div>
              </div>

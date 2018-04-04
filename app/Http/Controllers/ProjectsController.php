@@ -205,7 +205,7 @@ class ProjectsController extends Controller
 		
 		$skills_selected = $project->skill()->get();
 		$skills = Skill::all();
-		
+
         return view('projects.edit_skills', compact( 'skills_selected','skills','project'));
         //return back();
 
@@ -215,10 +215,6 @@ class ProjectsController extends Controller
 	{   
 		$competences = Competence::all();
 		$competences_selected = $project->competence()->get();
-
-		//$project_id = request('project_id');
-		//$project = Project::find($project_id);
-		//dd($project);
 
 		$isProjectOwner = $this->isOwner(Auth::guard('web')->user(), $project);
 
@@ -294,10 +290,8 @@ class ProjectsController extends Controller
 			
 			$this->validate(request(),[
 
-				'name' => 'required', 
-				//'description' => 'required', 
-				'start_date' => 'required'
-				//'due_date' => 'required'
+				'name' => 'required', 				
+				'start_date' => 'required'				
 
 			]);
 
@@ -314,12 +308,6 @@ class ProjectsController extends Controller
 			$project->save();
 		}
 
-		// $competences_select = request()->input('competence');
-
-		// $project->competence()->sync($competences_select);
-
-
-		//return redirect('/projects/' . $project->id);
 
 		$skills = Skill::all();
 		$skills_selected = $project->skill()->get();
@@ -359,8 +347,17 @@ class ProjectsController extends Controller
 			$user_competences = $volunteer->competence()->get();
 			$project_competences = $thisProject->competence()->get();			
 
+			$found_skills = Array();
 			$found_competences = Array();
 			
+			foreach ($user_skills as $user_skill) {
+				foreach ($project_skills as $project_skill) {
+					if ($user_skill->id == $project_skill->id) {
+						array_push($found_skills, $project_skill);
+					}
+				}
+			}			
+
 			foreach ($user_competences as $user_competence) {
 				foreach ($project_competences as $project_competence) {
 					if ($user_competence->id == $project_competence->id) {
@@ -368,18 +365,23 @@ class ProjectsController extends Controller
 					}
 				}
 			}
-			
-			$found_volunteer_competences = Array(); // hier worden de gematchedte competenties bewaard
-			// leden die geen competentiematch hebben eruit filteren
+						
+			$one_volunteer = Array();
+			// leden die geen competentiematch of skillsmatch hebben eruit filteren
 			// leden die al lid zijn van het project eruit filteren.
-			if (count($found_competences) > 0 && !$this->isMember($volunteer, $thisProject)) {
-				$found_volunteer_competences[] = count($found_competences); // hier worden het aantal gematchedte competenties bewaard
-				$found_volunteer_competences[] = $volunteer;
-				$found_volunteer_competences[] = $found_competences;
-				
-				$invitable_members[] = $found_volunteer_competences;
-			}			
+			if (!$this->isMember($volunteer, $thisProject)) {
+				if (count($found_competences) > 0 || count($found_skills) > 0 ) {
+					$one_volunteer[] = (int)(count($found_skills) * 2 + count($found_competences));
+					$one_volunteer[] = $volunteer;
+					$one_volunteer[] = $found_skills;
+					$one_volunteer[] = $found_competences;
+					$invitable_members[] = $one_volunteer;		
+				}
+			}
+			
 		}		
+
+		//dd($invitable_members);
 
 		rsort($invitable_members); //gesorteerd aan de hand van de gematchedte competenties. De meeste bovenaan.
 

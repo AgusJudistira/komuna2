@@ -40,11 +40,6 @@
 
                         </div>
 
-
-
-
-                    
-
                      <div class="card-header">  
                         <h5>Competenties & Skills</h5>                      
                     </div>
@@ -107,8 +102,11 @@
                                 <tr>
                                     <td>{{$studyExperience->name}}</td>
                                     <td>@switch($studyExperience)
-                                            @case($studyExperience->level == 2)
+                                            @case($studyExperience->level == 1)
                                                  <span>Cursus</span>
+                                            @break
+                                            @case($studyExperience->level == 2)
+                                                 <span>VO</span>
                                             @break
                                             @case($studyExperience->level == 3)
                                                  <span>MBO</span>

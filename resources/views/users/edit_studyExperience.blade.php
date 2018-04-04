@@ -64,7 +64,8 @@
                                     <option value="5">WO</option>
                                     <option value="4" selected>HBO</option>
                                     <option value="3">MBO</option>
-                                    <option value="2">Cursus</option>
+                                    <option value="2">VO</option>
+                                    <option value="1">Cursus</option>
                                    
                                     
                                 </select>
@@ -128,8 +129,11 @@
                                     <tr>
                                         <td>{{$studyExperience->name}}</td>
                                         <td>@switch($studyExperience)
+                                                @case($studyExperience->level == 1)
+                                                 <span>Cursus</span>
+                                                @break
                                                 @case($studyExperience->level == 2)
-                                                     <span>Cursus</span>
+                                                 <span>VO</span>
                                                 @break
                                                 @case($studyExperience->level == 3)
                                                      <span>MBO</span>

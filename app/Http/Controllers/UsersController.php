@@ -104,6 +104,7 @@ class UsersController extends Controller
         	$user->avatar = $filename;
         	$user->save();
 
+          
         	return view('users.edit_avatar', compact('user'));
         }
     }

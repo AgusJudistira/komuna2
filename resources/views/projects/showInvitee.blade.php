@@ -29,7 +29,11 @@
                     </div>
                     <div class="row">
                         <div class="col-md-3">Competenties:</div>
-                        <div class="col-md-7"></div>
+                        <div class="col-md-7">
+                            @foreach ($invitee_competences as $competence)
+                                <span class="badge badge-pill badge-success" title="{{$competence->description}}">{{$competence->competence . ", "}}</span>
+                            @endforeach
+                        </div>
                     </div>
                     <div class="row">
                         <div class="col-md-3">Studie-ervaring:</div>

@@ -156,8 +156,12 @@
                                             @endswitch
                                         </td>
                                         <td>{{$studyExperience->start_date}}</td>
-                                        <td>{{$studyExperience->end_date}}</td>
-                                        <td>{{$studyExperience->diploma}}</td>
+                                           @if($workExperience->end_date == null)
+                                            <td> Nog bezig </td>
+                                            @else
+                                            <td> {{$workExperience->end_date}}</td>
+                                            @endif
+                                            <td>{{$studyExperience->diploma}}</td>
                                     </tr>
                                 @endforeach    
                             </table>

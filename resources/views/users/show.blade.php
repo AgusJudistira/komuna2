@@ -6,7 +6,7 @@
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="card">
-                <div class="card-header">Persoonlijk profiel van<h5>{{ Auth::guard('web')->user()->firstname . " ". Auth::guard('web')->user()->lastname}}</h5></div>
+                <div class="card-header">Persoonlijk profiel van<h5>{{ $user->firstname }} {{ $user->lastname }}</h5></div>
                 <div class="card-body">
                     
 
@@ -14,7 +14,7 @@
                         <h5>Personlijke gegvens</h5>                      
                     </div>
                         <div style="min-height: 25vh">
-                        <img class="rounded float-right" src="/uploads/avatars/{{ $user->avatar }}" style="width: 150px; height: 150px; margin: 25px; border-radius: 50%;">
+                        <img class="rounded float-right" src="/uploads/avatars/{{ $user->avatar }}" style="width: 150px; height: 150px; margin: 20px; margin-top: 7px; border-radius: 50%;">
                             
                             <p class="m-3">
                                 <span class="">Naam:</span> {{ $user->firstname }} {{ $user->lastname }} <br />
@@ -55,7 +55,7 @@
                     <form class="form-group ml-1" method="POST" action="{{route('users.detach_skills', $user)}}">
                         @foreach ($skills_selected as $skill_selected)
                         {{csrf_field()}}
-                        <span class="badge badge-pill badge-primary" data-toggle="tooltip" title="{{ $skill_selected->description }}"class="btn btn-default float-left ml-1 mb-1" >{{ $skill_selected->skill }}</span>
+                        <span class="badge badge-pill badge-warning" data-toggle="tooltip" title="{{ $skill_selected->description }}"class="btn btn-default float-left ml-1 mb-1" >{{ $skill_selected->skill }}</span>
                         @endforeach
                     </form>
 
@@ -76,8 +76,12 @@
                                 <tr>
                                     <td> {{$workExperience->name}}</td>
                                     <td> {{$workExperience->position}}</td>
-                                    <td> {{$workExperience->start_date}}</a></td>
-                                    <td> {{$workExperience->end_date}}</a></td>
+                                    <td> {{$workExperience->start_date}}</td>
+                                    @if($workExperience->end_date == null)
+                                    <td> Nog bezig </td>
+                                    @else
+                                    <td> {{$workExperience->end_date}}</td>
+                                    @endif
                                 </tr>
                             @endforeach
                         </table>

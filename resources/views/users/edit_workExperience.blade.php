@@ -127,7 +127,11 @@
                                         <td> {{$workExperience->name}}</td>
                                         <td> {{$workExperience->position}}</td>
                                         <td> {{$workExperience->start_date}}</a></td>
-                                        <td> {{$workExperience->end_date}}</a></td>
+                                        @if($workExperience->end_date == null)
+                                            <td> Nog bezig </td>
+                                        @else
+                                            <td> {{$workExperience->end_date}}</td>
+                                        @endif
                                     </tr>
                                 @endforeach
                             </table>

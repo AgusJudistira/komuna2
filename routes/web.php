@@ -133,3 +133,10 @@ Route::post('/users/{user}/detach_skills',  ['as' => 'users.detach_skills', 'use
 
 //detailed view of one user
 Route::get('/users/{user}/show', ['as' => 'users.show', 'uses' =>  'usersController@show'])->where('user', '[0-9]+');
+
+//zoek users
+
+Route::get('users/{user}/seekMembers', ['as' => 'users.seekMembers', 'uses' =>  'usersController@seekMembers'])->where('user', '[0-9]+');
+
+
+

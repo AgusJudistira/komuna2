@@ -277,7 +277,12 @@ class UsersController extends Controller
         return back();
 
     }
+    public function seekMembers()
+    { 
+        $users = User::all('firstname', 'lastname', 'city', 'id');
 
+       return view('users.seekMembers', compact('users'));
+    }
 }
 
 

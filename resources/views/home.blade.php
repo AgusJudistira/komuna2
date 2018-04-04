@@ -6,11 +6,11 @@
         <div class="col-md-12 text-center"><h2>Dashboard</h2></div>
         <div class="col-md-12">
             <div class="card">
-                <div class="card-header">Persoonlijke startpagina van <h5>{{ Auth::guard('web')->user()->firstname . " ". Auth::guard('web')->user()->lastname}}</h5></div>
+                <div class="card-header">Persoonlijke startpagina van <h5><a href="/users/{{Auth::user()->id}}/show">{{ Auth::guard('web')->user()->firstname . " ". Auth::guard('web')->user()->lastname}}</a></h5></div>
 
                 <div class="card-body">
                     <h5><a href="organizations">Organisaties</a></h5>
-                    <h5><a href="/users/{{Auth::guard('web')->user()->id}}">Profiel wijzigen</a></h5>
+                    <h5><a href="/users/{{Auth::guard('web')->user()->id}}/edit_personal">Profiel wijzigen</a></h5>
                     <h5><a href="/projects">Projecten</a></h5>                    
                     
                 </div>

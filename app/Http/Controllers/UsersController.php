@@ -35,6 +35,24 @@ class UsersController extends Controller
         
     }
 
+   
+    public function show(User $user) 
+    {
+        //$user = User::with('user')->get();
+        $competences_selected = $user->competence()->get();
+        $skills_selected = $user->Skill()->get();
+        $workExperiences = $user->workExperience()->orderBy('start_date', 'DESC')->get();
+        $studyExperiences = $user->StudyExperience()->orderBy('start_date', 'DESC')->get();
+
+        $date1 = date_create($user->birthday);
+        $date2 = date_create(date("Y-m-d"));
+        $age = date_diff($date1, $date2)->format('%y jaar');
+
+
+        return view('users.show', compact('user', 'competences_selected', 'skills_selected', 'workExperiences', 'studyExperiences', 'age'));     
+    }
+   
+
     public function update(User $user)
     { 
         $this->validate(request(), [

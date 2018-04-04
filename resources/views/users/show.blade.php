@@ -4,7 +4,6 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-12 text-center"><h2>Dashboard</h2></div>
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">Persoonlijk profiel van<h5>{{ Auth::guard('web')->user()->firstname . " ". Auth::guard('web')->user()->lastname}}</h5></div>

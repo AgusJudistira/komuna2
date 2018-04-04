@@ -2,17 +2,6 @@
 
 @section('content')
 
-<style>
-
-#selector {
-    height: 200px;
-    background-color: red;
-    overflow-wrap: normal;
-    /* min-width:120px; */
-}
-
-</style>
-
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-12">
@@ -94,7 +83,7 @@
                             </div>  --}}
                             
                             
-                            <div class="col-md- text-left row">
+                            {{-- <div class="col-md- text-left row">
                                 <div class="col-md-4  text-right">Selecteer de benodigde competenties voor dit project (druk op CTRL om meer dan een te selecteren):</div>
                                 <div class="col-md-8">
                                     <select size="10" name="competences_select[]" class="form-control" multiple>
@@ -107,7 +96,7 @@
                                         @endforeach                                                                       
                                     </select>                                            
                                 </div>
-                            </div>
+                            </div> --}}
                             <br />
                             <div class="form-group row" rel="popover" data-trigger="hover" data-content="Genoeg leden" data-original-title="">
                                 <label class="control-label control-label-right col-md-4 text-right">Heeft genoeg medewerkers:</label>
@@ -137,14 +126,14 @@
                             </div>
 
                             <div class="row">
-                                <div class="col-md-6">
+                                <div class="col-md-5">
                                 </div>                                                                      
                                 
                                 <div class="col-md-3">                                    
                                     <button id="annuleren" name="annuleren" value="annuleren" type="submit" class="btn btn-info btn-lg">Annuleren</button>
                                 </div>
-                                <div class="col-md-3">                                    
-                                    <button id="invoeren" name="invoeren" value="invoeren" type="submit" class="btn btn-primary btn-lg">Invoeren</button>
+                                <div class="col-md-4">                                    
+                                    <button id="invoeren" name="invoeren" value="invoeren" type="submit" class="btn btn-primary btn-lg">Benodigde vaardigheden aangeven</button>
                                 </div>                                    
                             </div>
 

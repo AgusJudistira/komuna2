@@ -14,7 +14,7 @@
                     <form class="form-group float-left ml-1" method="POST" action="{{route('users.detach_skills', $user)}}">
                         @foreach ($skills_selected as $skill_selected)
                         {{csrf_field()}}
-                        <button type="submit" name='skill' value='{{ $skill_selected->id }}' data-toggle="tooltip" title="{{ $skill_selected->description }}"class="btn btn-default float-left ml-1 mb-1" >{{ $skill_selected->skill }}</button>
+                        <button type="submit" name='skill' value='{{ $skill_selected->id }}' data-toggle="tooltip" class="btn btn-default float-left ml-1 mb-1" >{{ $skill_selected->skill }}</button>
                         @endforeach
                     </form>
                     <div class="form-group">

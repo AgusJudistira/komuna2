@@ -25,6 +25,16 @@
                         @endif
                         
                         <div class="row">
+                            <div class="col-md-12">Benodigde vaardigheden:</div>
+                        </div>
+
+                        @foreach ($skills as $skill)
+                            <span data-toggle="tooltip" title='{{$skill->description}}' class="badge badge-pill badge-warning">{{ $skill->skill }}</span>
+                        @endforeach
+
+                        <br>
+
+                        <div class="row">
                             <div class="col-md-12">Benodigde competenties:</div>
                         </div>
                         
@@ -53,7 +63,7 @@
                     <div class="card-footer">
                         @if ($isProjectOwner)
                             <div class="row text-right">
-                                <form method="POST" action="/projects/edit">
+                                <form method="POST" action="{{ route('project_edit', $project) }}">
                                     {{csrf_field()}}
                                     <div class="col-md-6 text-right">     
                                         <button id="edit" name="edit" value="edit" type="submit" class="btn btn-primary btn-lg">Project wijzigen</button>

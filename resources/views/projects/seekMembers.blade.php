@@ -18,12 +18,20 @@
                 <th>Naam</th>                
                 <th>Geslacht</th>                                
                 <th>Woonplaats</th>                
+                <th>Competenties match</th>
             </thead>
             @foreach ($invitable_members as $invitee)
                 <tr>
-                    <td><a href="/projects/showInvitee/{{{$thisProject->id}}}/{{{$invitee->id}}}">{{$invitee->firstname . " " . $invitee->lastname}}</a></td>
-                    <td><a href="/projects/showInvitee/{{{$thisProject->id}}}/{{{$invitee->id}}}">{{$invitee->gender}}</a></td>
-                    <td><a href="/projects/showInvitee/{{{$thisProject->id}}}/{{{$invitee->id}}}">{{$invitee->city}}</a></td>
+                    <td><a href="/projects/showInvitee/{{{$thisProject->id}}}/{{{$invitee[1]->id}}}">{{$invitee[1]->firstname . " " . $invitee[1]->lastname}}</a></td>
+                    <td><a href="/projects/showInvitee/{{{$thisProject->id}}}/{{{$invitee[1]->id}}}">{{$invitee[1]->gender}}</a></td>
+                    <td><a href="/projects/showInvitee/{{{$thisProject->id}}}/{{{$invitee[1]->id}}}">{{$invitee[1]->city}}</a></td>
+                    <td>
+                        @foreach ($invitee[2] as $competence)
+                            <span data-toggle="tooltip" title='{{$competence->description}}' class="badge badge-pill badge-success">
+                                {{$competence['competence']}}
+                            </span>
+                        @endforeach
+                    </td>
                 </tr>
             @endforeach
         </table>

@@ -210,23 +210,46 @@ class ProjectsController extends Controller
 		$thisProject = Project::find($project_id);
 
 		$members = $thisProject->User()->get();
-
-		$invitable_members = Array();
-
+		$invitable_members = Array();		
 		$volunteers = User::all();
-		// leden die al lid zijn van het project eruit filteren.
-		foreach ($volunteers as $volunteer) {			
-			if	(!$this->isMember($volunteer, $thisProject)) {
-				array_push($invitable_members, $volunteer);				
+		
+		foreach ($volunteers as $volunteer) {
+			//echo $volunteer->firstname;
+			$user_competences = $volunteer->competence()->get();
+			$project_competences = $thisProject->competence()->get();			
+
+			$found_competences = Array();
+
+			foreach ($user_competences as $user_competence) {
+				foreach ($project_competences as $project_competence) {
+					if ($user_competence->id == $project_competence->id) {
+						array_push($found_competences, $project_competence);
+					}
+				}
 			}
+			
+			$found_volunteer_competences = Array(); // hier worden de gematchedte competenties bewaard
+			// leden die geen competentiematch hebben eruit filteren
+			// leden die al lid zijn van het project eruit filteren.
+			if (count($found_competences) > 0 && !$this->isMember($volunteer, $thisProject)) {
+				$found_volunteer_competences[] = count($found_competences); // hier worden het aantal gematchedte competenties bewaard
+				$found_volunteer_competences[] = $volunteer;
+				$found_volunteer_competences[] = $found_competences;
+				
+				$invitable_members[] = $found_volunteer_competences;
+			}			
 		}
+
+		rsort($invitable_members); //gesorteerd aan de hand van de gematchedte competenties. De meeste bovenaan.
+
 		return view('projects.seekMembers', compact('thisProject', 'invitable_members'));
 	}
 
 	public function showInvitee(Project $project, User $invitee)
 	{
 		if ($this->isOwner(Auth::guard('web')->user(), $project)) {
-			return view('projects.showInvitee', compact('project', 'invitee'));
+			$invitee_competences = $invitee->competence()->get();
+			return view('projects.showInvitee', compact('project', 'invitee', 'invitee_competences'));
 		} else {
 			return back();
 		}
@@ -391,11 +414,14 @@ class ProjectsController extends Controller
 
 		$volunteers = User::all();
 		// leden die al lid zijn van het project eruit filteren.
+
 		foreach ($volunteers as $volunteer) {			
 			if	(!$this->isMember($volunteer, $thisProject)) {
 				array_push($invitable_members, $volunteer);				
 			}
 		}
+
+		
 		return view('projects.seekMembers', compact('thisProject', 'invitable_members'));
 	}
 

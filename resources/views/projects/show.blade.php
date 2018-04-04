@@ -27,11 +27,11 @@
                         <div class="row">
                             <div class="col-md-12">Benodigde competenties:</div>
                         </div>
-                        <h5>
-                            @foreach ($competences as $competence)
-                                <span data-toggle="tooltip" title='{{$competence->description}}' class="badge badge-pill badge-success">{{ $competence->competence }}</span>
-                            @endforeach
-                        </h5>
+                        
+                        @foreach ($competences as $competence)
+                            <span data-toggle="tooltip" title='{{$competence->description}}' class="badge badge-pill badge-success">{{ $competence->competence }}</span>
+                        @endforeach
+                        
 
                         <div class="row">
                             <div class="col-md-12">

@@ -10,7 +10,7 @@
           <div class="card-header">  
             <h4>Start een project</h4>                      
           </div>
-          <form class="form-group" method="POST" action="/projects">
+          <form class="form-group" method="POST" action="/projects/store">
             {{csrf_field()}}
             <br>
             <div class="form-group row">
@@ -46,6 +46,8 @@
               </div>
             </div>
             <br>
+
+{{-- 
             <div class="form-group row">
               <div class="col-md-3 text-right">Selecteer de benodigde competenties voor dit project (houd CTRL vast om meer dan een te selecteren):</div>
 
@@ -56,7 +58,7 @@
                     @endforeach
                   </select>
               </div>
-            </div>
+            </div> --}}
             
             <div class="col-md-12 row">
               <div class="col-md-4"></div>
@@ -64,7 +66,7 @@
                 <button name="cancel" value="cancel" type="submit" class="btn btn-primary btn-lg">Annuleren</button>
               </div>  
               <div class="col-md-4">
-                <button name="start" value="start" type="submit" class="btn btn-primary btn-lg">Start project</button>
+                <button name="start" value="start" type="submit" class="btn btn-primary btn-lg">Benodigde vaardigheden benoemen</button>
               </div>
             </div>
         				

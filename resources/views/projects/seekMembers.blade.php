@@ -17,7 +17,8 @@
             <thead>
                 <th>Naam</th>                
                 <th>Geslacht</th>                                
-                <th>Woonplaats</th>                
+                <th>Woonplaats</th>
+                <th>Vaardigheden match</th>
                 <th>Competenties match</th>
             </thead>
             @foreach ($invitable_members as $invitee)
@@ -26,7 +27,14 @@
                     <td><a href="/projects/showInvitee/{{{$thisProject->id}}}/{{{$invitee[1]->id}}}">{{$invitee[1]->gender}}</a></td>
                     <td><a href="/projects/showInvitee/{{{$thisProject->id}}}/{{{$invitee[1]->id}}}">{{$invitee[1]->city}}</a></td>
                     <td>
-                        @foreach ($invitee[2] as $competence)
+                        @foreach ($invitee[2] as $skill)
+                            <span data-toggle="tooltip" class="badge badge-pill badge-warning">
+                                {{$skill['skill']}}
+                            </span>
+                        @endforeach
+                    </td>
+                    <td>
+                        @foreach ($invitee[3] as $competence)
                             <span data-toggle="tooltip" title='{{$competence->description}}' class="badge badge-pill badge-success">
                                 {{$competence['competence']}}
                             </span>

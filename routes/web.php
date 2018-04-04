@@ -91,7 +91,7 @@ Route::post('/admin/delete_competences',  ['as' => 'admin.delete_competences', '
 //update user profile
 
 //view NAW
-Route::get('/users/{user}',  ['as' => 'users.edit_personal', 'uses' => 'UsersController@edit'])->where('user', '[0-9]+');
+Route::get('/users/{user}/edit_personal',  ['as' => 'users.edit_personal', 'uses' => 'UsersController@edit'])->where('user', '[0-9]+');
 
 //updat NAW
 Route::patch('/users/{user}/update',  ['as' => 'users.update', 'uses' => 'UsersController@update'])->where('user', '[0-9]+');
@@ -125,7 +125,11 @@ Route::post('/users/{user}/update_studyExperience',  ['as' => 'users.update_stud
 //edit skills
 Route::get('/users/{user}/edit_skills',  ['as' => 'users.edit_skills', 'uses' => 'UsersController@editSkills'])->where('user', '[0-9]+');
 
-
+//sla skills op en koppel ze aan gerbruiker
 Route::post('/users/{user}/store_skills',  ['as' => 'users.store_skills', 'uses' => 'UsersController@storeSkill'])->where('user', '[0-9]+');
 
+//detach skills from user
 Route::post('/users/{user}/detach_skills',  ['as' => 'users.detach_skills', 'uses' => 'UsersController@detachSkills'])->where('user', '[0-9]+');
+
+//detailed view of one user
+Route::get('/users/{user}/show', ['as' => 'users.show', 'uses' =>  'usersController@show'])->where('user', '[0-9]+');

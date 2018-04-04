@@ -17,7 +17,7 @@ class CreateReviewsTable extends Migration
             $table->increments('id');
             $table->integer('liked_user_id');
             $table->integer('liking_user_id');
-            $table->boolean('like')->default('false');
+            $table->boolean('like')->default(false);
             $table->integer('stars')->nullable();
             $table->text('review')->nullable();
             $table->timestamps();

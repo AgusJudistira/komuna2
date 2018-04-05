@@ -37,20 +37,30 @@
                                 
                             <div class="form-group col-md-12 row">
                                 <label for="competence" class="col-md-3 col-form-label text-md-right">{{ __('Voeg een competentie toe') }}</label>
-                                <div class="col-md-7">
+                                <div class="form-group">
+                                    <select name="competences_select[]" class="form-control" size="12" multiple>
+                                        @foreach ($competences as $competence)
+                                            <option name='competence' value='{{ $competence->id }}' data-toggle="tooltip" title="{{ $competence->description }}" >{{ $competence->competence }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="col-md-2">
+                                    <button type="submit" class="btn btn-default">Voeg toe</button>
+                                </div>
+                                {{-- <div class="col-md-7">
                                     <input list="competences" id="competence" type="text" class="form-control" name="competence" required>
                                     <datalist id="competences"> 
                                         @foreach($competences as $competence)
                                             <option>{{$competence->competence}}</option>
                                         @endforeach
                                     </datalist>
-                                </div>
+                                </div> --}}
 
-                                <div class="col-md-2">
+                                {{-- <div class="col-md-2">
                                     <button type="submit" class="btn btn-primary ml-auto float-left" role="button">
                                         {{ __('Sla op') }}
                                     </button> 
-                                </div>
+                                </div> --}}
 
                                 @if ($errors->has('competence'))
                                     <span class="invalid-feedback">

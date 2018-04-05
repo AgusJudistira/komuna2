@@ -24,8 +24,61 @@ class ProjectsController extends Controller
 	public function index() 
 	{
 		$projects = Project::with('user')->get();
-				
-		return view('projects.index', compact('projects', 'user'));		
+
+		$thisUser = Auth::guard('web')->user();
+
+		
+		$listed_projects = Array();		
+		
+		
+		foreach ($projects as $project) {
+
+			$project_skills = $project->skill()->get();
+			$user_skills = $thisUser->skill()->get();
+
+			$project_competences = $project->competence()->get();
+			$user_competences = $thisUser->competence()->get();			
+
+			$found_skills = Array();
+			$found_competences = Array();
+			
+			foreach ($user_skills as $user_skill) {
+				foreach ($project_skills as $project_skill) {
+					if ($user_skill->id == $project_skill->id) {
+						array_push($found_skills, $project_skill);
+					}
+				}
+			}			
+
+			foreach ($user_competences as $user_competence) {
+				foreach ($project_competences as $project_competence) {
+					if ($user_competence->id == $project_competence->id) {
+						array_push($found_competences, $project_competence);
+					}
+				}
+			}
+						
+			$one_project = Array();
+			// leden die geen competentiematch of skillsmatch hebben eruit filteren
+			// leden die al lid zijn van het project eruit filteren.
+			if (!$this->isMember($thisUser, $project) || $this->isOwner($thisUser, $project)) {
+				//if (count($found_competences) > 0 || count($found_skills) > 0 ) {
+
+					$one_project[] = (count($found_skills)+1) * (count($found_competences)+1);
+					$one_project[] = $project;
+					$one_project[] = $found_skills;
+					$one_project[] = $found_competences;
+					$listed_projects[] = $one_project;		
+				//}
+			}
+			
+		}		
+
+		//dd($listed_projects);
+
+		rsort($listed_projects); //gesorteerd aan de hand van de gematchedte competenties. De meeste bovenaan.
+
+		return view('projects.index', compact('listed_projects', 'user'));		
 	}
 
 
@@ -57,7 +110,21 @@ class ProjectsController extends Controller
 							->orWhere('description', 'LIKE', $zoekstring)
 							->get();
 
-        return view('projects.index', compact('projects', 'projectowner'));
+		$listed_projects = Array();
+
+		foreach ($projects as $project) {
+			$project_skills = $project->skill()->get();
+			$project_competences = $project->competence()->get();
+			
+			$one_project = Array();
+			$one_project[] = Array();
+			$one_project[] = $project;
+			$one_project[] = $project_skills;
+			$one_project[] = $project_competences;
+			$listed_projects[] = $one_project;
+		}		
+
+        return view('projects.index', compact('listed_projects', 'projectowner'));
     }
 
 
@@ -300,10 +367,7 @@ class ProjectsController extends Controller
 	}
 
 	public function seekMembers(Project $project)
-	{
-		
-		//$project_id = request('project_id');
-		//$thisProject = Project::find($project_id);
+	{		
 		$thisProject = $project;
 
 		$members = $thisProject->User()->get();
@@ -349,8 +413,7 @@ class ProjectsController extends Controller
 					$one_volunteer[] = $found_competences;
 					$invitable_members[] = $one_volunteer;		
 				}
-			}
-			
+			}			
 		}		
 
 		//dd($invitable_members);

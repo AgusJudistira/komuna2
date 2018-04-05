@@ -28,7 +28,7 @@
                     <td><a href="/projects/showInvitee/{{{$thisProject->id}}}/{{{$invitee[1]->id}}}">{{$invitee[1]->city}}</a></td>
                     <td>
                         @foreach ($invitee[2] as $skill)
-                            <span data-toggle="tooltip" class="badge badge-pill badge-warning">
+                            <span class="badge badge-pill badge-warning">
                                 {{$skill['skill']}}
                             </span>
                         @endforeach

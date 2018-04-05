@@ -28,27 +28,46 @@
         </form>
 
         <div class="col-md-12">        
-            @foreach ($projects as $project)                
+            @foreach ($listed_projects as $project)                
                 <div class="form-group">
                     <div class="card">
                         <div class="card-header">  
-                            <a href="/projects/{{$project->id}}">
-                                {{ $project->name }}  
+                            <a href="/projects/{{$project[1]->id}}">
+                                {{ $project[1]->name }}  
                             </a>                        
                         </div>
                         <div class="card-body">
-                            <div class="projectSummary">          
-                                <p>
-                                    {{ $project->description }}
-                                </p>
-                                <p>                        
-                                    deadline: {{ $project->due_date }}
-                                </p>
+                            <div class="row">
+                                <div class="col-md-12">          
+                                    <p>
+                                        {{ $project[1]->description }}
+                                    </p>
+                                    <p>                        
+                                        deadline: {{ $project[1]->due_date }}
+                                    </p>
 
+                                </div>
+                                <div class="col-md-12">
+                                    Overeengekomen vaardigheden en competenties:
+                                </div>
+                                <div class="col-md-12">                                    
+                                    @foreach ($project[2] as $skill)
+                                        <span class="badge badge-pill badge-warning">
+                                            {{$skill['skill']}}
+                                        </span>
+                                    @endforeach
+                                </div>
+                                <div class="col-md-12">
+                                    @foreach ($project[3] as $competence)
+                                        <span data-toggle="tooltip" title='{{$competence->description}}' class="badge badge-pill badge-success">
+                                            {{$competence['competence']}}
+                                        </span>
+                                    @endforeach
+                                </div>
                             </div>
                         </div>
                         <div class="card-footer">
-                            @if ($project->enough_members)
+                            @if ($project[1]->enough_members)
                                 <p class="text-danger">Er zijn al genoeg vrijwilligers. Ledenwerving gestopt</p>
                             @endif
                         </div>

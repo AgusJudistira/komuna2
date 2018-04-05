@@ -37,7 +37,7 @@
                                 
                             <div class="form-group col-md-12 row">
                                 <label for="competence" class="col-md-3 col-form-label text-md-right">{{ __('Voeg een competentie toe') }}</label>
-                                <div class="form-group">
+                                <div class="form-group col-md-7">
                                     <select name="competences_select[]" class="form-control" size="12" multiple>
                                         @foreach ($competences as $competence)
                                             <option name='competence' value='{{ $competence->id }}' data-toggle="tooltip" title="{{ $competence->description }}" >{{ $competence->competence }}</option>
@@ -45,7 +45,7 @@
                                     </select>
                                 </div>
                                 <div class="col-md-2">
-                                    <button type="submit" class="btn btn-default">Voeg toe</button>
+                                    <button type="submit" class="btn btn-success">Voeg toe</button>
                                 </div>
                                 {{-- <div class="col-md-7">
                                     <input list="competences" id="competence" type="text" class="form-control" name="competence" required>

@@ -141,14 +141,6 @@ class ProjectsController extends Controller
 		// maak de gebruiker die het project aanmaakt de projectowner
 		$project->user()->attach($user_id, ['projectowner' => true]);
 
-		// $competences_select = request()->input('competences_select');
-
-		// if ($competences_select) {
-        //     foreach ($competences_select as $competence) {
-        //         $foundCompetence = Competence::find($competence);
-        //         $foundCompetence->project()->attach($project->id);
-        //     }
-		// }
 		$skills = Skill::all();
 		$skills_selected = Array();
 
@@ -242,14 +234,13 @@ class ProjectsController extends Controller
 
 			$newCompetence->project()->sync($project->id);
 		} else {
-			$system_message = "<p class=\"text-danger\">Ingegeven competentie bestaat niet.</p>";
+			//$system_message = "<p class=\"text-danger\">Ingegeven competentie bestaat niet.</p>";
 		}
 		
 		$competences_selected = $project->competence()->get();
 		$competences = Competence::all();
 		
 		return back();
-
 	}
 
 	
@@ -362,7 +353,8 @@ class ProjectsController extends Controller
 			// leden die al lid zijn van het project eruit filteren.
 			if (!$this->isMember($volunteer, $thisProject)) {
 				if (count($found_competences) > 0 || count($found_skills) > 0 ) {
-					$one_volunteer[] = (int)(count($found_skills) * 2 + count($found_competences));
+
+					$one_volunteer[] = (count($found_skills)+1) * (count($found_competences)+1);
 					$one_volunteer[] = $volunteer;
 					$one_volunteer[] = $found_skills;
 					$one_volunteer[] = $found_competences;

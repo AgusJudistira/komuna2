@@ -55,7 +55,7 @@
                     <form class="form-group ml-1" method="POST" action="{{route('users.detach_skills', $user)}}">
                         @foreach ($skills_selected as $skill_selected)
                         {{csrf_field()}}
-                        <span class="badge badge-pill badge-primary" data-toggle="tooltip" title="{{ $skill_selected->description }}"class="btn btn-default float-left ml-1 mb-1" >{{ $skill_selected->skill }}</span>
+                        <span class="badge badge-pill badge-warning" data-toggle="tooltip" title="{{ $skill_selected->description }}"class="btn btn-default float-left ml-1 mb-1" >{{ $skill_selected->skill }}</span>
                         @endforeach
                     </form>
 

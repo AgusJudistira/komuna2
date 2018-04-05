@@ -72,7 +72,7 @@
                                     
                                 </form>
                                 @if (!$project->enough_members)
-                                    <form method="GET" action="/projects/seekMembers">
+                                    <form method="GET" action="/projects/seekMembers/{{$project->id}}">
                                         {{csrf_field()}}
                                         <div class="col-md-6 text-right">                                        
                                             <button id="seek-members" name="seek-members" value="seek-members" type="submit" class="btn btn-primary btn-lg">Vrijwilligers zoeken</button>

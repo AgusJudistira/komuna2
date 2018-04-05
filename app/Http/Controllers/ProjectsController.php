@@ -17,8 +17,7 @@ class ProjectsController extends Controller
 	public function __construct()
 	{
 		$this->middleware('auth')->except('index');	
-		setlocale(LC_ALL, 'nl_NL');
-		// Session::put('locale', 'nl');
+		setlocale(LC_ALL, 'nl_NL');		
 	}
 
 
@@ -318,10 +317,12 @@ class ProjectsController extends Controller
 		return view('projects.edit', compact('project', 'isProjectOwner', 'list_of_projectusers', 'competences'));
 	}
 
-	public function seekMembers()
+	public function seekMembers(Project $project)
 	{
-		$project_id = request('project_id');
-		$thisProject = Project::find($project_id);
+		
+		//$project_id = request('project_id');
+		//$thisProject = Project::find($project_id);
+		$thisProject = $project;
 
 		$members = $thisProject->User()->get();
 		$invitable_members = Array();		
@@ -455,18 +456,8 @@ class ProjectsController extends Controller
 			]);
 		}
 
-		//$members = $thisProject->User()->get();
 
-		$invitable_members = Array();
-
-		$volunteers = User::all();
-		// leden die al lid zijn van het project eruit filteren.
-		foreach ($volunteers as $volunteer) {			
-			if	(!$this->isMember($volunteer, $thisProject)) {
-				array_push($invitable_members, $volunteer);				
-			}
-		}
-		return view('projects.seekMembers', compact('thisProject', 'invitable_members'));
+		return redirect()->route('seek_members', $thisProject);
 	}
 
 
@@ -516,7 +507,7 @@ class ProjectsController extends Controller
 
 
 	public function sendPersonalInquiry()
-	{		
+	{
 		$project_id = request('project_id');
 		$invitee_id = request('invitee_id');
 		$user_message = request('user_message');
@@ -552,25 +543,14 @@ class ProjectsController extends Controller
 			]);
 		}
 
-		$invitable_members = Array();
 
-		$volunteers = User::all();
-		// leden die al lid zijn van het project eruit filteren.
-
-		foreach ($volunteers as $volunteer) {			
-			if	(!$this->isMember($volunteer, $thisProject)) {
-				array_push($invitable_members, $volunteer);				
-			}
-		}
-
-		
-		return view('projects.seekMembers', compact('thisProject', 'invitable_members'));
+		return redirect()->route('seek_members', $thisProject);
 	}
 
 
 	public function prepareReplyMessage(Project $project, App\Message $old_message) 
 	{
-		//dd($old_message);
+		
 		return view('projects.message_reply', compact('project', 'old_message'));
 	}
 
@@ -788,8 +768,9 @@ class ProjectsController extends Controller
 
 		$list_of_projectusers = $project->user()->withPivot('projectowner')->get();
 		$competences = $project->competence()->get();
+		$skills = $project->skill()->get();
 
-		return view('projects.show', compact('project', 'isProjectOwner', 'isProjectMember', 'list_of_projectusers', 'competences'));
+		return view('projects.show', compact('project', 'isProjectOwner', 'isProjectMember', 'list_of_projectusers', 'skills', 'competences'));
 	}
 
 

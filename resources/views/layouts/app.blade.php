@@ -115,4 +115,7 @@
     <script src="{{ asset('js/app.js') }}"></script>
     
 </body>
+<footer id="system_messages">
+    
+</footer>
 </html>

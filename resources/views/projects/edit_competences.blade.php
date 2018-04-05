@@ -41,7 +41,7 @@
                                     <input list="competences" id="competence" type="text" class="form-control" name="competence" required>
                                     <datalist id="competences"> 
                                         @foreach($competences as $competence)
-                                        <option>{{$competence->competence}}</option>
+                                            <option>{{$competence->competence}}</option>
                                         @endforeach
                                     </datalist>
                                 </div>
@@ -74,7 +74,7 @@
                         <!--  Naar competenties -->  
                             <form class="col-md-2 float-right" method="GET" action="/projects/{{$project->id}}"> 
                                 <button type="submit" class="btn btn-primary ml-auto" role="button">
-                                    {{ __('Einde') }}
+                                    {{ __('Afronden') }}
                                 </button> 
                             </form>
                         </div>

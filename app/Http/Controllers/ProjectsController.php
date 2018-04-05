@@ -228,20 +228,22 @@ class ProjectsController extends Controller
 
 
 	public function addCompetences(Project $project, Request $request)
-	{   
-		$this->validate(request(),[
-            
-            'competence' => 'required'
-            
-		]);        
+	{   		
+		$this->validate(request(),[            
+            'competence' => 'required'            
+		]);
 
-		$newCompetence = Competence::updateOrCreate(request([
+		$inputCompetence = Competence::where('competence', request('competence'))->get();
+		
+		if (count($inputCompetence) > 0) {
+			$newCompetence = Competence::updateOrCreate(request([
+				'competence' 
+			]));
 
-            'competence' 
-
-        ]));
-
-        $newCompetence->project()->sync($project->id);
+			$newCompetence->project()->sync($project->id);
+		} else {
+			$system_message = "<p class=\"text-danger\">Ingegeven competentie bestaat niet.</p>";
+		}
 		
 		$competences_selected = $project->competence()->get();
 		$competences = Competence::all();

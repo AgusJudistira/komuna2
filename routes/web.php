@@ -18,7 +18,7 @@ Route::post('projects/edit/{project}', 'ProjectsController@edit')->name('project
 Route::get('projects/seekMembers', 'ProjectsController@seekMembers');
 
 // get details about a volunteer before inviting.
-Route::get('projects/showInvitee/{project}/{invitee}', 'ProjectsController@showInvitee')->where(['project' => '[0-9]+', 'invitee' => '[0-9]+']);
+Route::get('projects/showInvitee/{project}/{user}', 'ProjectsController@showInvitee')->where(['project' => '[0-9]+', 'user' => '[0-9]+']);
 
 // invite a volunteer to join project
 Route::post('projects/prepare_invitation', 'ProjectsController@prepareInvitation');

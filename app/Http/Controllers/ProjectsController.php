@@ -248,19 +248,7 @@ class ProjectsController extends Controller
 		$competences = Competence::all();
 		
 		return back();
-        //return view('projects.edit_competences', compact( 'competences_selected','competences','project'));
-		// $competences_select = $request->input('competence'); 
 
-		// //$user_id = Auth::guard('web')->user()->id;
-		// dd($competences_select);
-
-		// if ($competences_select !=null) {
-		// 	foreach ($competences_select as $competence) {
-		// 		$foundCompetence = Competence::find($competence);
-		// 		$foundCompetence->project()->sync($project->id);
-		// 	}
-		// }
-		// return back();
 	}
 
 	
@@ -388,11 +376,22 @@ class ProjectsController extends Controller
 		return view('projects.seekMembers', compact('thisProject', 'invitable_members'));
 	}
 
-	public function showInvitee(Project $project, User $invitee)
+	public function showInvitee(Project $project, User $user)
 	{
 		if ($this->isOwner(Auth::guard('web')->user(), $project)) {
-			$invitee_competences = $invitee->competence()->get();
-			return view('projects.showInvitee', compact('project', 'invitee', 'invitee_competences'));
+
+			$competences_selected = $user->competence()->get();
+			$skills_selected = $user->Skill()->get();
+			$workExperiences = $user->workExperience()->orderBy('start_date', 'DESC')->get();
+			$studyExperiences = $user->StudyExperience()->orderBy('start_date', 'DESC')->get();
+
+			$date1 = date_create($user->birthday);
+			$date2 = date_create(date("Y-m-d"));
+			$age = date_diff($date1, $date2)->format('%y jaar');
+
+			return view('projects.showInvitee', compact('user', 'project', 'competences_selected', 'skills_selected', 'workExperiences', 'studyExperiences', 'age'));
+			// $invitee_competences = $invitee->competence()->get();
+			// return view('projects.showInvitee', compact('project', 'invitee', 'invitee_competences'));
 		} else {
 			return back();
 		}

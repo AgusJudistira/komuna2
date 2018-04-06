@@ -64,7 +64,7 @@ class ProjectsController extends Controller
 			if (!$this->isMember($thisUser, $project) || $this->isOwner($thisUser, $project)) {
 				//if (count($found_competences) > 0 || count($found_skills) > 0 ) {
 
-					$one_project[] = (count($found_skills)+1) * (count($found_competences)+1);
+					$one_project[] = (count($found_skills)+0.1) * (count($found_competences)+0.25);
 					$one_project[] = $project;
 					$one_project[] = $found_skills;
 					$one_project[] = $found_competences;
@@ -407,7 +407,7 @@ class ProjectsController extends Controller
 			if (!$this->isMember($volunteer, $thisProject)) {
 				if (count($found_competences) > 0 || count($found_skills) > 0 ) {
 
-					$one_volunteer[] = (count($found_skills)+1) * (count($found_competences)+1);
+					$one_volunteer[] = (count($found_skills)+0.1) * (count($found_competences)+0.25);
 					$one_volunteer[] = $volunteer;
 					$one_volunteer[] = $found_skills;
 					$one_volunteer[] = $found_competences;
@@ -480,11 +480,12 @@ class ProjectsController extends Controller
 			$actions  = "<div class=\"row\"><div class=\"col-md-12\"><b><i>Eventuele persoonlijke bericht:</i></b></div>";
 			$actions .= "<div class=\"col-md-12\"><textarea class=\"form-control\" type=\"text\" name=\"user_message\"></textarea></div>";
 			$actions .= "</div>";
+			$actions .= "<div class=\"card-footer\">";
 			$actions .= "<div class=\"row\">";
 			$actions .= "<div class=\"col-md-4\"></div>";
 			$actions .= "<div class=\"col-md-4\"><button form=\"decide\" name=\"refuse\" value=\"refuse\" type=\"submit\" class=\"btn btn-info btn-lg\">Weigeren</button></div>";
 			$actions .= "<div class=\"col-md-4\"><button form=\"decide\" name=\"accept\" value=\"accept\" type=\"submit\" class=\"btn btn-primary btn-lg\">Accepteren</button></div>";
-			$actions .= "</div>";
+			$actions .= "</div></div>";
 			$actions .= "<input type=\"hidden\" name=\"project_id\" value=\"$project_id\">";
 			$actions .= "<input type=\"hidden\" name=\"applicant_id\" value=\"$invitee_id\">";
 			$actions .= "<input type=\"hidden\" name=\"decider\" value=\"invitee\">";
@@ -523,10 +524,11 @@ class ProjectsController extends Controller
 			$message = "<p><i>$sender_fullname heeft met betrekking tot&nbsp;<a href='/projects/$project_id' target='_blank'>$thisProject->name</a>&nbsp;wat vragen:</i></p>";
 
 			//$action .= "<form id=\"decide\" method=\"POST\" action=\"/projects/decide\">";
-			$actions  = "<div class=\"row\">";
+			$actions  = "<div class=\"card-footer\">";
+			$actions  = "<div class=\"row\">";			
 			$actions .= "<div class=\"col-md-4\"></div>";
 			$actions .= "<div class=\"col-md-8 text-right\"><button form=\"decide\" name=\"reply\" value=\"reply\" type=\"submit\" class=\"btn btn-info btn-lg\">Beantwoorden</button></div>";
-			$actions .= "</div>";
+			$actions .= "</div></div>";
 			$actions .= "<input type=\"hidden\" name=\"project_id\" value=\"$project_id\">";
 			$actions .= "<input type=\"hidden\" name=\"applicant_id\" value=\"$applicant_id\">";
 			$actions .= "<input type=\"hidden\" name=\"decider\" value=\"applicant\">";
@@ -568,10 +570,11 @@ class ProjectsController extends Controller
 			$message = "<p><i>$sender_fullname heeft met betrekking tot&nbsp;<a href='/projects/$project_id' target='_blank'>$thisProject->name</a>&nbsp;wat vragen:</i></p>";
 
 			//$action .= "<form id=\"decide\" method=\"POST\" action=\"/projects/decide\">";
-			$actions  = "<div class=\"row\">";
+			$actions  = "<div class=\"card-footer\">";
+			$actions  = "<div class=\"row\">";			
 			$actions .= "<div class=\"col-md-4\"></div>";
 			$actions .= "<div class=\"col-md-8 text-right\"><button form=\"decide\" name=\"reply\" value=\"reply\" type=\"submit\" class=\"btn btn-info btn-lg\">Beantwoorden</button></div>";
-			$actions .= "</div>";
+			$actions .= "</div></div>";
 			$actions .= "<input type=\"hidden\" name=\"project_id\" value=\"$project_id\">";
 			$actions .= "<input type=\"hidden\" name=\"applicant_id\" value=\"$invitee_id\">";
 			$actions .= "<input type=\"hidden\" name=\"decider\" value=\"invitee\">";
@@ -750,8 +753,8 @@ class ProjectsController extends Controller
 		$project = Project::find($project_id);
 		$thisuser_id = Auth::guard('web')->user()->id;
 
-		if (request('reply') == 'reply') {
-			//var_dump($thisuser_id, $this_message->sender_id);
+		if (request('reply') == 'reply') {			
+			
 			if ($thisuser_id != $this_message->sender_id) {
 				$old_message = $this_message;
 				return view('projects.message_reply', compact('project', 'old_message'));				

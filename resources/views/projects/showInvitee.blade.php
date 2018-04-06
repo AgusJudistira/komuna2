@@ -4,10 +4,11 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-12">
-            <div class="col-md-12 text-right">
-                <h4><a href="{{ url()->previous() }}">&lt; Terug naar overzicht</a></h4>
-            </div>
+            
             <div class="card">
+                <div class="col-md-12 text-right">
+                    <h4><a href="{{ url()->previous() }}">&lt; Terug naar overzicht</a></h4>
+                </div>
                 <h4><div class="card-header">Misschien uitnodigen voor het project <a href='/projects/{{$project->id}}' target='_blank'>{{$project->name}}</a>?</div></h4>
                 <div class="card-body">                    
 

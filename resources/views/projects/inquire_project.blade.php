@@ -22,33 +22,32 @@
                                 <textarea class="form-control" row="5" name="user_message"></textarea>
                             </div>
                         </div>
-                    </div>
-                    <div class="card-footer">                          
-                        <div class="row">
-                            <div class="col-md-4"></div>
-
-                            <div class="col-md-4">
-                                <button id="cancel" name="cancel" value="cancel" type="submit" class="btn btn-info btn-lg">Annuleren</button>
-                            </div>
-                            <div class="col-md-4">                                    
-                                <button id="inquire" name="inquire" value="inquire" type="submit" class="btn btn-primary btn-lg">Vraag versturen</button>
-                            </div>
-                            <input type="hidden" name="project_id" value="{{ $project->id }}">
-                            <input type="hidden" name="applicant_id" value="{{ Auth::guard('web')->user()->id }}">
-                        </div>  
-
-                        <div class="form-group">
-                            @if(count($errors))
-                                <div class="alert alert-danger">
-                                    <ul>
-                                        @foreach($errors->all() as $error) 
-                                            <li>{{$error}}</li>
-                                        @endforeach
-                                    </ul>
+                        <div class="card-footer">                          
+                            <div class="row">
+                                <div class="col-md-4"></div>
+    
+                                <div class="col-md-4">
+                                    <button id="cancel" name="cancel" value="cancel" type="submit" class="btn btn-info btn-lg">Annuleren</button>
                                 </div>
-                            @endif
+                                <div class="col-md-4">                                    
+                                    <button id="inquire" name="inquire" value="inquire" type="submit" class="btn btn-primary btn-lg">Vraag versturen</button>
+                                </div>
+                                <input type="hidden" name="project_id" value="{{ $project->id }}">
+                                <input type="hidden" name="applicant_id" value="{{ Auth::guard('web')->user()->id }}">
+                            </div>  
                         </div>
-                    </div>                
+                    </div>                    
+                    <div class="form-group">
+                        @if(count($errors))
+                            <div class="alert alert-danger">
+                                <ul>
+                                    @foreach($errors->all() as $error) 
+                                        <li>{{$error}}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
+                    </div>                    
                 </form>     
             </div>
         </div>

@@ -4,17 +4,22 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8"></div>
-        <div class="col-md-4">
-            <h4><a href="/projects">&lt; Terug naar projectoverzicht</a></h4>
-        </div>
-        <div class="col-md-8">            
-
+        
+        <div class="col-md-12 row">
            	<div class="form-group">
                 <div class="card">
                     <div class="card-header">  
-                    	<h1>Project: {{ $project->name }} </h1>                     
-                    </div>
+                        <div class="row">
+                            <div class="col-md-8"></div>
+                            <div class="col-md-4 text-right">
+                                <h4><a href="/projects">&lt; Terug naar projectoverzicht</a></h4>
+                            </div>
+                            <div class="col-md-12">
+                                <h1>Project: {{ $project->name }}</h1>
+                            </div>
+                        </div>
+                    </div>                    
+        
                     <div class="card-body">
                         <p class="card-text"> {{ $project->description }}</p>
 						<p> start: {{ $project->start_date }} </p>
@@ -83,17 +88,19 @@
                                 @endif
                             </div>
                         @elseif (!$isProjectMember)
-                            <form class="form-group row" method="GET" action="/projects/join/{{$project->id}}">
+                            <form class="form-group" method="GET" action="/projects/join/{{$project->id}}">
                                 {{csrf_field()}}
-                                <div class="col-md-6 text-right">
-                                    <button name="inquire" value="inquire" type="submit" class="btn btn-primary btn-lg">Vraagje...</button>
-                                </div>
-
-                                @if (!$project->enough_members)
+                                <div class="row">
                                     <div class="col-md-6">
-                                        <button id="join" name="join" value="join" type="submit" class="btn btn-primary btn-lg">Voor het project aanmelden</button>
+                                        <button name="inquire" value="inquire" type="submit" class="btn btn-primary btn-lg">Vraagje...</button>
                                     </div>
-                                @endif
+
+                                    @if (!$project->enough_members)
+                                        <div class="col-md-6">
+                                            <button id="join" name="join" value="join" type="submit" class="btn btn-primary btn-lg">Voor het project aanmelden</button>
+                                        </div>
+                                    @endif
+                                </div>
                             </form>                            
                         @endif
                     </div>

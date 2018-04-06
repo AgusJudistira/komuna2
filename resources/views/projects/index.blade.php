@@ -3,29 +3,32 @@
 
 @section('content')
 <div class="container">
-    <div class="row justify-content-center">            
-            
-        <form class="form-inline col-md-12" action="projects.index" method="post" role="form">
-            {{ csrf_field() }}
-            
-            <div class="form-inline row">
-            
-                <label class="control-label control-label-right col-md-4" for="searchstring">Zoek in projecten op: </label>
-                <div class="col-md-7">                    
-                    <input id="searchstring" name="searchstring" class="form-control k-textbox" data-role="text" type="text">
-                </div>     
+    <form style="z-index: 3; position: fixed; bottom: 30px; right: 30px;" action="/projects/create" method="post" role="form">
+        {{ csrf_field() }}
+        <button id="start_project" name="start_project" value="start_project" type="submit" class="btn btn-info btn-lg">Nieuwe project starten</button>
+    </form>
 
-                <div class="col-md-1">
-                    <button id="zoek" name="zoek" value="zoek" type="submit" class="btn btn-info btn-lg">Zoek</button>
+    <div class="row">
+        <div class="form-group col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <form class="form-inline col-md-12" action="projects.index" method="post" role="form">
+                        {{ csrf_field() }}
+                        
+                        <label class="control-label control-label-right col-md-4" for="searchstring">Opzoeken in projecttitel en -beschrijving: </label>
+                        
+                        <input id="searchstring" name="searchstring" class="form-control col-md-7" data-role="text" type="text">
+                        
+                        <div class="col-md-1">
+                            <button id="zoek" name="zoek" value="zoek" type="submit" class="btn btn-info btn-lg">Zoek</button>
+                        </div>              
+                        
+                    </form>
                 </div>
+                
             </div>
-            
-        </form>
-
-        <form style="z-index: 3; position: fixed; bottom: 30px; right: 30px;" action="/projects/create" method="post" role="form">
-            {{ csrf_field() }}
-            <button id="start_project" name="start_project" value="start_project" type="submit" class="btn btn-info btn-lg">Nieuwe project starten</button>
-        </form>
+        </div>
+        <br /><br />
 
         <div class="col-md-12">        
             @foreach ($listed_projects as $project)                

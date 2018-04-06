@@ -7,8 +7,7 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">Persoonlijk profiel van<h5>{{ Auth::guard('web')->user()->firstname . " ". Auth::guard('web')->user()->lastname}}</h5></div>
-                <div class="card-body">
-                    
+                <div class="card-body">                    
 
                     <div class="card-header">  
                         <h5>Personlijke gegvens</h5>                      
@@ -39,11 +38,6 @@
                         </p>
 
                         </div>
-
-
-
-
-                    
 
                      <div class="card-header">  
                         <h5>Competenties & Skills</h5>                      

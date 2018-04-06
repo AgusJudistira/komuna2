@@ -36,7 +36,7 @@
                             {{csrf_field()}}                   
                                 
                             <div class="form-group col-md-12 row">
-                                <label for="competence" class="col-md-3 col-form-label text-md-right">{{ __('Voeg een competentie toe') }}</label>
+                                <label for="competence" class="col-md-3 col-form-label text-md-right">{{ __('Selecteer competenties:') }}</label>
                                 <div class="form-group col-md-7">
                                     <select name="competences_select[]" class="form-control" size="12" multiple>
                                         @foreach ($competences as $competence)

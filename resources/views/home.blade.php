@@ -3,7 +3,9 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-12 text-center"><h2>Dashboard</h2></div>
+        <div class="card">
+            <div class="col-md-12 text-center" style="background-color:darkblue; color:white;"><h2>Dashboard</h2></div>
+        </div>
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">Persoonlijke startpagina van <h5><a href="/users/{{Auth::user()->id}}/show">{{ Auth::guard('web')->user()->firstname . " ". Auth::guard('web')->user()->lastname}}</a></h5></div>

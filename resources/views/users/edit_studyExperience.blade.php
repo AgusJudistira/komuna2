@@ -13,8 +13,7 @@
                     <form class="form-group mt-3" method="POST" action="{{route('users.update_studyExperience', $user)}}">
                         {{csrf_field()}}
                             
-                        <input id="user_id" type="text" class="form-control d-none" name="user_id" value="{{ Auth::guard('web')->user()->id}}" required>
-                            
+                        <input id="user_id" type="text" class="form-control d-none" name="user_id" value="{{ Auth::guard('web')->user()->id}}" required>                            
                         
                          <div class="form-group row">
                             <label for="name" class="col-md-3 col-form-label text-md-right">{{ __('Opleiding') }}</label>

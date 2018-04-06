@@ -84,4 +84,13 @@ class User extends Authenticatable
         return $this->belongsToMany(Skill::class, 'skill_user');
     }
 
+    public function review()
+    {
+        return $this->hasMany(Review::class, 'rating_user_id', 'user_id');
+    }
+
+    public function reviewed()
+    {
+        return $this->hasMany(Review::class, 'rated_user_id', 'user_id');
+    }
 }

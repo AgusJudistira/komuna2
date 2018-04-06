@@ -132,11 +132,12 @@ Route::post('/users/{user}/store_skills',  ['as' => 'users.store_skills', 'uses'
 Route::post('/users/{user}/detach_skills',  ['as' => 'users.detach_skills', 'uses' => 'UsersController@detachSkills'])->where('user', '[0-9]+');
 
 //detailed view of one user
-Route::get('/users/{user}/show', ['as' => 'users.show', 'uses' =>  'usersController@show'])->where('user', '[0-9]+');
+Route::get('/users/{user}/show', ['as' => 'users.show', 'uses' =>  'UsersController@show'])->where('user', '[0-9]+');
 
 //zoek users
 
-Route::get('users/{user}/seekMembers', ['as' => 'users.seekMembers', 'uses' =>  'usersController@seekMembers'])->where('user', '[0-9]+');
+Route::get('users/{user}/seekMembers', ['as' => 'users.seekMembers', 'uses' =>  'UsersController@seekMembers'])->where('user', '[0-9]+');
 
 
-
+//Route::get('users/{user}/review', ['as' => 'users.review', 'uses' =>  'ReviewController@review'])->where('user', '[0-9]+');
+Route::post('users/{user}/store_rating', ['as' => 'users.store_rating', 'uses' =>  'UsersController@storeOrUpdateUserRating'])->where('user', '[0-9]+');

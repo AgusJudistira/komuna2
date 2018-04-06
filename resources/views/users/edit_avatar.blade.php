@@ -26,7 +26,7 @@
                             </form>
                                 <div class="col-md-12">
                                     <!-- Terug naar NAW-gegevens -->
-                                    <form class="col-md-2 float-left" method="GET" action="/users/{{Auth::user()->id}}/"> 
+                                    <form class="col-md-2 float-left" method="GET" action="/users/{{Auth::user()->id}}/edit_personal"> 
                                         <button type="submit" class="btn btn-primary ml-auto" role="button">
                                             {{ __('Vorige') }}
                                         </button> 

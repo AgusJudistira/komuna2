@@ -143,7 +143,7 @@ Route::post('/users/{user}/detach_skills',  ['as' => 'users.detach_skills', 'use
 Route::get('/users/{user}/show', ['as' => 'users.show', 'uses' =>  'UsersController@show'])->where('user', '[0-9]+');
 
 //zoek users
-Route::get('users/{user}/seekMembers', ['as' => 'users.seekMembers', 'uses' =>  'UsersController@seekMembers'])->where('user', '[0-9]+');
+Route::get('users/users', ['as' => 'users.users', 'uses' =>  'UsersController@seekMembers'])->where('user', '[0-9]+');
 
 Route::post('users/{user}/store_rating', ['as' => 'users.store_rating', 'uses' =>  'UsersController@storeOrUpdateUserRating'])->where('user', '[0-9]+');
 

@@ -329,7 +329,7 @@ class UsersController extends Controller
          
          } else{
 
-            back();
+            return back();
          }
     }
 

@@ -5,14 +5,19 @@
 <div class="container">
 
     <div class="row">
-        <div class="col-md-8">
-            <h3>Vrijwilligers vinden</h3>
-        </div>
-        <div class="col-md-4 text-right">
-           
-        </div>
-
-        <table class="table table-striped">
+        <div class="card">
+            <div class="card-header row">
+                <div class="col-md-12">
+                    <h3>Vrijwilligers </h3>
+                    
+                </div>
+                <div class="text-right">
+                    
+                </div>
+            </div>
+            <div class="card-body">
+               
+                <table class="table table-striped col-md-12">
             <thead>
                 <th>Naam</th>                
                                                
@@ -26,9 +31,15 @@
                 </tr> 
                 @endif
                 @endforeach
-        </table>
+        </table> 
+            </div>
+        </div>
     </div>
 
 </div>
 
 @endsection
+
+
+
+

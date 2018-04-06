@@ -11,7 +11,8 @@
                     <!-- Personal data -->
 
                     <div class="card-header">  
-                        <h5>Personlijke gegvens</h5>                      
+                        <a class="float-right" href="{{ URL::previous() }}">terug</a>
+                        <h5>Personlijke gegvens</h5>                 
                     </div>
                     <div class="card-body">
                         <div style="min-height: 25vh">

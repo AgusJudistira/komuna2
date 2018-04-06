@@ -14,9 +14,9 @@
                     <h5><a href="/users/{{Auth::guard('web')->user()->id}}/edit_personal">Profiel wijzigen</a></h5>
                     <h5><a href="organizations">Organisaties</a></h5>
                     <h5><a href="/projects">Projecten</a></h5>
-                    <h5><a href="/users/users">Vrijwilligers</a></h5>                 
-                    
+                    <h5><a href="/users/users">Vrijwilligers</a></h5>                                     
                 </div>
+                
                 <div class="card-footer">
                     <form class="form-group" method="GET" action="/messages/msg-index">
                         {{ csrf_field() }}

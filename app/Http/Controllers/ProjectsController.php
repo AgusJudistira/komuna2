@@ -345,10 +345,11 @@ class ProjectsController extends Controller
 
 			// dismiss project members from the project
 			$deleted_projectmembers_id = request('deleted_projectmembers');
-			//dd($deleted_projectmembers_id);
-			foreach ($deleted_projectmembers_id as $deleted_projectmember_id) {
-				$remove_user = User::find($deleted_projectmember_id);
-				$remove_user->project()->detach($project->id);
+			if ($deleted_projectmembers_id) {			
+				foreach ($deleted_projectmembers_id as $deleted_projectmember_id) {
+					$remove_user = User::find($deleted_projectmember_id);
+					$remove_user->project()->detach($project->id);
+				}
 			}
 
 			return redirect()->route('projects.edit_skills', $project);

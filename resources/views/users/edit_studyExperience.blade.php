@@ -10,15 +10,15 @@
                         <h4>Voeg studieervaring toe</h4>                      
                     </div>
                     <!-- Organization -->
-                    <form class="form-group mt-4" method="POST" action="{{route('users.update_studyExperience', $user)}}">
+                    <form class="form-group mt-3" method="POST" action="{{route('users.update_studyExperience', $user)}}">
                         {{csrf_field()}}
                             
-                                <input id="user_id" type="text" class="form-control d-none" name="user_id" value="{{ Auth::guard('web')->user()->id}}" required>
+                        <input id="user_id" type="text" class="form-control d-none" name="user_id" value="{{ Auth::guard('web')->user()->id}}" required>
                             
                         
                          <div class="form-group row">
-                            <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Opleiding') }}</label>
-                            <div class="col-md-6">
+                            <label for="name" class="col-md-3 col-form-label text-md-right">{{ __('Opleiding') }}</label>
+                            <div class="col-md-8">
                                 <input id="name" type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" value="" required>
                                 @if ($errors->has('name'))
                                     <span class="invalid-feedback">
@@ -31,8 +31,8 @@
                         <!-- Start datum -->
                     
                          <div class="form-group row">
-                            <label for="start_date" class="col-md-4 col-form-label text-md-right">{{ __('Van') }}</label>
-                            <div class="col-md-6">
+                            <label for="start_date" class="col-md-3 col-form-label text-md-right">{{ __('Van') }}</label>
+                            <div class="col-md-8">
                                 <input id="start_date" type="date" class="form-control" name="start_date" value="" required>
                                 @if ($errors->has('start_date'))
                                     <span class="invalid-feedback">
@@ -44,8 +44,8 @@
                         <!-- eind datum -->
                     
                          <div class="form-group row">
-                            <label for="end_date" class="col-md-4 col-form-label text-md-right">{{ __('Tot') }}</label>
-                            <div class="col-md-6">
+                            <label for="end_date" class="col-md-3 col-form-label text-md-right">{{ __('Tot') }}</label>
+                            <div class="col-md-8">
                                 <input id="end_date" type="date" class="form-control" name="end_date" value="">
                                 @if ($errors->has('end_date'))
                                     <span class="invalid-feedback">
@@ -56,8 +56,8 @@
                         </div>
                         <!-- afdeling -->
                         <div class="form-group row">
-                            <label for="level" class="col-md-4 col-form-label text-md-right">{{ __('Opleidingsniveau') }}</label>
-                            <div class="col-md-6">
+                            <label for="level" class="col-md-3 col-form-label text-md-right">{{ __('Opleidingsniveau') }}</label>
+                            <div class="col-md-8">
                                  <select id="level" type="text" class="form-control" name="level" value="{{ $user->level }}">
                                     <option value="7">Post-Doc</option>
                                     <option value="6">MBA</option>
@@ -78,8 +78,8 @@
                         </div>
                           <!-- diploma -->
                         <div class="form-group row">
-                            <label for="diploma" class="col-md-4 col-form-label text-md-right">{{ __('Diploma/certifcaat') }}</label>
-                            <div class="col-md-6">
+                            <label for="diploma" class="col-md-3 col-form-label text-md-right">{{ __('Diploma/certifcaat') }}</label>
+                            <div class="col-md-8">
                                 <label class="">
                                     <input name="diploma" type="checkbox" value="Ja">Ja
                                 </label><br />
@@ -93,9 +93,11 @@
                                 @endif
                             </div>
                         </div>
-                         <button type="submit" class="btn btn-primary ml-auto float-right" role="button">
-                            {{ __('Sla op') }}
-                        </button> 
+                        <div class="col-md-11 text-right">
+                            <button type="submit" class="btn btn-success" role="button">
+                                {{ __('Sla op') }}
+                            </button> 
+                        </div>
                     </form>
                     
 

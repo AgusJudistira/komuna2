@@ -8,23 +8,22 @@
                 <div class="card">
 
                     <div class="card-header">  
-                        <h4>Voeg vaardigheden toe</h4>                      
+                        <h4>Voeg vaardigheden toe voor project <b>{{$project->name}}</b></h4>
                     </div>
 
                     <div class="card-body">  
-                        <form class="form-group float-left" method="POST" action="{{route('users.detach_skills', $user)}}">
+                        <form class="form-group float-left ml-1" method="POST" action="{{route('projects.detach_skills', $project)}}">
                             @foreach ($skills_selected as $skill_selected)
-                                {{csrf_field()}}
-                                <button type="submit" name='skill' value='{{ $skill_selected->id }}' data-toggle="tooltip" class="btn btn-default float-left ml-1 mb-1" >{{ $skill_selected->skill }}</button>
+                            {{csrf_field()}}
+                            <button type="submit" name='skill' value='{{ $skill_selected->id }}' data-toggle="tooltip" class="btn btn-default float-left ml-1 mb-1" >{{ $skill_selected->skill }}</button>
                             @endforeach
                         </form>
-
                         <div class="form-group">
                             @if(count($errors))
                             <div class="alert alert-danger">
                                 <ul>
                                     @foreach($errors->all() as $error) 
-                                        <li>{{$error}}</li>
+                                    <li>{{$error}}</li>
                                     @endforeach
                                 </ul>
                             </div>
@@ -32,8 +31,8 @@
                         </div >
 
                         <!-- voeg een vardigheid toe -->
-                        <form class="form-group col-md-12" method="POST" action="{{route('users.store_skills', $user)}}">
-                            {{csrf_field()}}                   
+                        <form class="form-group col-md-12" method="POST" action="{{route('projects.store_skills', $project)}}">
+                            {{csrf_field()}}
                                 
                             <div class="form-group col-md-12 row">
                                 <label for="skill" class="col-md-3 col-form-label text-md-right">{{ __('Voeg een vaardigheid toe') }}</label>
@@ -44,36 +43,40 @@
                                                 <option>{{$skill->skill}}</option>
                                             @endforeach
                                         </datalist>
-
-                                    @if ($errors->has('skill'))
-                                        <span class="invalid-feedback">
-                                            <strong>{{ $errors->first('name') }}</strong>
-                                        </span>
-                                    @endif
                                 </div>
                                 <div class="col-md-2">
-                                    <button type="submit" class="btn btn-success ml-auto float-right" role="button">
+                                    <button type="submit" class="btn btn-primary ml-auto float-left" role="button">
                                         {{ __('Sla op') }}
                                     </button> 
                                 </div>
+
+                                @if ($errors->has('skill'))
+                                    <span class="invalid-feedback">
+                                        <strong>{{ $errors->first('name') }}</strong>
+                                    </span>
+                                @endif
+                                
                             </div>
                             
                         </form>
                     </div>
+
                     <div class="card-footer">
-                        <!-- Terug naar competenties -->
+                     <!-- Terug naar projects -->
                         <div class="col-md-12">
-                        <form class="col-md-2 float-left" method="GET" action="/users/{{Auth::user()->id}}/edit_competences"> 
-                            <button type="submit" class="btn btn-primary ml-auto" role="button">
-                                {{ __('Vorige') }}
-                            </button> 
-                        </form>
-                    <!--  Naar volgende -->  
-                        <form class="col-md-2 float-right" method="GET" action="/users/{{Auth::user()->id}}/edit_workExperience"> 
-                            <button type="submit" class="btn btn-primary ml-auto" role="button">
-                                {{ __('Volgende') }}
-                            </button> 
-                        </form>
+                            <form class="col-md-2 float-left" method="POST" action="{{ route('project_edit', $project) }}"> 
+                                {{csrf_field()}}
+                                <button type="submit" class="btn btn-primary ml-auto" role="button">
+                                    {{ __('Vorige') }}
+                                </button> 
+                            </form>
+                        <!--  Naar competenties -->  
+                            <form class="col-md-2 float-right" method="GET" action="/projects/{{$project->id}}/edit_competences"> 
+                                {{csrf_field()}}
+                                <button type="submit" class="btn btn-primary ml-auto" role="button">
+                                    {{ __('Volgende') }}
+                                </button> 
+                            </form>
                         </div>
                     </div>
                  </div>

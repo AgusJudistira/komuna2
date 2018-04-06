@@ -13,7 +13,7 @@
                     <form class="form-group mt-4" method="POST" action="{{route('users.update_workExperience', $user)}}">
                         {{csrf_field()}}
                             
-                                <input id="user_id" type="text" class="form-control d-none" name="user_id" value="{{ Auth::guard('web')->user()->id}}" required>
+                        <input id="user_id" type="text" class="form-control d-none" name="user_id" value="{{ Auth::guard('web')->user()->id}}" required>
                             
                         
                          <div class="form-group row">
@@ -89,10 +89,15 @@
                                     </span>
                                 @endif
                             </div>
+                            
+                            <div style="margin-top:12px;" class="col-md-10 text-right">
+                                <button type="submit" class="btn btn-success" role="button">
+                                    {{ __('Sla op') }}
+                                </button> 
+                            </div>
+                            
                         </div>
-                        <button type="submit" class="btn btn-primary ml-auto float-right" role="button">
-                            {{ __('Sla op') }}
-                        </button> 
+                        
                     </form>
                     <!-- Terug naar skills -->
                     <div class="col-md-12">
@@ -136,8 +141,7 @@
                                 @endforeach
                             </table>
                             </div>
-                        </div>
-                    
+                        </div>                    
 
 
                 <!-- Not in function right now -->

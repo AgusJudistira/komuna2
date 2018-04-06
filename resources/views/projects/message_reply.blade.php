@@ -24,32 +24,32 @@
                                 <textarea class="form-control" row="5" name="user_message"></textarea>
                             </div>
                         </div>
-                    </div>
-                    <div class="card-footer col-md-12">                          
-                        <div class="row">                        
-                            <div class="col-md-12 text-right">
-                                <button id="invite" name="reply" value="reply" type="submit" class="btn btn-primary btn-lg">Antwoord versturen</button>
+
+                        <div class="card-footer">                          
+                            <div class="row col-md-12">                        
+                                <div class="col-md-12 text-right">
+                                    <button id="invite" name="reply" value="reply" type="submit" class="btn btn-primary btn-lg">Antwoord versturen</button>
+                                </div>
                             </div>
                         </div>
-
                         <input type="hidden" name="project_id" value="{{ $project->id }}">
                         <input type="hidden" name="recipient_id" value="{{ $old_message->sender_id }}">
                         <input type="hidden" name="old_message_id" value="{{ $old_message->id }}">
-                        
+                    </div>
 
-                        <div class="form-group">
-                            @if(count($errors))
-                                <div class="alert alert-danger">
-                                    <ul>
-                                        @foreach($errors->all() as $error) 
-                                            <li>{{$error}}</li>
-                                        @endforeach
-                                    </ul>
-                                </div>
-                            @endif
-                        </div>
-                    </div>                
-                </form>     
+                    <div class="form-group">
+                        @if(count($errors))
+                            <div class="alert alert-danger">
+                                <ul>
+                                    @foreach($errors->all() as $error) 
+                                        <li>{{$error}}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
+                    </div>
+                    
+                </form>
             </div>
         </div>
     </div>

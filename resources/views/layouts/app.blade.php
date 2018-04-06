@@ -12,6 +12,7 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/komuna.css') }}" rel="stylesheet">
     <style>
         .navbar {
             background-color: darkblue;
@@ -29,6 +30,7 @@
         }
 
         .py-4 {
+
             @if (Auth::guard('admin')->check() && Auth::guard('web')->check())
                 margin-top: 144px;
             @else
@@ -115,4 +117,5 @@
     <script src="{{ asset('js/app.js') }}"></script>
     
 </body>
+
 </html>

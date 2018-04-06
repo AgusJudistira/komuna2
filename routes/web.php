@@ -13,12 +13,12 @@ Route::get('projects', 'ProjectsController@index')->name('project_index');
 Route::get('projects/{project}', 'ProjectsController@show')->where('project', '[0-9]+');
 
 //show edit form of an existing project
-Route::post('projects/edit', 'ProjectsController@edit');
+Route::post('projects/edit/{project}', 'ProjectsController@edit')->name('project_edit')->where('project', '[0-9]+');
 
-Route::get('projects/seekMembers', 'ProjectsController@seekMembers');
+Route::get('projects/seekMembers/{project}', 'ProjectsController@seekMembers')->name('seek_members')->where('project', '[0-9]+');
 
 // get details about a volunteer before inviting.
-Route::get('projects/showInvitee/{project}/{invitee}', 'ProjectsController@showInvitee')->where(['project' => '[0-9]+', 'invitee' => '[0-9]+']);
+Route::get('projects/showInvitee/{project}/{user}', 'ProjectsController@showInvitee')->where(['project' => '[0-9]+', 'user' => '[0-9]+']);
 
 // invite a volunteer to join project
 Route::post('projects/prepare_invitation', 'ProjectsController@prepareInvitation');
@@ -37,8 +37,8 @@ Route::post('/projects/save_existing/{project}', 'ProjectsController@save_existi
 //show input form for a new project
 Route::post('projects/create', 'ProjectsController@create');
 
-//save a new project
-Route::post('/projects', 'ProjectsController@store');
+//save a new project and go to add skills screen
+Route::post('/projects/store', 'ProjectsController@store');
 
 //accept or refuse an applicant (input from message)
 Route::post('/projects/decide', 'ProjectsController@decide');
@@ -53,11 +53,19 @@ Route::get('/projects/join/{project}', 'ProjectsController@prepareJoinMessage')-
 Route::get('/projects/send_join_request/{project}', 'ProjectsController@sendJoinProjectMessage');
 //show a list of messages
 
+
+Route::get('/projects/{project}/edit_skills',  ['as' => 'projects.edit_skills', 'uses' => 'ProjectsController@editSkills'])->where('project', '[0-9]+');
+
+Route::post('/projects/{project}/store_skills',  ['as' => 'projects.store_skills', 'uses' => 'ProjectsController@storeSkill'])->where('project', '[0-9]+');
+
+Route::post('/projects/{project}/detach_skills',  ['as' => 'projects.detach_skills', 'uses' => 'ProjectsController@detachSkills'])->where('project', '[0-9]+');
+
+
 Route::get('/projects/{project}/edit_competences',  ['as' => 'projects.edit_competences', 'uses' => 'ProjectsController@editCompetences'])->where('project', '[0-9]+');
 //attach competences to project
-Route::post('/projects/{project}/update_competences',  ['as' => 'projects.update_competences', 'uses' => 'UsersController@addCompetences'])->where('project', '[0-9]+');
+Route::post('/projects/{project}/update_competences',  ['as' => 'projects.update_competences', 'uses' => 'ProjectsController@addCompetences'])->where('project', '[0-9]+');
 //detacth competences from project
-Route::post('/projects/{project}/detach_competences',  ['as' => 'projects.detach_competences', 'uses' => 'UsersController@detachCompetences'])->where('project', '[0-9]+');
+Route::post('/projects/{project}/detach_competences',  ['as' => 'projects.detach_competences', 'uses' => 'ProjectsController@detachCompetences'])->where('project', '[0-9]+');
 
 
 Route::get('/messages/msg-index', 'MessagesController@showMessages');
@@ -132,11 +140,9 @@ Route::post('/users/{user}/store_skills',  ['as' => 'users.store_skills', 'uses'
 Route::post('/users/{user}/detach_skills',  ['as' => 'users.detach_skills', 'uses' => 'UsersController@detachSkills'])->where('user', '[0-9]+');
 
 //detailed view of one user
-Route::get('/users/{user}/show', ['as' => 'users.show', 'uses' =>  'usersController@show'])->where('user', '[0-9]+');
+Route::get('/users/{user}/show', ['as' => 'users.show', 'uses' =>  'UsersController@show'])->where('user', '[0-9]+');
 
 //zoek users
-
 Route::get('users/{user}/seekMembers', ['as' => 'users.seekMembers', 'uses' =>  'usersController@seekMembers'])->where('user', '[0-9]+');
-
 
 

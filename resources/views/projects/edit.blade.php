@@ -68,7 +68,7 @@
                                 @endif
                             </div>
                             
-                            <br />
+                            
                             <div class="form-group row" rel="popover" data-trigger="hover" data-content="Genoeg leden" data-original-title="">
                                 <label class="control-label control-label-right col-md-4 text-right">Heeft genoeg medewerkers:</label>
                                 <div class="col-md-1">
@@ -83,8 +83,17 @@
 
                             <div class="row">
                                 <div class="col-md-12">
-                                    Projectleden:
-                                    <h5>
+                                    Markeer projectleden om ze <span class="text-danger">af te melden:</span>
+                                    <div class="row">
+                                        @foreach ($list_of_projectusers as $projectuser)
+                                            @if (!$projectuser->pivot->projectowner)
+                                                <div class="checkbox col-md-3">                                                
+                                                    <label><input type="checkbox" name="deleted_projectmembers[]" value="{{$projectuser->id}}"> {{$projectuser->firstname . " " . $projectuser->lastname}}</label>
+                                                </div>
+                                            @endif
+                                        @endforeach
+                                    </div>
+                                    {{-- <h5>
                                     @foreach ($list_of_projectusers as $projectuser)
                                         @if ($projectuser->pivot->projectowner)
                                             <span class="badge badge-pill badge-info">{{ $projectuser->firstname . " " . $projectuser->lastname }} (eigenaar)</span>                                            
@@ -92,7 +101,7 @@
                                             <span class="badge badge-pill badge-secondary">{{ $projectuser->firstname . " " . $projectuser->lastname }}</span>
                                         @endif
                                     @endforeach
-                                    </h5>
+                                    </h5> --}}
                                 </div>
                             </div>
 

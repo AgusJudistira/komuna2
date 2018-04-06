@@ -342,13 +342,30 @@ class ProjectsController extends Controller
 
 			$project->enough_members = $enough_members;
 			$project->save();
+
+			// dismiss project members from the project
+			$deleted_projectmembers_id = request('deleted_projectmembers');
+			//dd($deleted_projectmembers_id);
+			foreach ($deleted_projectmembers_id as $deleted_projectmember_id) {
+				$remove_user = User::find($deleted_projectmember_id);
+				$remove_user->project()->detach($project->id);
+			}
+
+			return redirect()->route('projects.edit_skills', $project);
+
+		} else {
+			//dd($project);
+			return redirect()->route('project_show', $project);
+			
 		}
 
 
-		$skills = Skill::all();
-		$skills_selected = $project->skill()->get();
+		// $skills = Skill::all();
+		// $skills_selected = $project->skill()->get();
 
-		return view('projects.edit_skills', compact('project', 'skills', 'skills_selected'));
+		// return view('projects.show', compact('project', 'skills', 'skills_selected'));
+
+		
 	}
 
 

@@ -10,7 +10,7 @@ Route::get('/', function () {
 Route::get('projects', 'ProjectsController@index')->name('project_index');
 
 //detailed view of ONE project
-Route::get('projects/{project}', 'ProjectsController@show')->where('project', '[0-9]+');
+Route::get('projects/{project}', 'ProjectsController@show')->name('project_show')->where('project', '[0-9]+');
 
 //show edit form of an existing project
 Route::post('projects/edit/{project}', 'ProjectsController@edit')->name('project_edit')->where('project', '[0-9]+');

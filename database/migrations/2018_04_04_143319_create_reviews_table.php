@@ -15,10 +15,10 @@ class CreateReviewsTable extends Migration
     {
         Schema::create('reviews', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('liked_id');
-            $table->integer('liking_user_id');
+            $table->integer('rated_user_id')->nullable();
+            $table->integer('rating_user_id')->nullable();
+            $table->integer('rating')->nullable();
             $table->boolean('like')->default(false);
-            $table->integer('stars')->nullable();
             $table->text('review')->nullable();
             $table->timestamps();
         });

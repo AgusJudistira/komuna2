@@ -1,4 +1,8 @@
 <?php
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
+use App\User;
 
 namespace App;
 
@@ -8,14 +12,16 @@ class Review extends Model
 {
         protected $fillable = [
         	'id',
-			'liked_id',
-			'liking_user_id',
-			'like',
-			'stars',
+			'rated_user_id',
+            'rating_user_id',
+			'rating',
+            'rating',
+            'like',
 			'review'
     ];
      
-    public function studyExperience()
+    public function Review()
+    
     {
         return $this->hasOne(User::class);
     }

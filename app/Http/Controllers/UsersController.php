@@ -10,6 +10,7 @@ use App\Skill;
 use App\Competence;
 use App\WorkExperience;
 use App\StudyExperience;
+use App\Review;
 
 
 use Image;
@@ -38,18 +39,17 @@ class UsersController extends Controller
    
     public function show(User $user) 
     {
-        //$user = User::with('user')->get();
         $competences_selected = $user->competence()->get();
         $skills_selected = $user->Skill()->get();
-        $workExperiences = $user->workExperience()->orderBy('start_date', 'DESC')->get();
+        $workExperiences = $user->WorkExperience()->orderBy('start_date', 'DESC')->get();
         $studyExperiences = $user->StudyExperience()->orderBy('start_date', 'DESC')->get();
-
+        $rating = DB::table('reviews')->where('rated_user_id', '=', $user->id)->avg('rating');
         $date1 = date_create($user->birthday);
         $date2 = date_create(date("Y-m-d"));
         $age = date_diff($date1, $date2)->format('%y jaar');
 
 
-        return view('users.show', compact('user', 'competences_selected', 'skills_selected', 'workExperiences', 'studyExperiences', 'age'));     
+        return view('users.show', compact('user', 'competences_selected', 'skills_selected', 'workExperiences', 'studyExperiences', 'age', 'rating'));     
     }
    
 
@@ -92,8 +92,7 @@ class UsersController extends Controller
         
     }
 
-
-    public function updateAvatar(Request $request)
+   public function updateAvatar(Request $request)
     { 
         if ($request->hasFile('avatar')){
         	$avatar= $request->file('avatar');
@@ -283,6 +282,59 @@ class UsersController extends Controller
 
        return view('users.seekMembers', compact('users'));
     }
+
+
+
+    public function storeOrUpdateUserRating(User $user)
+    {   
+
+        $rating_user_id = request('rating_user_id');
+        $rated_user_id = request('rated_user_id');
+
+        $alreadyReviewd = Review::where('rating_user_id', $rating_user_id)->where('rated_user_id', $rated_user_id)->get();
+        if ($alreadyReviewd->count() < 1 && $rating_user_id != $rated_user_id ) {
+
+                $this->validate(request(),[
+                    'rated_user_id',
+                    'rating_user_id',
+                    'rating'
+                ]);
+        
+                $newRating = Review::create(request([
+                    'rated_user_id',
+                    'rating_user_id',
+                    'rating'
+                ]));
+ 
+                 
+        return back();
+        
+        }
+            
+        elseif ($alreadyReviewd->count() >= 1 && $rating_user_id != $rated_user_id ){
+
+            $this->validate(request(),[
+                    'rated_user_id',
+                    'rating_user_id',
+                    'rating'
+                ]);
+
+            $updated = Review::where('rating_user_id', $rating_user_id)->where('rated_user_id', $rated_user_id)->update(request([
+            'rated_user_id',
+            'rating_user_id',
+            'rating'
+                ]));
+        
+            return back();
+         
+         } else{
+
+            back();
+         }
+    }
+
+
+
 }
 
 

@@ -58,20 +58,14 @@ class ProjectsController extends Controller
 				}
 			}
 						
-			$one_project = Array();
-			// leden die geen competentiematch of skillsmatch hebben eruit filteren
-			// leden die al lid zijn van het project eruit filteren.
-			if (!$this->isMember($thisUser, $project) || $this->isOwner($thisUser, $project)) {
-				//if (count($found_competences) > 0 || count($found_skills) > 0 ) {
-
-					$one_project[] = (count($found_skills)+0.1) * (count($found_competences)+0.25);
-					$one_project[] = $project;
-					$one_project[] = $found_skills;
-					$one_project[] = $found_competences;
-					$listed_projects[] = $one_project;		
-				//}
-			}
-			
+			$one_project = Array();			
+					
+			$one_project[] = (count($found_skills)+0.1) * (count($found_competences)+0.25);
+			$one_project[] = $project;
+			$one_project[] = $found_skills;
+			$one_project[] = $found_competences;
+			$listed_projects[] = $one_project;		
+						
 		}		
 
 		//dd($listed_projects);
@@ -204,9 +198,12 @@ class ProjectsController extends Controller
 			'due_date'
 
 		]));
-
+		
 		// maak de gebruiker die het project aanmaakt de projectowner
-		$project->user()->attach($user_id, ['projectowner' => true]);
+		// en vul ook de begindatum in wanneer de projectowner bij het project betrokken is
+		$project->user()->attach($user_id, ['projectowner' => true,
+											'start_date_user' => \Carbon\Carbon::now()->toDateTimeString()
+										]);
 
 		$skills = Skill::all();
 		$skills_selected = Array();
@@ -355,17 +352,10 @@ class ProjectsController extends Controller
 			return redirect()->route('projects.edit_skills', $project);
 
 		} else {
-			//dd($project);
+			
 			return redirect()->route('project_show', $project);
 			
 		}
-
-
-		// $skills = Skill::all();
-		// $skills_selected = $project->skill()->get();
-
-		// return view('projects.show', compact('project', 'skills', 'skills_selected'));
-
 		
 	}
 
@@ -447,6 +437,7 @@ class ProjectsController extends Controller
 
 			$competences_selected = $user->competence()->get();
 			$skills_selected = $user->Skill()->get();
+			$projects = $user->project()->withPivot('projectowner', 'start_date_user', 'end_date_user')->get();
 			$workExperiences = $user->workExperience()->orderBy('start_date', 'DESC')->get();
 			$studyExperiences = $user->StudyExperience()->orderBy('start_date', 'DESC')->get();
 
@@ -454,7 +445,7 @@ class ProjectsController extends Controller
 			$date2 = date_create(date("Y-m-d"));
 			$age = date_diff($date1, $date2)->format('%y jaar');
 
-			return view('projects.showInvitee', compact('user', 'project', 'competences_selected', 'skills_selected', 'workExperiences', 'studyExperiences', 'age'));
+			return view('projects.showInvitee', compact('user', 'projects', 'project', 'competences_selected', 'skills_selected', 'workExperiences', 'studyExperiences', 'age'));
 			// $invitee_competences = $invitee->competence()->get();
 			// return view('projects.showInvitee', compact('project', 'invitee', 'invitee_competences'));
 		} else {
@@ -787,10 +778,12 @@ class ProjectsController extends Controller
 
 					$this_message->action_taken = 1;
 					$this_message->save();
-					$project->user()->attach($applicant_id);
+					$project->user()->attach($applicant_id, ['start_date_user' => \Carbon\Carbon::now()->toDateTimeString()]);
 					
-					$this->sendAcceptedToProjectMessage($project, $thisuser_id, $applicant_id);
-					
+					// $$project->user()->updateExistingPivot($applicant_id, 
+					// 	['start_date_user' => \Carbon\Carbon::now()->toDateTimeString()]);
+
+					$this->sendAcceptedToProjectMessage($project, $thisuser_id, $applicant_id);					
 				}
 			} elseif (request('refuse') == 'refuse') {
 				$this_message->action_taken = 2;
@@ -809,7 +802,10 @@ class ProjectsController extends Controller
 
 					$this_message->action_taken = 1;
 					$this_message->save();
-					$project->user()->attach($applicant_id);
+					$project->user()->attach($applicant_id, ['start_date_user' => \Carbon\Carbon::now()->toDateTimeString()]);
+					
+					// $project->user()->updateExistingPivot($applicant_id, 
+					// 	['start_date_user' => \Carbon\Carbon::now()->toDateTimeString()]);
 					
 					$this->sendAcceptInvitationToProject($project, $applicant_id, $this_message);
 					

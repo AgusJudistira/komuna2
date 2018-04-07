@@ -21,49 +21,51 @@
                     </div>                    
         
                     <div class="card-body">
-                        <p class="card-text"> {{ $project->description }}</p>
-						<p> start: {{ $project->start_date }} </p>
-                        <p> deadline: {{ $project->due_date }}</p>
+                        <div class="col-md-12">
+                            <p class="card-text">{{ $project->description }}</p>
+                            <p class="card-text">start: {{ $project->start_date }} </p>
+                            <p class="card-text">deadline: {{ $project->due_date }}</p>
 
-                        @if ($project->enough_members)
-                            <p class="text-danger">Er zijn al genoeg vrijwilligers. Ledenwerving gestopt</p>
-                        @endif
-                        
-                        <div class="row">
-                            <div class="col-md-12">Benodigde vaardigheden:</div>
-                        </div>
-
-                        @foreach ($skills as $skill)
-                            <span data-toggle="tooltip" title='{{$skill->description}}' class="badge badge-pill badge-warning">{{ $skill->skill }}</span>
-                        @endforeach
-
-                        <br>
-
-                        <div class="row">
-                            <div class="col-md-12">Benodigde competenties:</div>
-                        </div>
-                        
-                        @foreach ($competences as $competence)
-                            <span data-toggle="tooltip" title='{{$competence->description}}' class="badge badge-pill badge-success">{{ $competence->competence }}</span>
-                        @endforeach
-                        
-
-                        <div class="row">
-                            <div class="col-md-12">
-                                Projectleden:
+                            @if ($project->enough_members)
+                                <div class="card-text text-danger">Er zijn al genoeg vrijwilligers. Ledenwerving gestopt</div>
+                            @endif
+                            
+                            <div class="row">
+                                <div class="col-md-12">Benodigde vaardigheden:</div>
                             </div>
+
+                            <p class="card-text">
+                                @foreach ($skills as $skill)                                
+                                    <span data-toggle="tooltip" title='{{$skill->description}}' class="badge badge-pill badge-warning">{{ $skill->skill }}</span>                                
+                                @endforeach
+                            </p>                            
+
+                            <div class="row">
+                                <div class="col-md-12">Benodigde competenties:</div>
+                            </div>
+
+                            <p class="card-text">
+                                @foreach ($competences as $competence)
+                                    <span data-toggle="tooltip" title='{{$competence->description}}' class="badge badge-pill badge-success">{{ $competence->competence }}</span>
+                                @endforeach
+                            </p>
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    Projectleden:
+                                </div>
+                            </div>
+                            
+                            <h5>
+                                @foreach ($list_of_projectusers as $projectuser)
+                                    @if ($projectuser->pivot->projectowner)
+                                        <span class="badge badge-pill badge-info">{{ $projectuser->firstname . " " . $projectuser->lastname }}  (eigenaar)</span>
+                                    @else
+                                        <span class="badge badge-pill badge-secondary">{{ $projectuser->firstname . " " . $projectuser->lastname }}</span>
+                                    @endif
+                                @endforeach                            
+                            </h5>
                         </div>
-                        
-                        <h5>
-                            @foreach ($list_of_projectusers as $projectuser)
-                                @if ($projectuser->pivot->projectowner)
-                                    <span class="badge badge-pill badge-info">{{ $projectuser->firstname . " " . $projectuser->lastname }}  (eigenaar)</span>
-                                @else
-                                    <span class="badge badge-pill badge-secondary">{{ $projectuser->firstname . " " . $projectuser->lastname }}</span>
-                                @endif
-                            @endforeach                            
-                        </h5>
-                                  
                     </div>
                     <div class="card-footer">
                         @if ($isProjectOwner)

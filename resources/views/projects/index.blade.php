@@ -2,10 +2,13 @@
 
 
 @section('content')
+<style>
+    
+</style>
 <div class="container">
-    <form style="z-index: 3; position: fixed; bottom: 30px; right: 30px;" action="/projects/create" method="post" role="form">
+    <form style="z-index: 3; position: fixed; bottom: 50px; right: 50px;" action="/projects/create" method="post" role="form">
         {{ csrf_field() }}
-        <button id="start_project" name="start_project" value="start_project" type="submit" class="btn btn-info btn-lg">Nieuwe project starten</button>
+        <button id="start_project" name="start_project" value="start_project" type="submit"><b>Nieuwe<br>project<br>starten</b></button>
     </form>
 
     <div class="row">

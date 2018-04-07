@@ -41,6 +41,7 @@ class UsersController extends Controller
     {
         $competences_selected = $user->competence()->get();
         $skills_selected = $user->Skill()->get();
+        $projects = $user->project()->withPivot('projectowner', 'start_date_user', 'end_date_user')->get();
         $workExperiences = $user->WorkExperience()->orderBy('start_date', 'DESC')->get();
         $studyExperiences = $user->StudyExperience()->orderBy('start_date', 'DESC')->get();
         $rating = DB::table('reviews')->where('rated_user_id', '=', $user->id)->avg('rating');
@@ -48,8 +49,7 @@ class UsersController extends Controller
         $date2 = date_create(date("Y-m-d"));
         $age = date_diff($date1, $date2)->format('%y jaar');
 
-
-        return view('users.show', compact('user', 'competences_selected', 'skills_selected', 'workExperiences', 'studyExperiences', 'age', 'rating'));     
+        return view('users.show', compact('user', 'projects', 'competences_selected', 'skills_selected', 'workExperiences', 'studyExperiences', 'age', 'rating'));
     }
    
 

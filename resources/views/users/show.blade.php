@@ -115,7 +115,33 @@
                             @endforeach
                         </form>
                     </div>
-    
+                    
+                    <div class="card-header">  
+                        <h5>Betrokken bij project</h5>                      
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                        <table class="table table-striped col-md-12">
+                            <tr>
+                                <th>Projectnaam</th>                                
+                                <th>Begonnen op</th>                                
+                                <th>Beindigd op</th>                
+                            </tr>
+                            @foreach ($projects as $project)
+                                <tr>
+                                    <td><a href="/projects/{{$project->id}}"> {{$project->name}}</a></td>
+                                    <td> {{$project->pivot->start_date_user}}</td>
+                                    
+                                    @if($project->pivot->end_date_user == null)
+                                        <td> Nog bezig </td>
+                                    @else
+                                        <td> {{$project->pivot->end_date_user}}</td>
+                                    @endif
+                                </tr>
+                            @endforeach
+                        </table>
+                        </div>
+                    </div>
                     <!-- Workexperience -->
                     <div class="card-header">  
                         <h5>Werkervaring</h5>                      

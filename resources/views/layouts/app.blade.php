@@ -52,15 +52,29 @@
             border-radius: 50%;
             background-color: darkred;
             color: white;
+            line-height:100%;
             padding-left: 15px;
             padding-right: 15px;
-            padding-top: 27px;
-            padding-bottom: 27px;
+            padding-top: 36px;
+            padding-bottom: 36px;
         }
 
         #dashboard-button:hover {
             background-color: darkgreen;
             color: white;
+        }
+        
+        #start_project {
+            border-radius: 50%; 
+            height: 100px; 
+            background-color:darkgreen; 
+            color:white; 
+            padding: 25px; 
+            line-height:100%;
+        }
+
+        #start_project:hover {
+            background-color: blue;
         }
 
     </style>

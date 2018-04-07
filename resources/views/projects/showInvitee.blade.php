@@ -74,9 +74,22 @@
 
                             @foreach ($projects as $one_project)
                                 <tr>
-                                    <td><a href="/projects/{{$one_project->id}}"> {{$one_project->name}}</a></td>
-                                    <td> {{$one_project->pivot->start_date_user}}</td>
-                                    <td> Nog bezig </td>                                    
+                                    <td><a href="/projects/{{$one_project->id}}"> {{$one_project->name}}</a>@if ($one_project->pivot->projectowner) (eigen project) @endif</td>
+                                    @if ($one_project->pivot->projectowner)
+                                        <td>{{$one_project->start_date}}</td>
+                                    @else
+                                        <td> {{$one_project->pivot->start_date_user}}</td>
+                                    @endif
+                                    
+                                    @if ($one_project->pivot->projectowner)
+                                        @if ($one_project->due_date < date("Y-m-d H:i:s"))
+                                            <td>{{$one_project->due_date}}</td>
+                                        @else
+                                            <td>Nog bezig</td>
+                                        @endif
+                                    @else
+                                        <td>Nog bezig</td>                                    
+                                    @endif
                                 </tr>
                             @endforeach
 

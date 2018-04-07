@@ -119,27 +119,45 @@
                     <div class="card-header">  
                         <h5>Betrokken bij project</h5>                      
                     </div>
+                    
                     <div class="row">
                         <div class="col-md-12">
-                        <table class="table table-striped col-md-12">
-                            <tr>
-                                <th>Projectnaam</th>                                
-                                <th>Begonnen op</th>                                
-                                <th>Beindigd op</th>                
-                            </tr>
-                            @foreach ($projects as $project)
+                            <table class="table table-striped col-md-12">
                                 <tr>
-                                    <td><a href="/projects/{{$project->id}}"> {{$project->name}}</a></td>
-                                    <td> {{$project->pivot->start_date_user}}</td>
-                                    
-                                    @if($project->pivot->end_date_user == null)
-                                        <td> Nog bezig </td>
-                                    @else
-                                        <td> {{$project->pivot->end_date_user}}</td>
-                                    @endif
+                                    <th>Projectnaam</th>                                
+                                    <th>Begonnen op</th>                                
+                                    <th>Beindigd op</th>                
                                 </tr>
-                            @endforeach
-                        </table>
+                                @foreach ($projects as $project)
+                                    <tr>                                        
+                                        <td><a href="/projects/{{$project->id}}"> {{$project->name}}</a>@if ($project->pivot->projectowner) (eigen project) @endif</td>
+                                        @if ($project->pivot->projectowner)
+                                            <td>{{$project->start_date}}</td>
+                                        @else
+                                            <td> {{$project->pivot->start_date_user}}</td>
+                                        @endif
+                                        
+                                        @if ($project->pivot->projectowner)
+                                            @if ($project->due_date < date("Y-m-d H:i:s"))
+                                                <td>{{$project->due_date}}</td>
+                                            @else
+                                                <td>Nog bezig</td>
+                                            @endif
+                                        @else
+                                            <td>Nog bezig</td>                                    
+                                        @endif
+                                    </tr>
+                                @endforeach
+
+                                @foreach ($projectExperiences as $projectExperience)
+                                    <tr>
+                                        <td><a href="/projects/{{$projectExperience->id}}"> {{$projectExperience->name}}</a></td>
+                                        <td> {{$projectExperience->pivot->start_date_user}}</td>
+                                        <td> {{$projectExperience->pivot->end_date_user}}</td>
+                                    </tr>
+                                @endforeach
+
+                            </table>
                         </div>
                     </div>
                     <!-- Workexperience -->

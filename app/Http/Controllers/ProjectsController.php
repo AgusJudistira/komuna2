@@ -437,7 +437,11 @@ class ProjectsController extends Controller
 
 			$competences_selected = $user->competence()->get();
 			$skills_selected = $user->Skill()->get();
-			$projects = $user->project()->withPivot('projectowner', 'start_date_user', 'end_date_user')->get();
+			//$projects = $user->project()->withPivot('projectowner', 'start_date_user', 'end_date_user')->get();
+
+			$projects = $user->project()->withPivot('projectowner', 'start_date_user', 'end_date_user')->orderBy('start_date', 'DESC')->get();
+			$projectExperiences = $user->projectExperience()->withPivot('start_date_user', 'end_date_user')->orderBy('start_date', 'DESC')->get();
+
 			$workExperiences = $user->workExperience()->orderBy('start_date', 'DESC')->get();
 			$studyExperiences = $user->StudyExperience()->orderBy('start_date', 'DESC')->get();
 
@@ -445,7 +449,7 @@ class ProjectsController extends Controller
 			$date2 = date_create(date("Y-m-d"));
 			$age = date_diff($date1, $date2)->format('%y jaar');
 
-			return view('projects.showInvitee', compact('user', 'projects', 'project', 'competences_selected', 'skills_selected', 'workExperiences', 'studyExperiences', 'age'));
+			return view('projects.showInvitee', compact('user', 'projectExperiences', 'projects', 'project', 'competences_selected', 'skills_selected', 'workExperiences', 'studyExperiences', 'age'));
 			// $invitee_competences = $invitee->competence()->get();
 			// return view('projects.showInvitee', compact('project', 'invitee', 'invitee_competences'));
 		} else {

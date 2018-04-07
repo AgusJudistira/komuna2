@@ -118,6 +118,12 @@ Route::post('/users/{user}/update_competences',  ['as' => 'users.update_competen
 //detacth competences from user
 Route::post('/users/{user}/detach_competences',  ['as' => 'users.detach_competences', 'uses' => 'UsersController@detachCompetences'])->where('user', '[0-9]+');
 
+//edit project experience
+Route::get('/users/{user}/edit_projectExperience',  ['as' => 'users.edit_projectExperience', 'uses' => 'UsersController@editProjectExperience'])->where('user', '[0-9]+');
+
+//edit project experience
+Route::post('/users/{user}/detach_projects',  ['as' => 'users.detach_projects', 'uses' => 'UsersController@detachProjects'])->where('user', '[0-9]+');
+
 //edit work experience
 Route::get('/users/{user}/edit_workExperience',  ['as' => 'users.edit_workExperience', 'uses' => 'UsersController@editWorkExperience'])->where('user', '[0-9]+');
 

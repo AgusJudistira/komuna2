@@ -69,7 +69,8 @@
                             </button> 
                         </form>
                     <!--  Naar volgende -->  
-                        <form class="col-md-2 float-right" method="GET" action="/users/{{Auth::user()->id}}/edit_workExperience"> 
+                        <form class="col-md-2 float-right" method="GET" action="/users/{{Auth::user()->id}}/edit_projectExperience">
+                        {{-- <form class="col-md-2 float-right" method="GET" action="/users/{{Auth::user()->id}}/edit_workExperience">  --}}
                             <button type="submit" class="btn btn-primary ml-auto" role="button">
                                 {{ __('Volgende') }}
                             </button> 

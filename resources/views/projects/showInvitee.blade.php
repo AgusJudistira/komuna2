@@ -71,18 +71,23 @@
                                 <th>Begonnen op</th>                                
                                 <th>Beindigd op</th>                
                             </tr>
+
                             @foreach ($projects as $one_project)
                                 <tr>
                                     <td><a href="/projects/{{$one_project->id}}"> {{$one_project->name}}</a></td>
                                     <td> {{$one_project->pivot->start_date_user}}</td>
-                                    
-                                    @if($one_project->pivot->end_date_user == null)
-                                        <td> Nog bezig </td>
-                                    @else
-                                        <td> {{$one_project->pivot->end_date_user}}</td>
-                                    @endif
+                                    <td> Nog bezig </td>                                    
                                 </tr>
                             @endforeach
+
+                            @foreach ($projectExperiences as $projectExperience)
+                                <tr>
+                                    <td><a href="/projects/{{$projectExperience->id}}"> {{$projectExperience->name}}</a></td>
+                                    <td> {{$projectExperience->pivot->start_date_user}}</td>
+                                    <td> {{$projectExperience->pivot->end_date_user}}</td>
+                                </tr>
+                            @endforeach
+
                         </table>
                         </div>
                     </div>

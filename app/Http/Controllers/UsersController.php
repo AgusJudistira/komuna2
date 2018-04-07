@@ -11,6 +11,7 @@ use App\Competence;
 use App\WorkExperience;
 use App\StudyExperience;
 use App\Review;
+use App\Project;
 
 
 use Image;
@@ -41,7 +42,10 @@ class UsersController extends Controller
     {
         $competences_selected = $user->competence()->get();
         $skills_selected = $user->Skill()->get();
-        $projects = $user->project()->withPivot('projectowner', 'start_date_user', 'end_date_user')->get();
+
+        $projects = $user->project()->withPivot('projectowner', 'start_date_user', 'end_date_user')->orderBy('start_date', 'DESC')->get();
+        $projectExperiences = $user->projectExperience()->withPivot('start_date_user', 'end_date_user')->orderBy('start_date', 'DESC')->get();
+
         $workExperiences = $user->WorkExperience()->orderBy('start_date', 'DESC')->get();
         $studyExperiences = $user->StudyExperience()->orderBy('start_date', 'DESC')->get();
         $rating = DB::table('reviews')->where('rated_user_id', '=', $user->id)->avg('rating');
@@ -49,7 +53,7 @@ class UsersController extends Controller
         $date2 = date_create(date("Y-m-d"));
         $age = date_diff($date1, $date2)->format('%y jaar');
 
-        return view('users.show', compact('user', 'projects', 'competences_selected', 'skills_selected', 'workExperiences', 'studyExperiences', 'age', 'rating'));
+        return view('users.show', compact('user', 'projects', 'projectExperiences', 'competences_selected', 'skills_selected', 'workExperiences', 'studyExperiences', 'age', 'rating'));
     }
    
 
@@ -154,8 +158,35 @@ class UsersController extends Controller
     }
 
 
-    public function editWorkExperience(User $user)
+    public function editProjectExperience(User $user)
+    {        
+        $projects = $user->project()->withPivot('projectowner', 'start_date_user', 'end_date_user')->where('projectowner', false)->orderBy('start_date', 'DESC')->get();
+        $projectExperiences = $user->projectExperience()->withPivot('start_date_user', 'end_date_user')->orderBy('start_date', 'DESC')->get();
 
+        return view('users.edit_projectExperience', compact('user', 'projects', 'projectExperiences'));
+    }
+
+
+    public function detachProjects(User $user, Project $projects, Request $request)
+    {        
+        $exited_projects = $request->input('exited_projects');
+        //dd($exited_projects);
+        foreach($exited_projects as $exited_project) {
+            // copy the start_date_user from old pivot table to the new pivot table
+            $targetProject = $user->project()->withPivot('start_date_user')->find($exited_project);            
+            $start_date_user = $targetProject->pivot->start_date_user;            
+            $user->project()->detach($exited_project); // delete old pivot table
+            // create new pivot table for project history
+            $user->projectExperience()->attach($exited_project, 
+                ['start_date_user' => $start_date_user,
+                 'end_date_user' => \Carbon\Carbon::now()->toDateTimeString()]);
+        }
+        //return view('users.edit_projectExperience', compact('user', 'projects'));
+        return back();
+    }
+
+
+    public function editWorkExperience(User $user)
     {        
         $workExperiences = $user->workExperience()->orderBy('start_date', 'DESC')->get();
 

@@ -46,6 +46,10 @@ class User extends Authenticatable
         return $this->belongsToMany(Project::class, 'projects_users', 'user_id', 'project_id');
     }
 
+    public function projectExperience()
+    {
+        return $this->belongsToMany(Project::class, 'projectexperiences_users', 'user_id', 'project_id');
+    }
     
     public function organization()
     {
@@ -77,6 +81,7 @@ class User extends Authenticatable
     {
         return $this->hasMany(StudyExperience::class);
     }
+
 
     public function skill()
 

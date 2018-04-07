@@ -342,10 +342,20 @@ class ProjectsController extends Controller
 
 			// dismiss project members from the project
 			$deleted_projectmembers_id = request('deleted_projectmembers');
-			if ($deleted_projectmembers_id) {			
+			
+			if ($deleted_projectmembers_id) {
 				foreach ($deleted_projectmembers_id as $deleted_projectmember_id) {
-					$remove_user = User::find($deleted_projectmember_id);
+					
+					$remove_user = $project->user()->withPivot('start_date_user')->find($deleted_projectmember_id);
+					
+					$start_date_user = $remove_user->pivot->start_date_user;
+					
 					$remove_user->project()->detach($project->id);
+
+					$remove_user->projectExperience()->attach($project->id,
+						['start_date_user' => $start_date_user,
+						 'end_date_user' => \Carbon\Carbon::now()->toDateTimeString()
+						]);
 				}
 			}
 

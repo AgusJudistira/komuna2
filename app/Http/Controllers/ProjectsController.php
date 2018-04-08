@@ -60,15 +60,13 @@ class ProjectsController extends Controller
 						
 			$one_project = Array();			
 					
-			$one_project[] = (count($found_skills)+0.1) * (count($found_competences)+0.25);
+			$one_project[] = (count($found_skills)+0.1) * (count($found_competences)+0.5);
 			$one_project[] = $project;
 			$one_project[] = $found_skills;
 			$one_project[] = $found_competences;
 			$listed_projects[] = $one_project;		
 						
 		}		
-
-		//dd($listed_projects);
 
 		rsort($listed_projects); //gesorteerd aan de hand van de gematchedte competenties. De meeste bovenaan.
 
@@ -145,7 +143,6 @@ class ProjectsController extends Controller
 
 	public function isOwner($check_user, $project)
 	{
-		//dd($project->user()->withPivot('projectowner')->get());
 		$projectUsers = $project->user()->withPivot('projectowner')->get();
 		
 		foreach ($projectUsers as $user) {
@@ -172,6 +169,7 @@ class ProjectsController extends Controller
 		return $projectOwners;
 	}
 
+
 	public function store()
 	{	
 		if (request('cancel') == 'cancel') {
@@ -180,23 +178,18 @@ class ProjectsController extends Controller
 
 		$user_id = Auth::guard('web')->user()->id;
 
-		$this->validate(request(),[
-			
+		$this->validate(request(),[			
 			'name' => 'required', 
 			//'description' => 'required', 
 			'start_date' => 'required',
 			//'due_date' => 'required'
-
 		]);
 
-
 		$project = Project::create(request([
-
 			'name', 
 			'description', 
 			'start_date', 
 			'due_date'
-
 		]));
 		
 		// maak de gebruiker die het project aanmaakt de projectowner
@@ -340,6 +333,9 @@ class ProjectsController extends Controller
 			$project->enough_members = $enough_members;
 			$project->save();
 
+			return redirect()->route('projects.edit_skills', $project);
+		}
+		elseif (request('afmelden') == 'afmelden') {
 			// dismiss project members from the project
 			$deleted_projectmembers_id = request('deleted_projectmembers');
 			
@@ -356,30 +352,55 @@ class ProjectsController extends Controller
 						['start_date_user' => $start_date_user,
 						 'end_date_user' => \Carbon\Carbon::now()->toDateTimeString()
 						]);
-				}
+
+					$sender = Auth::guard('web')->user();
+					
+					$this->sendDismissedFromProjectMsg($project, $sender, $remove_user);
+				}			
 			}
-
-			return redirect()->route('projects.edit_skills', $project);
-
-		} else {
 			
-			return redirect()->route('project_show', $project);
-			
+			//return redirect()->route('project_edit', $project);
+			$isProjectOwner = $this->isOwner(Auth::guard('web')->user(), $project);
+
+			$list_of_projectusers = $project->user()->withPivot('projectowner')->get();
+			$competences = Competence::all();
+	
+			return view('projects.edit', compact('project', 'isProjectOwner', 'list_of_projectusers', 'competences'));
 		}
-		
+		else {		
+			return redirect()->route('project_show', $project);			
+		}		
 	}
 
+	public function sendDismissedFromProjectMsg($project, $sender, $recipient)
+	{			
+		$sender_fullname = $sender->firstname . " " . $sender->lastname;
+		$subject = "U bent afgemeld van het project $project->name";		
+		$message = "<p><b>Mededeling:</b></p>";
+		$message .= "<p>$sender_fullname heeft u van het project&nbsp;<a href='/projects/$project->id' target='_blank'>$project->name</a>&nbsp;afgemeld.</p>";
+		$message .= "<p>U bent geen projectmedewerker meer.</p>";
+		$user_message = "";
+		$actions  = "";
+		
+		
+		$newMessage = App\Message::create([
+			'sender_id' => $sender->id,
+			'recipient_id' => $recipient->id,
+			'project_id' => $project->id,
+			'subject' => $subject,
+			'message' => $message,
+			'user_message' => $user_message,
+			'actions' => $actions,
+			'action_taken' => 0
+		]);
+	}
 
 	public function edit(Project $project)
-	{
-		// $project_id = request('project_id');
-		// $project = Project::find($project_id);
+	{		
 		$isProjectOwner = $this->isOwner(Auth::guard('web')->user(), $project);
 
 		$list_of_projectusers = $project->user()->withPivot('projectowner')->get();
 		$competences = Competence::all();
-		//$selected_competences = $project->competence()->get();
-		//dd($selected_competences);
 
 		return view('projects.edit', compact('project', 'isProjectOwner', 'list_of_projectusers', 'competences'));
 	}
@@ -425,7 +446,7 @@ class ProjectsController extends Controller
 			if (!$this->isMember($volunteer, $thisProject)) {
 				if (count($found_competences) > 0 || count($found_skills) > 0 ) {
 
-					$one_volunteer[] = (count($found_skills)+0.1) * (count($found_competences)+0.25);
+					$one_volunteer[] = (count($found_skills)+0.1) * (count($found_competences)+0.5);
 					$one_volunteer[] = $volunteer;
 					$one_volunteer[] = $found_skills;
 					$one_volunteer[] = $found_competences;

@@ -93,6 +93,9 @@
                                             @endif
                                         @endforeach
                                     </div>
+                                    <div class="form-group col-md-12 text-right">
+                                        <button id="afmelden" name="afmelden" value="afmelden" type="submit" class="btn btn-danger btn-lg">Afmelden</button>
+                                    </div>
                                     {{-- <h5>
                                     @foreach ($list_of_projectusers as $projectuser)
                                         @if ($projectuser->pivot->projectowner)

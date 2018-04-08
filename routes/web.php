@@ -15,6 +15,11 @@ Route::get('projects/{project}', 'ProjectsController@show')->name('project_show'
 //show edit form of an existing project
 Route::post('projects/edit/{project}', 'ProjectsController@edit')->name('project_edit')->where('project', '[0-9]+');
 
+// Route::post('projects/edit/{project}', array(
+//     'uses' => 'ProjectsController@edit',
+//     'as'   => 'project_edit'
+// ))->where('project', '[0-9]+');
+
 Route::get('projects/seekMembers/{project}', 'ProjectsController@seekMembers')->name('seek_members')->where('project', '[0-9]+');
 
 // get details about a volunteer before inviting.

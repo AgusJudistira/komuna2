@@ -12,6 +12,7 @@ use App\WorkExperience;
 use App\StudyExperience;
 use App\Review;
 use App\Project;
+use App\Message;
 
 
 use Image;
@@ -180,9 +181,39 @@ class UsersController extends Controller
             $user->projectExperience()->attach($exited_project, 
                 ['start_date_user' => $start_date_user,
                  'end_date_user' => \Carbon\Carbon::now()->toDateTimeString()]);
+
+            $sender = Auth::guard('web')->user();
+            $this->sendLeftFromProjectMsg($targetProject, $sender);
         }
         //return view('users.edit_projectExperience', compact('user', 'projects'));
         return back();
+    }
+
+
+    public function sendLeftFromProjectMsg($project, $sender)
+    {
+        $sender_fullname = $sender->firstname . " " . $sender->lastname;
+		$subject = "$sender_fullname heeft zich afgemeld van het project $project->name";
+		$message = "<p><b>Mededeling:</b></p>";
+		$message .= "<p>$sender_fullname heeft zich van het project&nbsp;<a href='/projects/$project->id' target='_blank'>$project->name</a>&nbsp;afgemeld.</p>";
+		$message .= "<p>$sender->firstname is geen projectmedewerker meer.</p>";
+		$user_message = "";
+		$actions  = "";		
+        
+        $recipients = $project->user()->withPivot('projectowner')->where('projectowner', true)->get();
+
+        foreach ($recipients as $recipient) {
+            $newMessage = Message::create([
+                'sender_id' => $sender->id,
+                'recipient_id' => $recipient->id,
+                'project_id' => $project->id,
+                'subject' => $subject,
+                'message' => $message,
+                'user_message' => $user_message,
+                'actions' => $actions,
+                'action_taken' => 0
+            ]);
+        }
     }
 
 

@@ -45,7 +45,7 @@
                                 <table class="table table-striped col-md-12">
                                     <thead>
                                         <tr>
-                                            <th>Verlaten projecten</th>
+                                            <th>Deelgenomen projecten</th>
                                         </tr>
                                         <tr>
                                             <th>Project</th>
@@ -66,17 +66,24 @@
                     </div>
                     <div class="card-footer">
                         <div class="col-md-12">
-                            <form class="col-md-2 float-left" method="GET" action="/users/{{Auth::user()->id}}/edit_skills"> 
+                            <form class="col-md-2 float-left" method="GET" action="/users/{{Auth::user()->id}}/edit_studyExperience"> 
                                 <button type="submit" class="btn btn-primary ml-auto" role="button">
                                     {{ __('Vorige') }}
                                 </button> 
                             </form>
                             <!-- Naar volgende -->
-                            <form class="col-md-2 float-right" method="GET" action="/users/{{Auth::user()->id}}/edit_workExperience">
+
+                            <form class="col-md-2 float-right" method="GET" action="/users/{{Auth::user()->id}}/show"> 
+                                <button type="submit" class="btn btn-primary ml-auto" role="button">
+                                    {{ __('Profiel overzicht') }}
+                                </button> 
+                           </form>     
+
+                            {{-- <form class="col-md-2 float-right" method="GET" action="/users/{{Auth::user()->id}}/edit_workExperience">
                                 <button type="submit" class="btn btn-primary ml-auto" role="button">
                                     {{ __('Volgende') }}
                                 </button> 
-                            </form>  
+                            </form>   --}}
                         </div>
                     </div>
                 </div>

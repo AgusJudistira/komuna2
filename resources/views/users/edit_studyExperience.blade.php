@@ -101,19 +101,19 @@
                     
 
                     <!-- Terug naar competenties -->
-                <div class="col-md-11">
-                    <form class="col-md-2 float-left" method="GET" action="/users/{{Auth::user()->id}}/edit_workExperience"> 
-                        <button type="submit" class="btn btn-primary ml-auto" role="button">
-                            {{ __('Vorige') }}
-                        </button> 
-                    </form>
-                   <!--  Naar overzicht  -->
-                    <form class="col-md-2 float-right" method="GET" action="/users/{{Auth::user()->id}}/show"> 
-                         <button type="submit" class="btn btn-primary ml-auto" role="button">
-                             {{ __('Profiel overzicht') }}
-                         </button> 
-                    </form>     
-                </div>
+                    <div class="col-md-12">
+                        <form class="col-md-2 float-left" method="GET" action="/users/{{Auth::user()->id}}/edit_workExperience"> 
+                            <button type="submit" class="btn btn-primary ml-auto" role="button">
+                                {{ __('Vorige') }}
+                            </button> 
+                        </form>
+
+                        <form class="col-md-2 float-right" method="GET" action="/users/{{Auth::user()->id}}/edit_projectExperience"> 
+                            <button type="submit" class="btn btn-primary ml-auto" role="button">
+                                {{ __('Volgende') }}
+                            </button> 
+                        </form>                                        
+                    </div>
                     
                 
                     <div class="card-header">  
@@ -193,7 +193,7 @@
                             </div>
                         </div>
                          <!-- functie -->
-                         <div class="form-group row">
+                        <div class="form-group row">
                             <label for="phone" class="col-md-4 col-form-label text-md-right">{{ __('Telefoonnummer') }}</label>
                             <div class="col-md-6">
                                 <input id="phone" type="text" class="form-control" name="phone" value="" required>
@@ -205,7 +205,7 @@
                             </div>
                         </div>                    
                      <!-- functie -->                    
-                         <div class="form-group row">
+                        <div class="form-group row">
                             <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('Email') }}</label>
                             <div class="col-md-6">
                                 <input id="email" type="text" class="form-control" name="email" value="" required>

@@ -44,13 +44,14 @@
                         </div>
                         <div class="card-body">
                             <div class="row">
-                                <div class="col-md-12">          
-                                    <p>
-                                        {{ $project[1]->description }}
-                                    </p>
-                                    <p>                        
-                                        deadline: {{ $project[1]->due_date }}
-                                    </p>
+                                <div class="form-group col-md-12 row">
+                                    
+                                    <div class="card-text col-md-12">{{ $project[1]->description }}</div>
+                                    <div class="card-text col-md-3 text-right">Straatnaam & nummer: </div><div class="card-text col-md-7">{{ $project[1]->streetname_number }}</div>
+                                    <div class="card-text col-md-3 text-right">Postcode & plaats: </div><div class="card-text col-md-7">{{ $project[1]->postal_code }}  {{ $project[1]->city }}</div>
+                                    
+                                    <div class="card-text col-md-3 text-right">Startdatum: </div><div class="card-text col-md-7">{{ $project[1]->start_date }}</div>
+                                    <div class="card-text col-md-3 text-right">Deadline: </div><div class="card-text col-md-7">{{ $project[1]->due_date }}</div>
 
                                 </div>
                                 <div class="col-md-12">

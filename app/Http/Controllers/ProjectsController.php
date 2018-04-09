@@ -23,50 +23,50 @@ class ProjectsController extends Controller
 
 	public function index() 
 	{
+		$now = date('Y-m-d');
 		$projects = Project::with('user')->get();
-
+		
 		$thisUser = Auth::guard('web')->user();
+		
+		$listed_projects = Array();				
 
-		
-		$listed_projects = Array();		
-		
-		
 		foreach ($projects as $project) {
+			if ($project->due_date > $now || $project->due_date == "" || $this->isOwner($thisUser, $project)) {
 
-			$project_skills = $project->skill()->get();
-			$user_skills = $thisUser->skill()->get();
+				$project_skills = $project->skill()->get();
+				$user_skills = $thisUser->skill()->get();
 
-			$project_competences = $project->competence()->get();
-			$user_competences = $thisUser->competence()->get();			
+				$project_competences = $project->competence()->get();
+				$user_competences = $thisUser->competence()->get();			
 
-			$found_skills = Array();
-			$found_competences = Array();
-			
-			foreach ($user_skills as $user_skill) {
-				foreach ($project_skills as $project_skill) {
-					if ($user_skill->id == $project_skill->id) {
-						array_push($found_skills, $project_skill);
+				$found_skills = Array();
+				$found_competences = Array();
+				
+				foreach ($user_skills as $user_skill) {
+					foreach ($project_skills as $project_skill) {
+						if ($user_skill->id == $project_skill->id) {
+							array_push($found_skills, $project_skill);
+						}
+					}
+				}			
+
+				foreach ($user_competences as $user_competence) {
+					foreach ($project_competences as $project_competence) {
+						if ($user_competence->id == $project_competence->id) {
+							array_push($found_competences, $project_competence);
+						}
 					}
 				}
-			}			
-
-			foreach ($user_competences as $user_competence) {
-				foreach ($project_competences as $project_competence) {
-					if ($user_competence->id == $project_competence->id) {
-						array_push($found_competences, $project_competence);
-					}
-				}
-			}
+							
+				$one_project = Array();			
 						
-			$one_project = Array();			
-					
-			$one_project[] = (count($found_skills)+0.1) * (count($found_competences)+0.5);
-			$one_project[] = $project;
-			$one_project[] = $found_skills;
-			$one_project[] = $found_competences;
-			$listed_projects[] = $one_project;		
-						
-		}		
+				$one_project[] = (count($found_skills)+0.1) * (count($found_competences)+0.5);
+				$one_project[] = $project;
+				$one_project[] = $found_skills;
+				$one_project[] = $found_competences;
+				$listed_projects[] = $one_project;
+			}						
+		}
 
 		rsort($listed_projects); //gesorteerd aan de hand van de gematchedte competenties. De meeste bovenaan.
 
@@ -100,6 +100,11 @@ class ProjectsController extends Controller
 		$projects = Project::with('user')
 							->where('name', 'LIKE', $zoekstring)
 							->orWhere('description', 'LIKE', $zoekstring)
+							->orWhere('streetname_number', 'LIKE', $zoekstring)
+							->orWhere('postal_code', 'LIKE', $zoekstring)
+							->orWhere('city', 'LIKE', $zoekstring)
+							->orWhere('website', 'LIKE', $zoekstring)
+							->orWhere('email', 'LIKE', $zoekstring)
 							->get();
 
 		$listed_projects = Array();
@@ -131,27 +136,37 @@ class ProjectsController extends Controller
 
 	public function isMember($check_user, $project)
 	{
-		$projectUsers = $project->user()->get();
-		foreach ($projectUsers as $user) {
-			if ($user->id == $check_user->id) {
-				return true;
-			}
-		}
+		return $project->user()->find($check_user->id);			
 
-		return false;
+		// $projectUsers = $project->user()->get();
+		// foreach ($projectUsers as $user) {
+		// 	if ($user->id == $check_user->id) {
+		// 		return true;
+		// 	}
+		// }
+
+		// return false;
 	}
 
 	public function isOwner($check_user, $project)
-	{
-		$projectUsers = $project->user()->withPivot('projectowner')->get();
-		
-		foreach ($projectUsers as $user) {
-			if ($user->id == $check_user->id) {
-				return $user->pivot->projectowner;
-			}
+	{		
+		if ($project->user()->withPivot('projectowner')->find($check_user->id)) {
+			return $project->user()->withPivot('projectowner')->find($check_user->id)->pivot->projectowner;
 		}
+		else {
+			return false;
+		}
+		
 
-		return false;
+		// $projectUsers = $project->user()->withPivot('projectowner')->get();
+		
+		// foreach ($projectUsers as $user) {
+		// 	if ($user->id == $check_user->id) {
+		// 		return $user->pivot->projectowner;
+		// 	}
+		// }
+
+		// return false;
 	}
 
 
@@ -187,7 +202,13 @@ class ProjectsController extends Controller
 
 		$project = Project::create(request([
 			'name', 
-			'description', 
+			'description',
+			'streetname_number',
+			'postal_code',
+			'city',
+			'phone',
+			'website',
+			'email',
 			'start_date', 
 			'due_date'
 		]));
@@ -323,10 +344,16 @@ class ProjectsController extends Controller
 
 			$savedProject = $project->update(request([
 
-				'name', 
-				'description', 
+				'name',
+				'description',
+				'streetname_number',
+				'postal_code',
+				'city',
+				'phone',
+				'website',
+				'email',
 				'start_date', 
-				'due_date'
+				'due_date',
 
 			]));
 

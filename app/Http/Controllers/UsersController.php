@@ -13,6 +13,7 @@ use App\StudyExperience;
 use App\Review;
 use App\Project;
 use App\Message;
+use App\Hobby;
 
 
 use Image;
@@ -80,7 +81,6 @@ class UsersController extends Controller
 
 		return redirect('/users/' . $user->id . '/edit_avatar');
     }
-
 
     public function editAvatar(User $user)
     {   
@@ -392,6 +392,86 @@ class UsersController extends Controller
          }
     }
 
+
+     public function editDescription(User $user)
+    { 
+
+        $hobbies = Hobby::all();
+        $hobbies_selected = $user->Skill()->get();
+
+        if ($user->id == Auth::guard('web')->user()->id) {
+            return view('users.edit_description', compact('user', 'hobbies', 'hobbies_selected'));
+
+        }
+        else {
+            return back();
+        }
+        
+    }
+
+    public function updateDescription(User $user)
+    {
+        $this->validate(request(), [
+            'description',
+
+        ]);
+        
+        $user->description=request('description');
+     
+        $user->save();
+
+        return back();
+
+    }
+
+
+        public function editHobbies(User $user)
+    {   
+        $hobbies = Hobby::all();
+        $hobbies_selected = $user->Hobby()->get();
+
+            if ($user->id == Auth::guard('web')->user()->id) {
+            return view('users.edit_hobbies', compact( 'hobbies_selected','hobbies','user'));
+        }
+        else {
+            return back();
+        }
+    }
+
+    public function storeHobbies(Request $request) 
+    {
+
+        $this->validate(request(),[
+            
+            'hobby' => 'required'
+            
+            ]);
+        $newHobby = Hobby::updateOrCreate(request([
+
+            'hobby' 
+
+            ]));
+                    
+        $user_id = Auth::guard('web')->user()->id;
+        $newHobby->user()->sync($user_id);
+
+        return back();
+    }
+
+    public function detachHobbies(Request $request)
+    {   
+        
+        $hobby = $request->input('hobby');  
+        $user_id = Auth::guard('web')->user()->id;
+       
+
+        $foundHobby = Hobby::find($hobby);
+        $foundHobby->user()->detach($user_id);
+       
+                
+        return back();
+
+    }
 
 
 }

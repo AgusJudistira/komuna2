@@ -19,7 +19,7 @@ class User extends Authenticatable
     protected $fillable = [
         'firstname', 'lastname', 'email', 'password',
         'streetname_number', 'postal_code', 'city',
-        'phone_private', 'phone_work', 'gender', 'birthday'
+        'phone_private', 'phone_work', 'gender', 'birthday', 'description',
             ];
 
     protected $attributes = [
@@ -98,4 +98,11 @@ class User extends Authenticatable
     {
         return $this->hasMany(Review::class, 'rated_user_id', 'user_id');
     }
+    public function hobby()
+
+    {
+        return $this->belongsToMany(Hobby::class, 'hobby_user');
+    }
 }
+
+

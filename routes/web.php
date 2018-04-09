@@ -156,5 +156,18 @@ Route::get('/users/{user}/show', ['as' => 'users.show', 'uses' =>  'UsersControl
 //zoek users
 Route::get('users/users', ['as' => 'users.users', 'uses' =>  'UsersController@seekMembers'])->where('user', '[0-9]+');
 
+//store rating
 Route::post('users/{user}/store_rating', ['as' => 'users.store_rating', 'uses' =>  'UsersController@storeOrUpdateUserRating'])->where('user', '[0-9]+');
 
+//view editDescription 
+Route::get('/users/{user}/edit_description',  ['as' => 'users.edit_description', 'uses' => 'UsersController@editDescription'])->where('user', '[0-9]+');
+// update description
+Route::patch('/users/{user}/update_description',  ['as' => 'users.update_description', 'uses' => 'UsersController@updateDescription'])->where('user', '[0-9]+');
+
+Route::get('/users/{user}/edit_hobbies',  ['as' => 'users.edit_hobbies', 'uses' => 'UsersController@editHobbies'])->where('user', '[0-9]+');
+
+//save hobbies and attach to user
+Route::post('/users/{user}/store_hobbies',  ['as' => 'users.store_hobbies', 'uses' => 'UsersController@storeHobbies'])->where('user', '[0-9]+');
+
+//detach hobbies from user
+Route::post('/users/{user}/detach_hobbies',  ['as' => 'users.detach_hobbies', 'uses' => 'UsersController@detachHobbies'])->where('user', '[0-9]+');

@@ -56,10 +56,10 @@
 							@endif
 						</div >
 					</form>
-					<!-- Terug naar NAW-gegevens -->
+					<!-- Terug naar avatar -->
 					<div class="card-footer">
 						<div class="col-md-12 ">
-							<form class="col-md-2 float-left" method="GET" action="/users/{{Auth::user()->id}}/edit_avatar"> 
+							<form class="col-md-2 float-left" method="GET" action="/users/{{Auth::user()->id}}/edit_hobbies"> 
 								<button type="submit" class="btn btn-primary ml-auto" role="button">
 									{{ __('Vorige') }}
 								</button> 

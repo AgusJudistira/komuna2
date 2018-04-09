@@ -129,7 +129,7 @@
                                     <th>Beindigd op</th>                
                                 </tr>
                                 @foreach ($projects as $project)
-                                    <tr>                                        
+                                    <tr>
                                         <td><a href="/projects/{{$project->id}}"> {{$project->name}}</a>@if ($project->pivot->projectowner) (eigen project) @endif</td>
                                         @if ($project->pivot->projectowner)
                                             <td>{{$project->start_date}}</td>
@@ -138,13 +138,13 @@
                                         @endif
                                         
                                         @if ($project->pivot->projectowner)
-                                            @if ($project->due_date < date("Y-m-d H:i:s"))
+                                            @if ($project->due_date < date("Y-m-d H:i:s") && strtotime($project->due_date) == true)
                                                 <td>{{$project->due_date}}</td>
                                             @else
                                                 <td>Nog bezig</td>
                                             @endif
                                         @else
-                                            <td>Nog bezig</td>                                    
+                                            <td>Nog bezig</td>
                                         @endif
                                     </tr>
                                 @endforeach

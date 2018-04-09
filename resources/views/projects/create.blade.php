@@ -29,6 +29,61 @@
                 <textarea class="form-control" rows="5" id="description" name="description" type="text"></textarea>
               </div>            
             </div>
+
+            <div class="form-group row">
+              <div class="col-md-3 text-right">
+                <label for="start_date">Straatnaam en nummer:</label>
+              </div>
+              <div class="col-md-8 text-left">
+                <input type="text" class="form-control" id="streetname_number" name="streetname_number">
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <div class="col-md-3 text-right">
+                <label for="start_date">Postcode:</label>
+              </div>
+              <div class="col-md-8 text-left">
+                <input type="text" class="form-control" id="postal_code" name="postal_code">
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <div class="col-md-3 text-right">
+                <label for="start_date">Plaats:</label>
+              </div>
+              <div class="col-md-8 text-left">
+                <input type="text" class="form-control" id="city" name="city">
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <div class="col-md-3 text-right">
+                <label for="start_date">Website:</label>
+              </div>
+              <div class="col-md-8 text-left">
+                <input type="text" class="form-control" id="website" name="website">
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <div class="col-md-3 text-right">
+                <label for="start_date">Telefoonnummer:</label>
+              </div>
+              <div class="col-md-8 text-left">
+                <input type="text" class="form-control" id="phone" name="phone">
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <div class="col-md-3 text-right">
+                <label for="start_date">Email:</label>
+              </div>
+              <div class="col-md-8 text-left">
+                <input type="text" class="form-control" id="email" name="email">
+              </div>
+            </div>
+
             <div class="form-group row">
               <div class="col-md-3 text-right">
                 <label for="start_date">Start van het project</label>

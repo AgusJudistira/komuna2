@@ -17,7 +17,7 @@
                                     <table class="table table-striped col-md-12">
                                         <thead>
                                             <tr>
-                                                <th>Actieve projecten</th>
+                                                <th>Huidige deelneming projecten</th>
                                             </tr>
                                             <tr>
                                                 <th>Project</th>
@@ -25,14 +25,27 @@
                                                 <th>Aanvinken om te verlaten</th>
                                             </tr>
                                         </thead>
-                                        @foreach ($projects as $project)
+                                        @foreach ($projects as $project)                                            
                                             <tr>
-                                                <td> {{$project->name}}</td>                                                
-                                                <td> {{$project->pivot->start_date_user}}</a></td>                                                
-                                                <td>                                                
-                                                    <label><input type="checkbox" name="exited_projects[]" value="{{$project->id}}"> Verlaten</label>
+                                                <td><a href="/projects/{{$project->id}}"> {{$project->name}}</a></td>
+                                                
+                                                    @if ($project->pivot->projectowner)
+                                                        <td> {{$project->start_date}}</td>
+                                                    @else
+                                                        <td> {{$project->pivot->start_date_user}}</td>
+                                                    @endif
+                                                    
+                                                    </a>
+                                                
+                                                <td>
+                                                    @if ($project->pivot->projectowner)                                                                                                       
+                                                        <span>Eigen project kan niet verlaten worden</span>
+                                                    @else
+                                                        <label><input type="checkbox" name="exited_projects[]" value="{{$project->id}}"> Verlaten</label>
+                                                    @endif
                                                 </td>
                                             </tr>
+                                            
                                         @endforeach
                                     </table>
                                 
@@ -53,6 +66,17 @@
                                             <th>Beeindigd op</th>
                                         </tr>
                                     </thead>
+                                    @foreach ($projects as $project)
+                                        
+                                        @if ($project->pivot->projectowner && $project->due_date < date("Y-m-d H:i:s") && strtotime($project->due_date) == true)
+                                            <tr>
+                                                <td><a href="/projects/{{$project->id}}"> {{$project->name}}</a> (eigen project) </td>
+                                                <td>{{$project->start_date}}</td>                                                                                                
+                                                <td>{{$project->due_date}}</td>                                                
+                                            </tr>
+                                        @endif
+                                    @endforeach
+
                                     @foreach ($projectExperiences as $projectExperience)
                                         <tr>
                                             <td> {{$projectExperience->name}}</td>                                            

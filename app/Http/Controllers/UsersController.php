@@ -41,7 +41,8 @@ class UsersController extends Controller
         $competences_selected = $user->competence()->get();
         $skills_selected = $user->Skill()->get();
 
-        $projects = $user->project()->withPivot('projectowner', 'start_date_user', 'end_date_user')->orderBy('start_date', 'DESC')->get();
+        $projects = $user->project()->withPivot('projectowner', 'start_date_user', 'end_date_user')->orderBy('start_date', 'DESC')->get();        
+
         $projectExperiences = $user->projectExperience()->withPivot('start_date_user', 'end_date_user')->orderBy('start_date', 'DESC')->get();
 
         $workExperiences = $user->WorkExperience()->orderBy('start_date', 'DESC')->get();
@@ -158,7 +159,8 @@ class UsersController extends Controller
 
     public function editProjectExperience(User $user)
     {        
-        $projects = $user->project()->withPivot('projectowner', 'start_date_user', 'end_date_user')->where('projectowner', false)->orderBy('start_date', 'DESC')->get();
+        //$projects = $user->project()->withPivot('projectowner', 'start_date_user', 'end_date_user')->where('projectowner', false)->orderBy('start_date', 'DESC')->get();
+        $projects = $user->project()->withPivot('projectowner', 'start_date_user', 'end_date_user')->orderBy('start_date', 'DESC')->get();
         $projectExperiences = $user->projectExperience()->withPivot('start_date_user', 'end_date_user')->orderBy('start_date', 'DESC')->get();
 
         return view('users.edit_projectExperience', compact('user', 'projects', 'projectExperiences'));

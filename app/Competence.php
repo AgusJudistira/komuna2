@@ -31,4 +31,9 @@ class Competence extends Model
     {
         return $this->belongsToMany(User::class, 'competences_user', 'competence_id', 'user_id');
     }
+
+    public function project()
+    {
+        return $this->belongsToMany(Project::class, 'competences_projects', 'competence_id', 'project_id');
+    }
 }

@@ -1,4 +1,4 @@
-<?php
+->nullable()<?php
 
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
@@ -18,9 +18,9 @@ class CreateStudyExperiencesTable extends Migration
             $table->integer('user_id');
             $table->string('name');
             $table->date('start_date');
-            $table->date('end_date');
-            $table->string('level');
-            $table->string('diploma');
+            $table->date('end_date')->nullable();
+            $table->string('level')->nullable();
+            $table->string('diploma')->nullable();
             $table->timestamps();
         });
     }

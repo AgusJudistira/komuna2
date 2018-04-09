@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCompetencesTable extends Migration
+class CreateCompetencesProjectsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,10 @@ class CreateCompetencesTable extends Migration
      */
     public function up()
     {
-        Schema::create('competences', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('competence')->unique();
-            $table->text('description');
+        Schema::create('competences_projects', function (Blueprint $table) {
+            $table->integer('competence_id')->nullable();
+            $table->integer('project_id')->nullable();
+            $table->index(['competence_id', 'project_id']);
             $table->timestamps();
         });
     }
@@ -28,6 +28,6 @@ class CreateCompetencesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('competences');
+        Schema::dropIfExists('competences_projects');
     }
 }

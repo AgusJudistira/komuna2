@@ -16,6 +16,8 @@
         <!-- Styles -->
         <style>
             html, body {
+                /* background: url('public/css/volunteers-welcome-page.jpg'); */
+                /* background: url('volunteer-dashboard.png'); */
                 background-color: #fff;
                 color: #636b6f;
                 font-family: 'Raleway', sans-serif;

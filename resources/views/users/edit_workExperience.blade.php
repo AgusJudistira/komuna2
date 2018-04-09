@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-md-12">
             <div class="form-group">
                 <div class="card">
                     <div class="card-header">  
@@ -13,7 +13,7 @@
                     <form class="form-group mt-4" method="POST" action="{{route('users.update_workExperience', $user)}}">
                         {{csrf_field()}}
                             
-                                <input id="user_id" type="text" class="form-control d-none" name="user_id" value="{{ Auth::guard('web')->user()->id}}" required>
+                        <input id="user_id" type="text" class="form-control d-none" name="user_id" value="{{ Auth::guard('web')->user()->id}}" required>
                             
                         
                          <div class="form-group row">
@@ -46,7 +46,7 @@
                          <div class="form-group row">
                             <label for="end_date" class="col-md-4 col-form-label text-md-right">{{ __('eind datum') }}</label>
                             <div class="col-md-6">
-                                <input id="end_date" type="date" class="form-control" name="end_date" value="" required>
+                                <input id="end_date" type="date" class="form-control" name="end_date" value="">
                                 @if ($errors->has('end_date'))
                                     <span class="invalid-feedback">
                                         <strong>{{ $errors->first('end_date') }}</strong>
@@ -58,7 +58,7 @@
                         <div class="form-group row">
                             <label for="department" class="col-md-4 col-form-label text-md-right">{{ __('Afdeling') }}</label>
                             <div class="col-md-6">
-                                <input id="department" type="text" class="form-control" name="department" value="" required>
+                                <input id="department" type="text" class="form-control" name="department" value="" >
                                 @if ($errors->has('department'))
                                     <span class="invalid-feedback">
                                         <strong>{{ $errors->first('department') }}</strong>
@@ -70,7 +70,7 @@
                         <div class="form-group row">
                             <label for="position" class="col-md-4 col-form-label text-md-right">{{ __('Functie') }}</label>
                             <div class="col-md-6">
-                                <input id="position" type="text" class="form-control" name="position" value="" required>
+                                <input id="position" type="text" class="form-control" name="position" value="" >
                                 @if ($errors->has('position'))
                                     <span class="invalid-feedback">
                                         <strong>{{ $errors->first('position') }}</strong>
@@ -89,24 +89,31 @@
                                     </span>
                                 @endif
                             </div>
+                            
+                            <div style="margin-top:12px;" class="col-md-10 text-right">
+                                <button type="submit" class="btn btn-success" role="button">
+                                    {{ __('Sla op') }}
+                                </button> 
+                            </div>
+                            
                         </div>
-                        <button type="submit" class="btn btn-primary ml-auto float-right" role="button">
-                            {{ __('Sla op') }}
-                        </button> 
+                        
                     </form>
-                    <!-- Terug naar competenties -->
-                    <form class="col-md-2 float-right" method="GET" action="/users/{{Auth::user()->id}}/edit_competences"> 
+                    <!-- Terug naar skills -->
+                    <div class="col-md-12">
+                    <form class="col-md-2 float-left" method="GET" action="/users/{{Auth::user()->id}}/edit_skills"> 
                         <button type="submit" class="btn btn-primary ml-auto" role="button">
                             {{ __('Vorige') }}
                         </button> 
                     </form>
-                
                     <!-- Naar volgende -->
                     <form class="col-md-2 float-right" method="GET" action="/users/{{Auth::user()->id}}/edit_studyExperience"> 
                          <button type="submit" class="btn btn-primary ml-auto" role="button">
                              {{ __('Volgende') }}
                          </button> 
                     </form>  
+                    </div>
+
                     <!-- Werkervaringsgeschiedenis -->
                     <div class="card-header">  
                         <h5>Werkervaring</h5>                      
@@ -125,13 +132,16 @@
                                         <td> {{$workExperience->name}}</td>
                                         <td> {{$workExperience->position}}</td>
                                         <td> {{$workExperience->start_date}}</a></td>
-                                        <td> {{$workExperience->end_date}}</a></td>
+                                        @if($workExperience->end_date == null)
+                                            <td> Nog bezig </td>
+                                        @else
+                                            <td> {{$workExperience->end_date}}</td>
+                                        @endif
                                     </tr>
                                 @endforeach
                             </table>
                             </div>
-                        </div>
-                    
+                        </div>                    
 
 
                 <!-- Not in function right now -->

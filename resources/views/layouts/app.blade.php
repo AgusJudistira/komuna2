@@ -12,6 +12,7 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/komuna.css') }}" rel="stylesheet">
     <style>
         .navbar {
             background-color: darkblue;
@@ -29,26 +30,51 @@
         }
 
         .py-4 {
-            margin-top: 72px;
+
+            @if (Auth::guard('admin')->check() && Auth::guard('web')->check())
+                margin-top: 144px;
+            @else
+                margin-top: 72px;
+            @endif
         }
 
         #dashboard-button {
             z-index: 3; 
             position: fixed; 
-            top: 33px;
+
+            @if (Auth::guard('admin')->check() && Auth::guard('web')->check())
+                top: 78px;
+            @else
+                top: 33px;
+            @endif
+            
             left: 50px; 
             border-radius: 50%;
             background-color: darkred;
             color: white;
+            line-height:100%;
             padding-left: 15px;
             padding-right: 15px;
-            padding-top: 27px;
-            padding-bottom: 27px;
+            padding-top: 36px;
+            padding-bottom: 36px;
         }
 
         #dashboard-button:hover {
             background-color: darkgreen;
             color: white;
+        }
+        
+        #start_project {
+            border-radius: 50%; 
+            height: 100px; 
+            background-color:darkgreen; 
+            color:white; 
+            padding: 25px; 
+            line-height:100%;
+        }
+
+        #start_project:hover {
+            background-color: blue;
         }
 
     </style>
@@ -105,4 +131,5 @@
     <script src="{{ asset('js/app.js') }}"></script>
     
 </body>
+
 </html>

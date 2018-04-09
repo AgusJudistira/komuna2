@@ -15,31 +15,39 @@
                         <h5>Personlijke gegevens</h5>                 
                     </div>
                     <div class="card-body">
-                        <div style="min-height: 25vh">
-                        <img class="rounded float-right" src="/uploads/avatars/{{ $user->avatar }}" style="width: 150px; height: 150px; margin: 20px; margin-top: 7px; border-radius: 50%;">
-                            <p class="m-3">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <p class="m-3">
                                 <span class="">Naam:</span> {{ $user->firstname }} {{ $user->lastname }} <br />
                                 @if($user->birthday != null)
                                 <span class="">Leeftijd:</span> {{$age}} <br />
                                 @endif                
-                                @if( $user->streetname_number != null )
+                                @if( $user->streetname_number != null && $user->id == Auth::user()->id)
                                 <span class="">Straat en huisnummer:</span> {{ $user->streetname_number }} <br />
                                 @endif
-                                @if( $user->postal_code != null )
+                                @if( $user->postal_code != null && $user->id == Auth::user()->id)
                                 <span class="">Postcode:</span> {{ $user->postal_code }} <br />
                                 @endif
                                 @if( $user->city != null )
                                 <span class="">Stad:</span> {{ $user->city }} <br />
                                 @endif
-                                @if( $user->phone_private != null )
-                               <span class="">telefoon:</span> {{ $user->phone_private }} <br />
+                                @if( $user->phone_private != null && $user->id == Auth::user()->id)
+                                <span class="">telefoon:</span> {{ $user->phone_private }} <br />
                                 @endif
-                                @if( $user->phone_work != null )
-                               <span class="">telefoon werk:</span> {{ $user->phone_work }} <br />
+                                @if( $user->phone_work != null && $user->id == Auth::user()->id)
+                                <span class="">telefoon werk:</span> {{ $user->phone_work }} <br />
                                 @endif
                             </p>
                         </div>
-                    </div>
+                            <div class="col-sm-5"><span class="text-center font-italic pt-3">{{$user->description}}</span></div>
+                            <div class="col-sm-3"><img class="rounded float-right" src="/uploads/avatars/{{ $user->avatar }}" style="width: 150px; height: 150px; margin: 20px; margin-top: 7px; border-radius: 50%;"></div>
+                        </div>
+
+
+
+
+                    
+                    </div> 
 
                     <div class="card-header">  
                         <h5 class="">Reviews</h5>                      
@@ -78,7 +86,7 @@
                                 <span class="star on mr-2"></span>
                                 @endif
                             </div>
-                        
+                            @if($user->id != Auth::user()->id)
                             <form class="" method="POST" action="{{route('users.store_rating', $user)}}">
                             {{csrf_field()}}
                                 <input type="hidden" value="{{Auth::user()->id}}" name="rating_user_id">
@@ -92,6 +100,7 @@
                                 </div>
                                 <input class="btn btn-primary ml-auto mr-5 mt-3 float-right"  type="submit" value="rate" name="submit">
                             </form>
+                            @endif
                         </div> 
                     </div>
 

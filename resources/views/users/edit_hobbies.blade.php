@@ -52,18 +52,24 @@
                         
                     <!-- Terug naar avatar -->
                     <div class="card-footer">
-                        <div class="col-md-12">
-                            <form class="col-md-2 float-left" method="GET" action="/users/{{Auth::user()->id}}/edit_avatar"> 
-                                <button type="submit" class="btn btn-primary ml-auto" role="button">
-                                    {{ __('Vorige') }}
-                                </button> 
-                            </form>
-                    <!--  Naar volgende -->  
-                            <form class="col-md-2 float-right" method="GET" action="/users/{{Auth::user()->id}}/edit_competences">
-                                <button type="submit" class="btn btn-primary ml-auto" role="button">
-                                    {{ __('Volgende') }}
-                                </button> 
-                            </form>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="col-md-6 float-left">
+                                    <form class="float-left" method="GET" action="/users/{{Auth::user()->id}}/edit_avatar"> 
+                                        <button type="submit" class="btn btn-primary ml-auto" role="button">
+                                            {{ __('Vorige') }}
+                                        </button> 
+                                    </form>
+                                </div>
+                        <!--  Naar volgende -->  
+                                <div class="col-md-6 float-right">
+                                    <form class="float-right" method="GET" action="/users/{{Auth::user()->id}}/edit_competences">
+                                        <button type="submit" class="btn btn-primary ml-auto" role="button">
+                                            {{ __('Volgende') }}
+                                        </button> 
+                                    </form>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

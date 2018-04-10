@@ -12,17 +12,17 @@
                         <div class="row">
                             <div class="col-md-8"></div>
                             <div class="col-md-4 text-right">
-                                <h4><a href="/projects">&lt; Terug naar projectoverzicht</a></h4>
+                                <h5><a href="/projects">&lt; Terug naar projectoverzicht</a></h4>
                             </div>
                             <div class="col-md-12">
-                                <h1>Project: {{ $project->name }}</h1>
+                                <h3>Project: {{ $project->name }}</h3>
                             </div>
                         </div>
                     </div>                    
         
                     <div class="card-body">
                         <div class="form-group col-md-12 row">
-                            <div class="card-text col-md-12">{{ $project->description }}</div>
+                            <div class="card-text col-md-12 mb-3"><b>{{ $project->description }}</b></div>                            
                             <div class="card-text col-md-3 text-right">Straatnaam & nummer: </div><div class="card-text col-md-7">{{ $project->streetname_number }}</div>
                             <div class="card-text col-md-3 text-right">Postcode & plaats: </div><div class="card-text col-md-7">{{ $project->postal_code }}  {{ $project->city }}</div>
                             <div class="card-text col-md-3 text-right">Website: </div><div class="card-text col-md-7">{{ $project->website }}</div>

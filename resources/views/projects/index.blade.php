@@ -37,15 +37,15 @@
                     <div class="card">
                         <div class="card-header">  
                             <a href="/projects/{{$project[1]->id}}">
-                                <span style="font-size: 24px;">{{ $project[1]->name }}</span>
-                                {{-- <h4>{{ $project[1]->name }}</h4> --}}
+                                <span style="font-size: 22px;">{{ $project[1]->name }}</span>
+                                {{-- <div class="card-text col-md-12"><h4>{{ $project[1]->name }}</h4></div> --}}
                             </a>                        
                         </div>
                         <div class="card-body">
                             <div class="row">
                                 <div class="form-group col-md-12 row">
                                     
-                                    <b><div class="card-text col-md-12">{{ $project[1]->description }}</b></div>
+                                    <b><div class="card-text col-md-12 mb-3">{{ $project[1]->description }}</b></div>
                                     <div class="card-text col-md-3 text-right">Straatnaam & nummer: </div><div class="card-text col-md-7">{{ $project[1]->streetname_number }}</div>
                                     <div class="card-text col-md-3 text-right">Postcode & plaats: </div><div class="card-text col-md-7">{{ $project[1]->postal_code }}  {{ $project[1]->city }}</div>
                                     

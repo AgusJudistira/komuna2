@@ -160,7 +160,10 @@ Route::get('users/users', ['as' => 'users.users', 'uses' =>  'UsersController@se
 Route::post('users/{user}/store_rating', ['as' => 'users.store_rating', 'uses' =>  'UsersController@storeOrUpdateUserRating'])->where('user', '[0-9]+');
 
 //view editDescription 
+//Route::get('/users/{user}/edit_description',  ['as' => 'users.edit_description', 'uses' => 'UsersController@editDescription'])->where('user', '[0-9]+');
+
 Route::get('/users/{user}/edit_description',  ['as' => 'users.edit_description', 'uses' => 'UsersController@editDescription'])->where('user', '[0-9]+');
+
 // update description
 Route::patch('/users/{user}/update_description',  ['as' => 'users.update_description', 'uses' => 'UsersController@updateDescription'])->where('user', '[0-9]+');
 

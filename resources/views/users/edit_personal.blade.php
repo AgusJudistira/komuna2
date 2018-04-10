@@ -3,41 +3,34 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-md-12">
             <div class="card">
                 <div class="card-header">{{ __('persoonlijke gegevens') }}</div>
-
+                <!-- NAW Form -->
                 <div class="card-body">
                     <form method="POST" action="{{route('users.update', $user)}}">
                         @csrf
                         {{ method_field('patch') }}
-                        
-
+                        <!-- Geboorte datum -->
                             <div class="form-group row ">
-                                <label for="birthday" class="col-md-4 col-form-label text-md-right">{{ __('Geboorte datum') }}</label>
-
-                                <div class="col-md-6">
-                                <input id="birthday" type="date" class="form-control{{ $errors->has('birthday') ? ' is-invalid' : '' }}" name="birthday" value="{{ Auth::guard('web')->user()->birthday }}" required autofocus>
-
-                                @if ($errors->has('birthday'))
+                                <label for="birthday" class="col-md-4 col-form-label text-md-right">{{ __('Geboorte datum') }}</label><div class="col-md-6">
+                                <input id="birthday" type="date" class="form-control" name="birthday" value="{{ Auth::guard('web')->user()->birthday }}" autofocus required>
+                                 @if ($errors->has('birthday'))
                                     <span class="invalid-feedback">
                                         <strong>{{ $errors->first('birthday') }}</strong>
                                     </span>
                                 @endif
                                 </div>
-
-
                             </div>
-                        
+                        <!-- Geslacht -->
                          <div class="form-group row ">
                             <label for="gender" class="col-md-4 col-form-label text-md-right">{{ __('Geslacht') }}</label>
-
                             <div class="col-md-6 ">
-                                <select id="gender" type="text" class="form-control{{ $errors->has('gender') ? ' is-invalid' : '' }}" name="gender" value="{{ $user->gender }}" required>
+                                <select id="gender" type="text" class="form-control" name="gender" value="{{ $user->gender }}" >
                                     <option selected>{{ Auth::guard('web')->user()->gender }} </option>
                                     <option>Man</option>
                                     <option>Vrouw</option>
-
+                                    <option>Onzijdig</option>
                                 </select>
                                 @if ($errors->has('gender'))
                                     <span class="invalid-feedback">
@@ -46,13 +39,11 @@
                                 @endif
                             </div>
                         </div>
-
+                        <!-- Straatnaam en Nummer -->
                         <div class="form-group row">
                             <label for="streetname_number" class="col-md-4 col-form-label text-md-right">{{ __('Straatnaam en nummer') }}</label>
-
                             <div class="col-md-6">
-                                <input id="streetname_number" type="text" class="form-control{{ $errors->has('streetname_number') ? ' is-invalid' : '' }}" name="streetname_number" value="{{ $user->streetname_number }}" required>
-
+                                <input id="streetname_number" type="text" class="form-control" name="streetname_number" value="{{ $user->streetname_number }}" >
                                 @if ($errors->has('streetname_number'))
                                     <span class="invalid-feedback">
                                         <strong>{{ $errors->first('streetname_number') }}</strong>
@@ -60,13 +51,11 @@
                                 @endif
                             </div>
                         </div>
-
+                        <!-- Postcode -->
                         <div class="form-group row">
                             <label for="postal_code" class="col-md-4 col-form-label text-md-right">{{ __('Postcode') }}</label>
-
                             <div class="col-md-6">
-                                <input id="postal_code" type="text" class="form-control{{ $errors->has('postal_code') ? ' is-invalid' : '' }}" name="postal_code" value="{{ $user->postal_code }}" required>
-
+                                <input id="postal_code" type="text" class="form-control" name="postal_code" value="{{ $user->postal_code }}" >
                                 @if ($errors->has('postal_code'))
                                     <span class="invalid-feedback">
                                         <strong>{{ $errors->first('postal_code') }}</strong>
@@ -77,9 +66,8 @@
 
                         <div class="form-group row">
                             <label for="city" class="col-md-4 col-form-label text-md-right">{{ __('Woonplaats') }}</label>
-
                             <div class="col-md-6">
-                                <input id="city" type="city" class="form-control{{ $errors->has('city') ? ' is-invalid' : '' }}" name="city" value="{{ $user->city }}" required>
+                                <input id="city" type="city" class="form-control" name="city" value="{{ $user->city }}" required>
 
                                 @if ($errors->has('city'))
                                     <span class="invalid-feedback">
@@ -94,7 +82,7 @@
                             <label for="phone_private" class="col-md-4 col-form-label text-md-right">{{ __('Telefoonnummer') }}</label>
 
                             <div class="col-md-6">
-                                <input id="phone_private" type="text" class="form-control{{ $errors->has('phone_private') ? ' is-invalid' : '' }}" name="phone_private" value="{{  $user->phone_private }}" required>
+                                <input id="phone_private" type="text" class="form-control" name="phone_private" value="{{  $user->phone_private }}">
 
                                 @if ($errors->has('phone_private'))
                                     <span class="invalid-feedback">
@@ -108,7 +96,7 @@
                             <label for="phone_work" class="col-md-4 col-form-label text-md-right">{{ __('Telefoonnummer werk') }}</label>
 
                             <div class="col-md-6">
-                                <input id="phone_work" type="text" class="form-control{{ $errors->has('phone_work') ? ' is-invalid' : '' }}" name="phone_work" value="{{ $user->phone_work }}" required>
+                                <input id="phone_work" type="text" class="form-control" name="phone_work" value="{{ $user->phone_work }}">
 
                                 @if ($errors->has('phone_work'))
                                     <span class="invalid-feedback">
@@ -118,12 +106,11 @@
                             </div>
                         </div>
 
-
-                        <div class="form-group row mb-0">
-                            <div class="col-md-6 offset-md-10">
-                                <button type="submit" class="btn btn-primary ml-auto">
-                                    {{ __('volgende') }}
-                                </button>
+                            <div class="card-footer">
+                                    <button type="submit" class="btn btn-primary ml-auto float-right">
+                                        {{ __('volgende') }}
+                                    </button>
+                                
                             </div>
                         </div>
                     </form>

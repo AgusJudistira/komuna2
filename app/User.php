@@ -5,6 +5,8 @@ namespace App;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\Competence;
+use App\Skill;
+
 class User extends Authenticatable
 {
     use Notifiable;
@@ -17,7 +19,7 @@ class User extends Authenticatable
     protected $fillable = [
         'firstname', 'lastname', 'email', 'password',
         'streetname_number', 'postal_code', 'city',
-        'phone_private', 'phone_work', 'gender', 'birthday'
+        'phone_private', 'phone_work', 'gender', 'birthday', 'description',
             ];
 
     protected $attributes = [
@@ -41,19 +43,23 @@ class User extends Authenticatable
 
     public function project()
     {
-        return $this->belongsToMany(Project::class, 'projects_users', 'project_id', 'user_id');
+        return $this->belongsToMany(Project::class, 'projects_users', 'user_id', 'project_id');
     }
 
+    public function projectExperience()
+    {
+        return $this->belongsToMany(Project::class, 'projectexperiences_users', 'user_id', 'project_id');
+    }
     
     public function organization()
     {
         return $this->belongsToMany(Organization::class, 'organizations_users', 'user_id', 'organization_id');
     }
 
-    public function competences()
+    public function competence()
 
     {
-        return $this->belongsToMany(Competence::class, 'competence_user', 'project_id', 'user_id');
+        return $this->belongsToMany(Competence::class, 'competences_user');
     }
 
     public function message_sent()
@@ -66,4 +72,37 @@ class User extends Authenticatable
         return $this->hasMany(Message::class, 'recipient_id');
     }
 
+    public function workExperience()
+    {
+        return $this->hasMany(WorkExperience::class);
+    }
+    
+    public function studyExperience()
+    {
+        return $this->hasMany(StudyExperience::class);
+    }
+
+
+    public function skill()
+
+    {
+        return $this->belongsToMany(Skill::class, 'skill_user');
+    }
+
+    public function review()
+    {
+        return $this->hasMany(Review::class, 'rating_user_id', 'user_id');
+    }
+
+    public function reviewed()
+    {
+        return $this->hasMany(Review::class, 'rated_user_id', 'user_id');
+    }
+    public function hobby()
+
+    {
+        return $this->belongsToMany(Hobby::class, 'hobby_user');
+    }
 }
+
+

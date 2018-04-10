@@ -6,72 +6,53 @@ use App\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-
+ 
 class CompetencesController extends Controller
 {
 
 	public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('auth:admin');
     }
 
 
-    public function index() 
+	public function editCompetences()
 
-	{
-		
-		$competences= DB::table('competences')->get();
-		
+	{	
+		$competences= DB::table('competences')->orderby('competence', 'ASC')->get();
 
-				
-		//dd($competences);
-		return view('competences.index', compact('competences', 'competence'));		
-	}
-
-
-	public function createCompetences()
-	{
-		return view('competences.create_competences');
+		return view('admin.edit_competences', compact('competences'));
 	}
 
 	public function storeCompetences(Request $request)
 	{	
-		$user_id = Auth::guard('web')->user()->id;
+		$user_id = Auth::guard('admin')->user()->id;
 
 		$this->validate(request(),[
 			
-			'competence' => 'required'
+			'competence' => 'required',
+			'description' =>'required'
 			
-		]);
+			]);
 
 
-		$newCompetence = Competence::create(request([
+		$newCompetence = Competence::updateOrCreate(request([
 
 			'competence' 
 
-		]));
+			]));
 
-		return redirect('/competences/create_competences');
+		return back();
+		
 	}
 
+	public function deleteCompetences(Request $request)
+	{
+		 $competence = $request->input('competence');  
+		 $foundCompetence = Competence::find($competence);
+		 $foundCompetence->delete();
 
-
-	public function bindCompetences(Competence $competence)
-	{	
-		$user_id = Auth::guard('web')->user()->id;
-		$competences= DB::table('competences')->get();
-
-		
-
-		//dd($user_id);
-
-		return view('users.edit_competences', compact('competences'));
-		// $user_id = Auth::guard('web')->user()->id;
-		// $competence_id = '2';
-		// $competence_id = 'competence_id';
-		// $user = User::find($user_id);
-		// $user->competences()->sync($competence_id);
-		// dd($user);	
+		 return back();
 	}
 
 }

@@ -21,6 +21,9 @@ class CreateTableMessages extends Migration
             $table->integer('organization_id')->default(0);
             $table->string('subject')->nullable();
             $table->text('message')->nullable();
+            $table->text('user_message')->nullable();
+            $table->text('actions')->nullable();
+            $table->boolean('action_taken')->nullable(); // 0 = undecided, 1 = accepted, 2 = refused
             $table->boolean('is_read')->default(false);
             $table->timestamps();
         });

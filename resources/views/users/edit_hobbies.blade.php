@@ -55,7 +55,7 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="col-md-6 float-left">
-                                    <form class="float-left" method="GET" action="/users/{{Auth::user()->id}}/edit_avatar"> 
+                                    <form class="float-left" method="GET" action="/users/{{Auth::user()->id}}/edit_description"> 
                                         <button type="submit" class="btn btn-primary ml-auto" role="button">
                                             {{ __('Vorige') }}
                                         </button> 

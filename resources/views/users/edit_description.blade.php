@@ -25,34 +25,34 @@
 
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-10">
-                                <button type="submit" class="btn btn-primary ml-auto">
+                                <button type="submit" class="btn btn-success ml-auto">
                                     {{ __('opslaan') }}
                                 </button>
 
                     </form>
 
 
-                                 <div class="card-footer">
+                                 
                       
-                        <!-- Terug naar avatar -->
+                                </div>
+                            </div>
                         <div class="card-footer">
-                        <div class="col-md-12">
-                        <form class="col-md-2 float-left" method="GET" action="/users/{{Auth::user()->id}}/edit_avatar"> 
-                            <button type="submit" class="btn btn-primary ml-auto" role="button">
-                                {{ __('Vorige') }}
-                            </button> 
-                        </form>
-                    <!--  Naar volgende -->  
-                        <form class="col-md-2 float-right" method="GET" action="/users/{{Auth::user()->id}}/edit_workExperience">
-                        {{-- <form class="col-md-2 float-right" method="GET" action="/users/{{Auth::user()->id}}/edit_workExperience">  --}}
-                            <button type="submit" class="btn btn-primary ml-auto" role="button">
-                                {{ __('Volgende') }}
-                            </button> 
-                        </form>
-                        </div>
+                            <!-- Terug naar avatar -->
+                            <div class="card-footer">
+                                <div class="col-md-12">
+                                    <form class="col-md-2 float-left" method="GET" action="/users/{{Auth::user()->  id}}/edit_avatar"> 
+                                        <button type="submit" class="btn btn-primary ml-auto" role="button">
+                                    {{ __('Vorige') }}
+                                        </button> 
+                                    </form>
+                        <!--  Naar volgende -->  
+                                    <form class="col-md-2 float-right" method="GET" action="/users/{{Auth::user()->id}}/edit_hobbies">
+                                        <button type="submit" class="btn btn-primary ml-auto" role="button">
+                                    {{ __('Volgende') }}
+                                        </button> 
+                                    </form>
                         </div>
 
-                        </div>
                     </div>
                 </div>
             </div>

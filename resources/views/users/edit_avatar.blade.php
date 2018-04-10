@@ -30,7 +30,7 @@
                         <div class="col-md-8">                        
                             <form method="POST" action="{{route('users.update_description', $user)}}">
                                 @csrf
-                                {{ method_field('patch') }}
+                                {{-- method_field('patch') --}}
                                 <div class="form-group row">
                                     <label for="description" class="col-md-4 col-form-label text-md-right">{{ __('Vertel iets over jezelf') }}</label>
                                     <div class="col-md-6">

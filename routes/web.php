@@ -6,6 +6,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/home', 'HomeController@index')->name('home');
 //show a list of projects
 Route::get('projects', 'ProjectsController@index')->name('project_index');
 
@@ -14,11 +15,6 @@ Route::get('projects/{project}', 'ProjectsController@show')->name('project_show'
 
 //show edit form of an existing project
 Route::post('projects/edit/{project}', 'ProjectsController@edit')->name('project_edit')->where('project', '[0-9]+');
-
-// Route::post('projects/edit/{project}', array(
-//     'uses' => 'ProjectsController@edit',
-//     'as'   => 'project_edit'
-// ))->where('project', '[0-9]+');
 
 Route::get('projects/seekMembers/{project}', 'ProjectsController@seekMembers')->name('seek_members')->where('project', '[0-9]+');
 
@@ -58,20 +54,17 @@ Route::get('/projects/join/{project}', 'ProjectsController@prepareJoinMessage')-
 Route::get('/projects/send_join_request/{project}', 'ProjectsController@sendJoinProjectMessage');
 //show a list of messages
 
-
 Route::get('/projects/{project}/edit_skills',  ['as' => 'projects.edit_skills', 'uses' => 'ProjectsController@editSkills'])->where('project', '[0-9]+');
 
 Route::post('/projects/{project}/store_skills',  ['as' => 'projects.store_skills', 'uses' => 'ProjectsController@storeSkill'])->where('project', '[0-9]+');
 
 Route::post('/projects/{project}/detach_skills',  ['as' => 'projects.detach_skills', 'uses' => 'ProjectsController@detachSkills'])->where('project', '[0-9]+');
 
-
 Route::get('/projects/{project}/edit_competences',  ['as' => 'projects.edit_competences', 'uses' => 'ProjectsController@editCompetences'])->where('project', '[0-9]+');
 //attach competences to project
 Route::post('/projects/{project}/update_competences',  ['as' => 'projects.update_competences', 'uses' => 'ProjectsController@addCompetences'])->where('project', '[0-9]+');
 //detacth competences from project
 Route::post('/projects/{project}/detach_competences',  ['as' => 'projects.detach_competences', 'uses' => 'ProjectsController@detachCompetences'])->where('project', '[0-9]+');
-
 
 Route::get('/messages/msg-index', 'MessagesController@showMessages');
 //read one message
@@ -81,8 +74,6 @@ Route::get('/messages/msg-show/{message}', 'MessagesController@focusMessage')->w
 Route::post('/organizations/org-input-form', 'OrganizationsController@showInputForm')->name('org.inputform');
 Route::post('/organizations', 'OrganizationsController@saveOrganization');
 Route::get('organizations', 'OrganizationsController@org_index');
-
-Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/admin/login', 'Auth\AdminLoginController@showLoginForm')->name('admin.login');
 Route::post('/admin/login', 'Auth\AdminLoginController@login')->name('admin.login.submit');

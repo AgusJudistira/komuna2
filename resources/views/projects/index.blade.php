@@ -2,9 +2,7 @@
 
 
 @section('content')
-<style>
-    
-</style>
+
 <div class="container">
     <form style="z-index: 3; position: fixed; bottom: 50px; right: 50px;" action="/projects/create" method="post" role="form">
         {{ csrf_field() }}
@@ -39,14 +37,15 @@
                     <div class="card">
                         <div class="card-header">  
                             <a href="/projects/{{$project[1]->id}}">
-                                {{ $project[1]->name }}  
+                                <span style="font-size: 24px;">{{ $project[1]->name }}</span>
+                                {{-- <h4>{{ $project[1]->name }}</h4> --}}
                             </a>                        
                         </div>
                         <div class="card-body">
                             <div class="row">
                                 <div class="form-group col-md-12 row">
                                     
-                                    <div class="card-text col-md-12">{{ $project[1]->description }}</div>
+                                    <b><div class="card-text col-md-12">{{ $project[1]->description }}</b></div>
                                     <div class="card-text col-md-3 text-right">Straatnaam & nummer: </div><div class="card-text col-md-7">{{ $project[1]->streetname_number }}</div>
                                     <div class="card-text col-md-3 text-right">Postcode & plaats: </div><div class="card-text col-md-7">{{ $project[1]->postal_code }}  {{ $project[1]->city }}</div>
                                     

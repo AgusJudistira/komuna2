@@ -95,19 +95,18 @@
                                     {{ __('Vorige') }}
                                 </button> 
                             </form>
-                            <!-- Naar volgende -->
-
-                            <form class="col-md-2 float-right" method="GET" action="/users/{{Auth::user()->id}}/show"> 
+                            
+                            <!-- Dashboard -->
+                            <form class="col-md-2 float-right" method="GET" action="{{route('home')}}"> 
+                                <button type="submit" class="btn btn-primary ml-auto" role="button">
+                                    {{ __('Afronden') }}
+                            </button> 
+                            {{-- <form class="col-md-2 float-right" method="GET" action="/users/{{Auth::user()->id}}/show"> 
                                 <button type="submit" class="btn btn-primary ml-auto" role="button">
                                     {{ __('Profiel overzicht') }}
                                 </button> 
-                           </form>     
-
-                            {{-- <form class="col-md-2 float-right" method="GET" action="/users/{{Auth::user()->id}}/edit_workExperience">
-                                <button type="submit" class="btn btn-primary ml-auto" role="button">
-                                    {{ __('Volgende') }}
-                                </button> 
-                            </form>   --}}
+                           </form>      --}}
+                            
                         </div>
                     </div>
                 </div>

@@ -30,14 +30,14 @@
                             <td><a href="/projects/showInvitee/{{{$thisProject->id}}}/{{{$invitee[1]->id}}}">{{$invitee[1]->gender}}</a></td>
                             <td><a href="/projects/showInvitee/{{{$thisProject->id}}}/{{{$invitee[1]->id}}}">{{$invitee[1]->city}}</a></td>
                             <td>
-                                @foreach ($invitee[2] as $skill)
+                                @foreach ($skills_selected as $skill)
                                     <span class="badge badge-pill badge-warning">
                                         {{$skill['skill']}}
                                     </span>
                                 @endforeach
                             </td>
                             <td>
-                                @foreach ($invitee[3] as $competence)
+                                @foreach ($competences_selected as $competence)
                                     <span data-toggle="tooltip" title='{{$competence->description}}' class="badge badge-pill badge-success">
                                         {{$competence['competence']}}
                                     </span>

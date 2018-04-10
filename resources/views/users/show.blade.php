@@ -110,16 +110,16 @@
                     </div>
                     <div class="card-body">
                         <form class="form-group ml-1" method="POST" action="{{route('users.detach_competences', $user)}}">
-                            @foreach ($competences_selected as $competence_selected)
                             {{csrf_field()}}
+                            @foreach ($competences_selected as $competence_selected)
                            <span class="badge badge-pill badge-success" data-toggle="tooltip" title="{{ $competence_selected->description }}"class="btn btn-default float-left ml-1     mb-1" >{{ $competence_selected->competence }}</span>
                             @endforeach
                         </form>
     
                         <!-- Skills -->
                         <form class="form-group ml-1" method="POST" action="{{route('users.detach_skills', $user)}}">
-                            @foreach ($skills_selected as $skill_selected)
                             {{csrf_field()}}
+                            @foreach ($skills_selected as $skill_selected)
                             <span class="badge badge-pill badge-warning" data-toggle="tooltip" title="{{ $skill_selected->description }}"class="btn btn-default float-left ml-1 mb-1"   >{{ $skill_selected->skill }}</span>
                             @endforeach
                         </form>

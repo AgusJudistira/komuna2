@@ -13,32 +13,33 @@
                 <div class="card-body">                    
 
                     <div class="card-header">  
-                        <h5>Personlijke gegvens</h5>                      
+                        <h5>Persoonlijke gegevens</h5>
                     </div>
-                    <div style="min-height: 25vh">
-                        <img class="rounded float-right" src="/uploads/avatars/{{ $user->avatar }}" style="width: 150px; height: 150px; margin: 25px; border-radius: 50%;">
-                            
-                            <p class="m-3">
-                                <span class="">Naam:</span> {{ $user->firstname }} {{ $user->lastname }} <br />
+                    <div class="card-body">
+                        <div class="col-md-12" style="min-height: 25vh;">
+                            <img class="rounded float-right" src="/uploads/avatars/{{ $user->avatar }}" style="width: 150px; height: 150px; margin: 25px; border-radius: 50%;">
+                                                                                        
+                            <span class="t">Naam:</span><span class=""> {{ $user->firstname }} {{ $user->lastname }} </span><br />
                             @if($user->birthday != null)
-                                <span class="">Leeftijd:</span> {{$age}} <br />
+                                <span class="t">Leeftijd:</span><span class=""> {{$age}} </span><br />
                             @endif                
                             @if( $user->streetname_number != null )
-                                <span class="">Straat en huisnummer:</span> {{ $user->streetname_number }} <br />
+                                <span class="t">Straat en huisnummer:</span><span class=""> {{ $user->streetname_number }} </span><br />
                             @endif
                             @if( $user->postal_code != null )
-                                <span class="">Postcode:</span> {{ $user->postal_code }} <br />
+                                <span class="t">Postcode:</span><span class=""> {{ $user->postal_code }} </span><br />
                             @endif
                             @if( $user->city != null )
-                                <span class="">Stad:</span> {{ $user->city }} <br />
+                                <span class="t">Stad:</span><span class=""> {{ $user->city }} </span><br />
                             @endif
                             @if( $user->phone_private != null )
-                               <span class="">telefoon:</span> {{ $user->phone_private }} <br />
+                                <span class="t">telefoon:</span><span class=""> {{ $user->phone_private }} </span><br />
                             @endif
                             @if( $user->phone_work != null )
-                               <span class="">telefoon werk:</span> {{ $user->phone_work }} <br />
-                            @endif
-                        </p>
+                                <span class="t">telefoon werk:</span><span class=""> {{ $user->phone_work }} </span><br />
+                            @endif                            
+                            
+                        </div>
                     </div>
                     
                     <div class="card-header">  
@@ -48,7 +49,7 @@
                     <form class="form-group ml-1" method="POST" action="{{route('users.detach_competences', $user)}}">
                         @foreach ($competences_selected as $competence_selected)
                         {{csrf_field()}}
-                       <span class="badge badge-pill badge-success" data-toggle="tooltip" title="{{ $competence_selected->description }}"class="btn btn-default float-left ml-1 mb-1" >{{ $competence_selected->competence }}</span>
+                       <div class="badge badge-pill badge-success" data-toggle="tooltip" title="{{ $competence_selected->description }}"class="btn btn-default float-left ml-1 mb-1" >{{ $competence_selected->competence }}</div>
                         @endforeach
                     </form>
 
@@ -56,7 +57,7 @@
                     <form class="form-group ml-1" method="POST" action="{{route('users.detach_skills', $user)}}">
                         @foreach ($skills_selected as $skill_selected)
                         {{csrf_field()}}
-                        <span class="badge badge-pill badge-warning" data-toggle="tooltip" title="{{ $skill_selected->description }}"class="btn btn-default float-left ml-1 mb-1" >{{ $skill_selected->skill }}</span>
+                        <div class="badge badge-pill badge-warning" data-toggle="tooltip" title="{{ $skill_selected->description }}"class="btn btn-default float-left ml-1 mb-1" >{{ $skill_selected->skill }}</div>
                         @endforeach
                     </form>
 

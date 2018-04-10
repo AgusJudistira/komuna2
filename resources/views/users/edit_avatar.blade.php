@@ -6,8 +6,8 @@
 
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ __('kies een avatar') }}
-                </div>
+                <h4 class="card-header">{{ __('Kies een avatar') }}
+                </h4>
 
                 <div class="card-body">
                     <div class="row">

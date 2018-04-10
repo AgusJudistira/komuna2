@@ -26,8 +26,8 @@ class ProjectsController extends Controller
 		$now = date('Y-m-d');
 		$projects = Project::with('user')->get();
 		
-		$thisUser = Auth::guard('web')->user();
-		
+		$thisUser = Auth::guard('web')->user();				
+
 		$listed_projects = Array();				
 
 		foreach ($projects as $project) {
@@ -262,6 +262,7 @@ class ProjectsController extends Controller
         return view('projects.edit_skills', compact( 'skills_selected','skills','project'));
     }
 
+
     public function detachSkills(Project $project, Request $request)
     {   
         
@@ -280,6 +281,7 @@ class ProjectsController extends Controller
 
     }
 
+	
 	public function editCompetences(Project $project)
 	{   
 		$competences = Competence::all();

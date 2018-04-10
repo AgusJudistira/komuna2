@@ -7,7 +7,7 @@
             <div class="form-group">
                 <div class="card">                    
                     <div class="card-header">  
-                        <h5>Vrijwilligersprojecten</h5>                      
+                        <h4>Vrijwilligersprojecten</h4>
                     </div>
                     <div class="card-body">  
                         <div class="row">

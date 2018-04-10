@@ -5,8 +5,8 @@
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="card">
-                <div class="card-header">{{ __('iets over mezelf') }}
-                </div>
+                <h4 class="card-header">{{ __('Iets over mezelf') }}
+                </h4>
                 <div class="card-body">  
                     <form class="form-group float-left" method="POST" action="{{route('users.detach_hobbies', $user)}}">
                         @foreach ($hobbies_selected as $hobby_selected)
@@ -48,32 +48,30 @@
                                 </button> 
                             </div>
                         </div>
-                    </form>
-                        
+                    </form>                                
+                </div>                        
                     <!-- Terug naar avatar -->
-                    <div class="card-footer">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="col-md-6 float-left">
-                                    <form class="float-left" method="GET" action="/users/{{Auth::user()->id}}/edit_description"> 
-                                        <button type="submit" class="btn btn-primary ml-auto" role="button">
-                                            {{ __('Vorige') }}
-                                        </button> 
-                                    </form>
-                                </div>
-                        <!--  Naar volgende -->  
-                                <div class="col-md-6 float-right">
-                                    <form class="float-right" method="GET" action="/users/{{Auth::user()->id}}/edit_competences">
-                                        <button type="submit" class="btn btn-primary ml-auto" role="button">
-                                            {{ __('Volgende') }}
-                                        </button> 
-                                    </form>
-                                </div>
+                <div class="card-footer">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="col-md-6 float-left">
+                                <form class="float-left" method="GET" action="/users/{{Auth::user()->id}}/edit_description"> 
+                                    <button type="submit" class="btn btn-primary ml-auto" role="button">
+                                        {{ __('Vorige') }}
+                                    </button> 
+                                </form>
+                            </div>
+                    <!--  Naar volgende -->  
+                            <div class="col-md-6 float-right">
+                                <form class="float-right" method="GET" action="/users/{{Auth::user()->id}}/edit_competences">
+                                    <button type="submit" class="btn btn-primary ml-auto" role="button">
+                                        {{ __('Volgende') }}
+                                    </button> 
+                                </form>
                             </div>
                         </div>
                     </div>
-                </div>
-                   
+                </div>                                   
             </div>
         </div>
     </div>

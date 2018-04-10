@@ -5,23 +5,23 @@
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="card">
-                <div class="card-header">{{ __('persoonlijke gegevens') }}</div>
+                <h4 class="card-header">{{ __('Persoonlijke gegevens') }}</h4>
                 <!-- NAW Form -->
-                <div class="card-body">
-                    <form method="POST" action="{{route('users.update', $user)}}">
-                        @csrf
+                <form method="POST" action="{{route('users.update', $user)}}">
+                    @csrf
+                    <div class="card-body">                                            
                         {{ method_field('patch') }}
                         <!-- Geboorte datum -->
-                            <div class="form-group row ">
-                                <label for="birthday" class="col-md-4 col-form-label text-md-right">{{ __('Geboorte datum') }}</label><div class="col-md-6">
-                                <input id="birthday" type="date" class="form-control" name="birthday" value="{{ Auth::guard('web')->user()->birthday }}" autofocus required>
-                                 @if ($errors->has('birthday'))
-                                    <span class="invalid-feedback">
-                                        <strong>{{ $errors->first('birthday') }}</strong>
-                                    </span>
-                                @endif
-                                </div>
+                        <div class="form-group row ">
+                            <label for="birthday" class="col-md-4 col-form-label text-md-right">{{ __('Geboorte datum') }}</label><div class="col-md-6">
+                            <input id="birthday" type="date" class="form-control" name="birthday" value="{{ Auth::guard('web')->user()->birthday }}" autofocus required>
+                                @if ($errors->has('birthday'))
+                                <span class="invalid-feedback">
+                                    <strong>{{ $errors->first('birthday') }}</strong>
+                                </span>
+                            @endif
                             </div>
+                        </div>
                         <!-- Geslacht -->
                          <div class="form-group row ">
                             <label for="gender" class="col-md-4 col-form-label text-md-right">{{ __('Geslacht') }}</label>
@@ -105,16 +105,16 @@
                                 @endif
                             </div>
                         </div>
-
-                            <div class="card-footer">
-                                    <button type="submit" class="btn btn-primary ml-auto float-right">
-                                        {{ __('volgende') }}
-                                    </button>
-                                
-                            </div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="form-group col-md-12 row">
+                            <button type="submit" class="btn btn-primary ml-auto float-right">
+                                {{ __('volgende') }}
+                            </button>
                         </div>
-                    </form>
-                </div>
+                    </div>
+                        
+                </form>
             </div>
         </div>
     </div>

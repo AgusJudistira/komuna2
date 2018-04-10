@@ -36,21 +36,27 @@
                 <div class="form-group">
                     <div class="card">
                         <div class="card-header">  
-                            <a href="/projects/{{$project[1]->id}}">
-                                <span style="font-size: 22px;">{{ $project[1]->name }}</span>
-                                {{-- <div class="card-text col-md-12"><h4>{{ $project[1]->name }}</h4></div> --}}
-                            </a>                        
+                            <h4><a href="/projects/{{$project[1]->id}}">{{ $project[1]->name }}</a></h4>
                         </div>
                         <div class="card-body">
                             <div class="row">
                                 <div class="form-group col-md-12 row">
-                                    
-                                    <b><div class="card-text col-md-12 mb-3">{{ $project[1]->description }}</b></div>
-                                    <div class="card-text col-md-3 text-right">Straatnaam & nummer: </div><div class="card-text col-md-7">{{ $project[1]->streetname_number }}</div>
-                                    <div class="card-text col-md-3 text-right">Postcode & plaats: </div><div class="card-text col-md-7">{{ $project[1]->postal_code }}  {{ $project[1]->city }}</div>
+                                    @if ($project[1]->description != null)
+                                        <b><div class="card-text col-md-12 mb-3">{{ $project[1]->description }}</b></div>
+                                    @endif
+                                    @if ($project[1]->streetname_number != null)
+                                        <div class="card-text col-md-3 text-right">Straatnaam & nummer: </div><div class="card-text col-md-7">{{ $project[1]->streetname_number }}</div>
+                                    @endif
+                                    @if ($project[1]->city != null)
+                                        <div class="card-text col-md-3 text-right">Postcode & plaats: </div><div class="card-text col-md-7">{{ $project[1]->postal_code }}  {{ $project[1]->city }}</div>
+                                    @endif
                                     
                                     <div class="card-text col-md-3 text-right">Startdatum: </div><div class="card-text col-md-7">{{ $project[1]->start_date }}</div>
-                                    <div class="card-text col-md-3 text-right">Deadline: </div><div class="card-text col-md-7">{{ $project[1]->due_date }}</div>
+                                    @if ($project[1]->city != null)
+                                        <div class="card-text col-md-3 text-right">Deadline: </div><div class="card-text col-md-7">{{ $project[1]->due_date }}</div>
+                                    @else
+                                        <div class="card-text col-md-3 text-right">Deadline: </div><div class="card-text col-md-7">onbekend</div>
+                                    @endif
 
                                 </div>
                                 <div class="col-md-12">

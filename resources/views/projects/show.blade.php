@@ -22,14 +22,28 @@
         
                     <div class="card-body">
                         <div class="form-group col-md-12 row">
-                            <div class="card-text col-md-12 mb-3"><b>{{ $project->description }}</b></div>                            
-                            <div class="card-text col-md-3 text-right">Straatnaam & nummer: </div><div class="card-text col-md-7">{{ $project->streetname_number }}</div>
-                            <div class="card-text col-md-3 text-right">Postcode & plaats: </div><div class="card-text col-md-7">{{ $project->postal_code }}  {{ $project->city }}</div>
-                            <div class="card-text col-md-3 text-right">Website: </div><div class="card-text col-md-7">{{ $project->website }}</div>
-                            <div class="card-text col-md-3 text-right">Telefoon: </div><div class="card-text col-md-7">{{ $project->phone }}</div>
-                            <div class="card-text col-md-3 text-right">Email: </div><div class="card-text col-md-7">{{ $project->email }}</div>
+                            @if ($project->description != null)
+                                <div class="card-text col-md-12 mb-3"><b>{{ $project->description }}</b></div>
+                            @endif
+                            @if ($project->streetname_number != null)
+                                <div class="card-text col-md-3 text-right">Straatnaam & nummer: </div><div class="card-text col-md-7">{{ $project->streetname_number }}</div>
+                            @endif
+                            @if ($project->city != null)                            
+                                <div class="card-text col-md-3 text-right">Postcode & plaats: </div><div class="card-text col-md-7">{{ $project->postal_code }}  {{ $project->city }}</div>
+                            @endif
+                            @if ($project->website != null)
+                                <div class="card-text col-md-3 text-right">Website: </div><div class="card-text col-md-7">{{ $project->website }}</div>
+                            @endif
+                            @if ($project->phone != null)
+                                <div class="card-text col-md-3 text-right">Telefoon: </div><div class="card-text col-md-7">{{ $project->phone }}</div>
+                            @endif
+                            @if ($project->email != null)
+                                <div class="card-text col-md-3 text-right">Email: </div><div class="card-text col-md-7">{{ $project->email }}</div>
+                            @endif
                             <div class="card-text col-md-3 text-right">Startdatum: </div><div class="card-text col-md-7">{{ $project->start_date }}</div>
-                            <div class="card-text col-md-3 text-right">Deadline: </div><div class="card-text col-md-7">{{ $project->due_date }}</div>
+                            @if ($project->due_date != null)
+                                <div class="card-text col-md-3 text-right">Deadline: </div><div class="card-text col-md-7">{{ $project->due_date }}</div>
+                            @endif
                             
                             @if ($project->enough_members)
                                 <div class="card-text text-danger">Er zijn al genoeg vrijwilligers. Ledenwerving gestopt</div>

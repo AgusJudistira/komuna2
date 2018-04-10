@@ -53,9 +53,7 @@ class UsersController extends Controller
         $date2 = date_create(date("Y-m-d"));
         $age = date_diff($date1, $date2)->format('%y jaar');
 
-        //dd($competences_selected);
         return view('users.show', compact('user', 'projects', 'projectExperiences', 'competences_selected', 'skills_selected', 'workExperiences', 'studyExperiences', 'age', 'rating'));
-
     }
    
 
@@ -297,7 +295,7 @@ class UsersController extends Controller
         $skills = Skill::all();
         $skills_selected = $user->Skill()->get();
 
-            if ($user->id == Auth::guard('web')->user()->id) {
+        if ($user->id == Auth::guard('web')->user()->id) {
             return view('users.edit_skills', compact( 'skills_selected','skills','user'));
         }
         else {

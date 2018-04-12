@@ -102,18 +102,6 @@
             </div>
             <br>
 
-{{-- 
-            <div class="form-group row">
-              <div class="col-md-3 text-right">Selecteer de benodigde competenties voor dit project (houd CTRL vast om meer dan een te selecteren):</div>
-
-              <div class="col-md-8">
-                  <select name="competences_select[]" class="form-control" size="10" multiple>
-                    @foreach ($competences as $competence)
-                  <option name='competence' data-toggle="tooltip" title='{{$competence->description}}' value='{{ $competence->id }}'>{{ $competence->competence }}</option>
-                    @endforeach
-                  </select>
-              </div>
-            </div> --}}
             
             <div class="col-md-12 row">
               <div class="col-md-4"></div>

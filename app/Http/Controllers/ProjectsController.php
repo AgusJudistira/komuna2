@@ -68,7 +68,7 @@ class ProjectsController extends Controller
 			}						
 		}
 
-		rsort($listed_projects); //gesorteerd aan de hand van de gematchedte competenties. De meeste bovenaan.
+		rsort($listed_projects); // Sorted by matched skills & competences. Most matches comes first.
 
 		return view('projects.index', compact('listed_projects', 'user'));		
 	}
@@ -196,8 +196,9 @@ class ProjectsController extends Controller
 			'due_date'
 		]));
 		
-		// maak de gebruiker die het project aanmaakt de projectowner
-		// en vul ook de begindatum in wanneer de projectowner bij het project betrokken is
+		// Register the current logged user as the project owner
+		// Because the start- & enddate of a projectowner involved in a project is determined by the start- & enndate of the project,
+		// This is not really needed, but just to be sure: register the startdate of the involvement of the projectowner in the pivot table.
 		$project->user()->attach($user_id, ['projectowner' => true,
 											'start_date_user' => \Carbon\Carbon::now()->toDateTimeString()
 										]);
@@ -399,6 +400,7 @@ class ProjectsController extends Controller
 		]);
 	}
 
+
 	public function edit(Project $project)
 	{		
 		$isProjectOwner = $this->isOwner(Auth::guard('web')->user(), $project);
@@ -408,6 +410,7 @@ class ProjectsController extends Controller
 
 		return view('projects.edit', compact('project', 'isProjectOwner', 'list_of_projectusers', 'competences'));
 	}
+
 
 	public function seekMembers(Project $project)
 	{		
@@ -445,9 +448,10 @@ class ProjectsController extends Controller
 			}
 						
 			$one_volunteer = Array();
-			// leden die geen competentiematch of skillsmatch hebben eruit filteren
-			// leden die al lid zijn van het project eruit filteren.
+			
+			// filter out members of this project
 			if (!$this->isMember($volunteer, $thisProject)) {
+				// filter out volunteers without any match
 				if (count($found_competences) > 0 || count($found_skills) > 0 ) {
 
 					$one_volunteer[] = (count($found_skills)+0.1) * (count($found_competences)+0.5);
@@ -459,7 +463,7 @@ class ProjectsController extends Controller
 			}
 		}
 
-		rsort($invitable_members); //gesorteerd aan de hand van de gematchedte competenties. De meeste bovenaan.
+		rsort($invitable_members); // Sorted by matched skills & competences. Most matches on top.
 
 		return view('projects.seekMembers', compact('thisProject', 'invitable_members'));
 	}
@@ -489,6 +493,7 @@ class ProjectsController extends Controller
 		}
 	}
 
+
 	public function prepareInvitation()
 	{
 		$project_id = request('project_id');
@@ -506,7 +511,7 @@ class ProjectsController extends Controller
 		}
 	}
 
-	// Uitnodigingsbericht maken
+	// create invitation message
 	public function sendInvitation()
 	{		
 		$project_id = request('project_id');

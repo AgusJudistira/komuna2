@@ -32,7 +32,7 @@
                         </div>
                     </form>
                 </div>    
-                    <!-- Terug naar avatar -->
+                <!-- Terug naar avatar -->
                 <div class="card-footer">
                     <div class="col-md-12">
                         <form class="col-md-2 float-left" method="GET" action="/users/{{Auth::user()->  id}}/edit_avatar"> 
@@ -40,7 +40,7 @@
                         {{ __('Vorige') }}
                             </button> 
                         </form>
-            <!--  Naar volgende -->  
+                <!--  Naar volgende -->  
                         <form class="col-md-2 float-right" method="GET" action="/users/{{Auth::user()->id}}/edit_hobbies">
                             <button type="submit" class="btn btn-primary ml-auto" role="button">
                         {{ __('Volgende') }}

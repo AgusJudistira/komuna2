@@ -47,20 +47,6 @@
                                 <div class="col-md-2">
                                     <button type="submit" class="btn btn-success">Voeg toe</button>
                                 </div>
-                                {{-- <div class="col-md-7">
-                                    <input list="competences" id="competence" type="text" class="form-control" name="competence" required>
-                                    <datalist id="competences"> 
-                                        @foreach($competences as $competence)
-                                            <option>{{$competence->competence}}</option>
-                                        @endforeach
-                                    </datalist>
-                                </div> --}}
-
-                                {{-- <div class="col-md-2">
-                                    <button type="submit" class="btn btn-primary ml-auto float-left" role="button">
-                                        {{ __('Sla op') }}
-                                    </button> 
-                                </div> --}}
 
                                 @if ($errors->has('competence'))
                                     <span class="invalid-feedback">

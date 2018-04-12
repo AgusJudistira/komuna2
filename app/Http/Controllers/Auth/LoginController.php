@@ -40,8 +40,7 @@ class LoginController extends Controller
     }
 
     public function showLoginForm()
-    {
-        
+    {        
 
         return view('auth/user-login');
     }

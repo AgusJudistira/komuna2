@@ -18,10 +18,9 @@ class OrganizationsController extends Controller
     public function org_index()
     {
         $user_id = Auth::guard('web')->user()->id;
-        //dd('user id: ' . $user_id);
+        
         $org_list = User::find($user_id)->organization()->get();
-        //$org_list = User::find($user_id)->organization()->toSql();
-        //dd($org_list);
+        
         $all_org_list = Organization::all();
 
         return view('organizations.org-index', compact('org_list', 'all_org_list'));
@@ -34,15 +33,11 @@ class OrganizationsController extends Controller
 
     public function saveOrganization()
     {
-        // var_dump(request('aanmaken'));
-        // dd(request('annuleren'));
-
         $user_id = Auth::guard('web')->user()->id;
 
         if (request('aanmaken') == "aanmaken") 
         {            
-            $org = new Organization;
-            // $org->user_id = $user_id;
+            $org = new Organization;            
             $org->name = request('name');
 
             $this->validate(request(),[
@@ -62,7 +57,6 @@ class OrganizationsController extends Controller
 
         $org_list = User::find($user_id)->organization()->get();
         $all_org_list = Organization::all();
-
 
         return view('organizations.org-index', compact('org_list', 'all_org_list'));
     }

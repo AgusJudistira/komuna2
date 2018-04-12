@@ -125,9 +125,7 @@
                                         <strong>{{ $errors->first('start_date') }}</strong>
                                     </span>
                                 @endif
-                           
-                            
-                            {{-- <div class="form-group col-md-3" rel="popover" data-trigger="hover" data-content="Geplande einddatum van het project" data-original-title=""> --}}
+                                                       
                                 <label class="control-label control-label-right col-md-3 text-right" for="due_date">Geplande einddatum</label>
 
                                 <div class="col-md-3">
@@ -168,15 +166,6 @@
                                     <div class="form-group col-md-12 text-right">
                                         <button id="afmelden" name="afmelden" value="afmelden" type="submit" class="btn btn-danger btn-lg">Afmelden</button>
                                     </div>
-                                    {{-- <h5>
-                                    @foreach ($list_of_projectusers as $projectuser)
-                                        @if ($projectuser->pivot->projectowner)
-                                            <span class="badge badge-pill badge-info">{{ $projectuser->firstname . " " . $projectuser->lastname }} (eigenaar)</span>                                            
-                                        @else
-                                            <span class="badge badge-pill badge-secondary">{{ $projectuser->firstname . " " . $projectuser->lastname }}</span>
-                                        @endif
-                                    @endforeach
-                                    </h5> --}}
                                 </div>
                             </div>
 

@@ -64,7 +64,7 @@ class UsersController extends Controller
         	'gender',
             'streetname_number',
             'postal_code',
-            'city' => 'required',
+            'city',
             'phone_private',
             'phone_work' 
 
@@ -184,7 +184,7 @@ class UsersController extends Controller
             $sender = Auth::guard('web')->user();
             $this->sendLeftFromProjectMsg($targetProject, $sender);
         }
-        //return view('users.edit_projectExperience', compact('user', 'projects'));
+        
         return back();
     }
 
@@ -263,8 +263,7 @@ class UsersController extends Controller
     }
 
     public function storeStudyExperience(User $user)
-    {   
-
+    {
         $this->validate(request(),[
             'user_id' => 'required',
             'name' => 'required',
@@ -281,7 +280,6 @@ class UsersController extends Controller
             'end_date',
             'level',
             'diploma'
-     
         ]));
 
         $studyExperiences = $user->studyExperience()->orderBy('start_date', 'DESC')->get();
@@ -341,14 +339,8 @@ class UsersController extends Controller
     public function seekUsers()
     {   
         $users = User::with('competence')->with('skill')->get();
-        // dd($users);
-        // $competences_selected = $user->withcompetence()->get();
-        // $skills_selected = User::skill()->get();
         
-
-
-       //dd($skills_selected);
-       return view('users.seekMembers', compact('users'));
+        return view('users.seekMembers', compact('users'));
     }
 
 

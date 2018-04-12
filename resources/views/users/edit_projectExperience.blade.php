@@ -101,12 +101,6 @@
                                 <button type="submit" class="btn btn-primary ml-auto" role="button">
                                     {{ __('Afronden') }}
                             </button> 
-                            {{-- <form class="col-md-2 float-right" method="GET" action="/users/{{Auth::user()->id}}/show"> 
-                                <button type="submit" class="btn btn-primary ml-auto" role="button">
-                                    {{ __('Profiel overzicht') }}
-                                </button> 
-                           </form>      --}}
-                            
                         </div>
                     </div>
                 </div>

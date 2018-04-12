@@ -25,34 +25,33 @@
                         <th>Vaardigheden</th>
                         <th>Competenties</th>               
                     </thead>
-                @foreach ($users as $user)
-                @if ($user->id != Auth::guard('web')->user()->id)
-                <tr>
-                    <td><a href="/users/{{$user->id}}/show">{{$user->firstname}} {{$user->lastname}}</a>
-                    <td><a href="/users/{{$user->id}}/show">{{$user->gender}}</a>
-                    <td><a href="/users/{{$user->id}}/show">{{$user->city}}</a>  
-                    <td>
-                        @foreach ($user->skill as $skill_selected)
-                            <span class="badge badge-pill badge-warning">
-                                {{$skill_selected->skill}}
-                            </span>
-                        @endforeach
-                    </td>
-                    <td>
-                        @foreach ($user->competence as $one_competence)
-                            <span data-toggle="tooltip" title='{{$one_competence->description}}' class="badge badge-pill badge-success">
-                                {{$one_competence->competence}}
-                            </span>
-                        @endforeach
-                    </td>
-                </tr> 
-                @endif
-                @endforeach
-        </table> 
+                    @foreach ($users as $user)
+                        @if ($user->id != Auth::guard('web')->user()->id)
+                            <tr>
+                                <td><a href="/users/{{$user->id}}/show">{{$user->firstname}} {{$user->lastname}}</a>
+                                <td><a href="/users/{{$user->id}}/show">{{$user->gender}}</a>
+                                <td><a href="/users/{{$user->id}}/show">{{$user->city}}</a>  
+                                <td>
+                                    @foreach ($user->skill as $skill_selected)
+                                        <span class="badge badge-pill badge-warning">
+                                            {{$skill_selected->skill}}
+                                        </span>
+                                    @endforeach
+                                </td>
+                                <td>
+                                    @foreach ($user->competence as $one_competence)
+                                        <span data-toggle="tooltip" title='{{$one_competence->description}}' class="badge badge-pill badge-success">
+                                            {{$one_competence->competence}}
+                                        </span>
+                                    @endforeach
+                                </td>
+                            </tr> 
+                        @endif
+                    @endforeach
+                </table> 
             </div>
         </div>
     </div>
-
 </div>
 
 @endsection

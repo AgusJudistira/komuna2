@@ -12,14 +12,11 @@
                     <!-- Organization -->
                     <form class="form-group mt-4" method="POST" action="{{route('users.update_workExperience', $user)}}">
                         {{csrf_field()}}
-                            
                         <input id="user_id" type="text" class="form-control d-none" name="user_id" value="{{ Auth::guard('web')->user()->id}}" required>
-                            
-                        
-                         <div class="form-group row">
+                        <div class="form-group row">
                             <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Organisatie') }}</label>
                             <div class="col-md-6">
-                                <input id="name" type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" value="" required>
+                                <input id="name" type="text" class="form-control" name="name" value="" required>
                                 @if ($errors->has('name'))
                                     <span class="invalid-feedback">
                                         <strong>{{ $errors->first('name') }}</strong>
@@ -27,10 +24,8 @@
                                 @endif
                             </div>
                         </div>
-                    
-                        <!-- Start datum -->
-                    
-                         <div class="form-group row">
+                        <!-- Start date -->
+                        <div class="form-group row">
                             <label for="start_date" class="col-md-4 col-form-label text-md-right">{{ __('start datum') }}</label>
                             <div class="col-md-6">
                                 <input id="start_date" type="date" class="form-control" name="start_date" value="" required>
@@ -41,9 +36,8 @@
                                 @endif
                             </div>
                         </div>
-                        <!-- eind datum -->
-                    
-                         <div class="form-group row">
+                        <!-- end date -->
+                        <div class="form-group row">
                             <label for="end_date" class="col-md-4 col-form-label text-md-right">{{ __('eind datum') }}</label>
                             <div class="col-md-6">
                                 <input id="end_date" type="date" class="form-control" name="end_date" value="">
@@ -54,7 +48,7 @@
                                 @endif
                             </div>
                         </div>
-                        <!-- afdeling -->
+                        <!-- department -->
                         <div class="form-group row">
                             <label for="department" class="col-md-4 col-form-label text-md-right">{{ __('Afdeling') }}</label>
                             <div class="col-md-6">
@@ -66,7 +60,7 @@
                                 @endif
                             </div>
                         </div>
-                          <!-- functie -->
+                          <!-- position -->
                         <div class="form-group row">
                             <label for="position" class="col-md-4 col-form-label text-md-right">{{ __('Functie') }}</label>
                             <div class="col-md-6">
@@ -89,32 +83,28 @@
                                     </span>
                                 @endif
                             </div>
-                            
                             <div style="margin-top:12px;" class="col-md-10 text-right">
                                 <button type="submit" class="btn btn-success" role="button">
                                     {{ __('Sla op') }}
                                 </button> 
-                            </div>
-                            
+                            </div> 
                         </div>
-                        
                     </form>
-                    <!-- Terug naar skills -->
+                    <!-- back to skills -->
                     <div class="col-md-12">
                     <form class="col-md-2 float-left" method="GET" action="/users/{{Auth::user()->id}}/edit_skills"> 
                         <button type="submit" class="btn btn-primary ml-auto" role="button">
                             {{ __('Vorige') }}
                         </button> 
                     </form>
-                    <!-- Naar volgende -->
+                    <!-- forward to studyexperience-->
                     <form class="col-md-2 float-right" method="GET" action="/users/{{Auth::user()->id}}/edit_studyExperience"> 
                          <button type="submit" class="btn btn-primary ml-auto" role="button">
                              {{ __('Volgende') }}
                          </button> 
                     </form>  
                     </div>
-
-                    <!-- Werkervaringsgeschiedenis -->
+                    <!-- workexperience -->
                     <div class="card-header">  
                         <h5>Werkervaring</h5>                      
                     </div>
@@ -133,65 +123,63 @@
                                         <td> {{$workExperience->position}}</td>
                                         <td> {{$workExperience->start_date}}</a></td>
                                         @if($workExperience->end_date == null)
-                                            <td> Nog bezig </td>
+                                        <td> Nog bezig </td>
                                         @else
-                                            <td> {{$workExperience->end_date}}</td>
+                                        <td> {{$workExperience->end_date}}</td>
                                         @endif
                                     </tr>
                                 @endforeach
                             </table>
                             </div>
                         </div>                    
-
-
-                <!-- Not in function right now -->
+                 <!-- Not in function right now -->
                 <div class="d-none">
-                    <!-- referentie  -->
+                    <!-- reference  -->
                     <form class="form-group" method="POST" action="/">
                         <div class="card-header">  
                             <h5>Voeg referentie toe</h5>                      
                         </div>
-                         <div class="form-group row mt-4">
+                        <div class="form-group row mt-4">
                             <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Naam') }}</label>
                             <div class="col-md-6">
                                 <input id="name" type="text" class="form-control" name="name" value="" required>
                                 @if ($errors->has('name'))
-                                    <span class="invalid-feedback">
-                                        <strong>{{ $errors->first('name') }}</strong>
-                                    </span>
+                                <span class="invalid-feedback">
+                                    <strong>{{ $errors->first('name') }}</strong>
+                                </span>
                                 @endif
                             </div>
                         </div>
-                         <!-- functie -->                    
-                         <div class="form-group row">
+                        <!-- number -->
+                        <div class="form-group row">
                             <label for="phone" class="col-md-4 col-form-label text-md-right">{{ __('Telefoonnummer') }}</label>
                             <div class="col-md-6">
                                 <input id="phone" type="text" class="form-control" name="phone" value="" required>
                                 @if ($errors->has('phone'))
-                                    <span class="invalid-feedback">
-                                        <strong>{{ $errors->first('phone') }}</strong>
-                                    </span>
+                                <span class="invalid-feedback">
+                                    <strong>{{ $errors->first('phone') }}</strong>
+                                </span>
                                 @endif
                             </div>
                         </div>                    
-                     <!-- functie -->                    
-                         <div class="form-group row">
+                        <!-- email -->
+                        <div class="form-group row">
                             <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('Email') }}</label>
                             <div class="col-md-6">
                                 <input id="email" type="text" class="form-control" name="email" value="" required>
                                 @if ($errors->has('email'))
-                                    <span class="invalid-feedback">
-                                        <strong>{{ $errors->first('email') }}</strong>
-                                    </span>
+                                <span class="invalid-feedback">
+                                    <strong>{{ $errors->first('email') }}</strong>
+                                </span>
                                 @endif
                             </div>
                         </div>
                     </form>
                 </div>
-                 </div>
-             </div>
-         </div>
-     </div>
- </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 @endsection

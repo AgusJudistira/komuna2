@@ -13,14 +13,11 @@ class OrganizationsController extends Controller
     {
         $this->middleware('auth');
     }
-
-    
+ 
     public function org_index()
     {
         $user_id = Auth::guard('web')->user()->id;
-        
         $org_list = User::find($user_id)->organization()->get();
-        
         $all_org_list = Organization::all();
 
         return view('organizations.org-index', compact('org_list', 'all_org_list'));
@@ -36,7 +33,7 @@ class OrganizationsController extends Controller
         $user_id = Auth::guard('web')->user()->id;
 
         if (request('aanmaken') == "aanmaken") 
-        {            
+        {
             $org = new Organization;            
             $org->name = request('name');
 

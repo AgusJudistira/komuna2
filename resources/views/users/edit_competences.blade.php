@@ -10,7 +10,7 @@
 					<div class="card-header">  
 						<h4>Voeg competenties toe</h4>                      
 					</div>
-					<!-- Toegevoegde competenties -->
+					<!-- Added Competences -->
 					<form class="form-group float-left ml-1" method="POST" action="{{route('users.detach_competences', $user)}}">
 						@foreach ($competences_selected as $competence_selected)
 						{{csrf_field()}}
@@ -42,8 +42,6 @@
 						<div class="col-md-2">
 							<button type="submit" class="btn btn-success">Voeg toe</button>
 						</div>
-					
-						
 						<div class="form-group">
 							@if(count($errors))
 							<div class="alert alert-danger">
@@ -56,7 +54,7 @@
 							@endif
 						</div >
 					</form>
-					<!-- Terug naar avatar -->
+					<!-- Back to avatar selection-->
 					<div class="card-footer">
 						<div class="col-md-12 ">
 							<form class="col-md-2 float-left" method="GET" action="/users/{{Auth::user()->id}}/edit_hobbies"> 
@@ -64,8 +62,7 @@
 									{{ __('Vorige') }}
 								</button> 
 							</form>
-			
-						<!--  Naar volgende -->
+							<!--  Forward to skills selection -->
 							<form class="col-md-2 float-right" method="GET" action="/users/{{Auth::user()->id}}/edit_skills"> 
 								<button type="submit" class="btn btn-primary ml-auto" role="button">
 									{{ __('Volgende') }}

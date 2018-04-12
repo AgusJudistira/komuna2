@@ -6,12 +6,12 @@
         <div class="col-md-12">
             <div class="card">
                 <h4 class="card-header">{{ __('Persoonlijke gegevens') }}</h4>
-                <!-- NAW Form -->
+                <!--personasl data Form -->
                 <form method="POST" action="{{route('users.update', $user)}}">
                     @csrf
                     <div class="card-body">                                            
                         {{ method_field('patch') }}
-                        <!-- Geboorte datum -->
+                        <!-- Birthday-->
                         <div class="form-group row ">
                             <label for="birthday" class="col-md-4 col-form-label text-md-right">{{ __('Geboorte datum') }}</label><div class="col-md-6">
                             <input id="birthday" type="date" class="form-control" name="birthday" value="{{ Auth::guard('web')->user()->birthday }}" autofocus required>
@@ -22,7 +22,7 @@
                             @endif
                             </div>
                         </div>
-                        <!-- Geslacht -->
+                        <!-- Gender -->
                          <div class="form-group row ">
                             <label for="gender" class="col-md-4 col-form-label text-md-right">{{ __('Geslacht') }}</label>
                             <div class="col-md-6 ">
@@ -39,7 +39,7 @@
                                 @endif
                             </div>
                         </div>
-                        <!-- Straatnaam en Nummer -->
+                        <!-- address -->
                         <div class="form-group row">
                             <label for="streetname_number" class="col-md-4 col-form-label text-md-right">{{ __('Straatnaam en nummer') }}</label>
                             <div class="col-md-6">
@@ -51,7 +51,7 @@
                                 @endif
                             </div>
                         </div>
-                        <!-- Postcode -->
+                        <!-- postal code -->
                         <div class="form-group row">
                             <label for="postal_code" class="col-md-4 col-form-label text-md-right">{{ __('Postcode') }}</label>
                             <div class="col-md-6">
@@ -63,12 +63,11 @@
                                 @endif
                             </div>
                         </div>
-
+                        <!-- city -->
                         <div class="form-group row">
                             <label for="city" class="col-md-4 col-form-label text-md-right">{{ __('Woonplaats') }}</label>
                             <div class="col-md-6">
                                 <input id="city" type="city" class="form-control" name="city" value="{{ $user->city }}" required>
-
                                 @if ($errors->has('city'))
                                     <span class="invalid-feedback">
                                         <strong>{{ $errors->first('city') }}</strong>
@@ -76,8 +75,7 @@
                                 @endif
                             </div>
                         </div>
-
-
+                        <!-- phone private -->
                         <div class="form-group row">
                             <label for="phone_private" class="col-md-4 col-form-label text-md-right">{{ __('Telefoonnummer') }}</label>
 
@@ -91,13 +89,11 @@
                                 @endif
                             </div>
                         </div>
-
+                        <!-- phone work -->
                         <div class="form-group row">
                             <label for="phone_work" class="col-md-4 col-form-label text-md-right">{{ __('Telefoonnummer werk') }}</label>
-
                             <div class="col-md-6">
                                 <input id="phone_work" type="text" class="form-control" name="phone_work" value="{{ $user->phone_work }}">
-
                                 @if ($errors->has('phone_work'))
                                     <span class="invalid-feedback">
                                         <strong>{{ $errors->first('phone_work') }}</strong>
@@ -113,7 +109,6 @@
                             </button>
                         </div>
                     </div>
-                        
                 </form>
             </div>
         </div>

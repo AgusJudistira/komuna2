@@ -15,9 +15,7 @@ class CompetencesController extends Controller
         $this->middleware('auth:admin');
     }
 
-
 	public function editCompetences()
-
 	{	
 		$competences= DB::table('competences')->orderby('competence', 'ASC')->get();
 
@@ -34,7 +32,6 @@ class CompetencesController extends Controller
 			'description' =>'required'
 			
 			]);
-
 
 		$newCompetence = Competence::updateOrCreate(request([
 

@@ -34,11 +34,9 @@
                                                     @else
                                                         <td> {{$project->pivot->start_date_user}}</td>
                                                     @endif
-                                                    
                                                     </a>
-                                                
                                                 <td>
-                                                    @if ($project->pivot->projectowner)                                                                                                       
+                                                    @if ($project->pivot->projectowner)
                                                         <span>Eigen project kan niet verlaten worden</span>
                                                     @else
                                                         <label><input type="checkbox" name="exited_projects[]" value="{{$project->id}}"> Verlaten</label>
@@ -48,12 +46,11 @@
                                             
                                         @endforeach
                                     </table>
-                                
-                                    <div class="col-md-12">
-                                        <button type="submit" class="btn btn-danger ml-auto float-right" role="button">
-                                            {{ __('Project(en) verlaten') }}
-                                        </button> 
-                                    </div>
+                                 <div class="col-md-12">
+                                    <button type="submit" class="btn btn-danger ml-auto float-right" role="button">
+                                        {{ __('Project(en) verlaten') }}
+                                    </button> 
+                                </div>
                                 </form>
                                 <table class="table table-striped col-md-12">
                                     <thead>
@@ -67,27 +64,26 @@
                                         </tr>
                                     </thead>
                                     @foreach ($projects as $project)
-                                        
                                         @if ($project->pivot->projectowner && $project->due_date < date("Y-m-d H:i:s") && strtotime($project->due_date) == true)
                                             <tr>
                                                 <td><a href="/projects/{{$project->id}}"> {{$project->name}}</a> (eigen project) </td>
-                                                <td>{{$project->start_date}}</td>                                                                                                
+                                                <td>{{$project->start_date}}</td>                                                                       
                                                 <td>{{$project->due_date}}</td>                                                
                                             </tr>
                                         @endif
                                     @endforeach
-
                                     @foreach ($projectExperiences as $projectExperience)
                                         <tr>
                                             <td> {{$projectExperience->name}}</td>                                            
                                             <td> {{$projectExperience->pivot->start_date_user}}</td>                                            
-                                            <td> {{$projectExperience->pivot->end_date_user}}</td>                                                                                        
+                                            <td> {{$projectExperience->pivot->end_date_user}}</td>                                                     
                                         </tr>
                                     @endforeach
                                 </table>
                             </div>
                         </div>
                     </div>
+                    <!-- back to studyexperience -->
                     <div class="card-footer">
                         <div class="col-md-12">
                             <form class="col-md-2 float-left" method="GET" action="/users/{{Auth::user()->id}}/edit_studyExperience"> 
@@ -95,18 +91,18 @@
                                     {{ __('Vorige') }}
                                 </button> 
                             </form>
-                            
                             <!-- Dashboard -->
                             <form class="col-md-2 float-right" method="GET" action="{{route('home')}}"> 
                                 <button type="submit" class="btn btn-primary ml-auto" role="button">
                                     {{ __('Afronden') }}
                             </button> 
+                            </form>
                         </div>
                     </div>
                 </div>
             </div>
-         </div>
-     </div>
- </div>
+        </div>
+    </div>
+</div>
 
 @endsection

@@ -6,11 +6,9 @@
         <div class="col-md-12">
             <div class="form-group">
                 <div class="card">
-
                     <div class="card-header">  
                         <h4>Voeg vaardigheden toe</h4>                      
                     </div>
-
                     <div class="card-body">  
                         <form class="form-group float-left" method="POST" action="{{route('users.detach_skills', $user)}}">
                             @foreach ($skills_selected as $skill_selected)
@@ -18,7 +16,6 @@
                                 <button type="submit" name='skill' value='{{ $skill_selected->id }}' data-toggle="tooltip" class="btn btn-default float-left ml-1 mb-1" >{{ $skill_selected->skill }}</button>
                             @endforeach
                         </form>
-
                         <div class="form-group">
                             @if(count($errors))
                             <div class="alert alert-danger">
@@ -30,11 +27,9 @@
                             </div>
                             @endif
                         </div >
-
-                        <!-- voeg een vardigheid toe -->
+                        <!-- add skills -->
                         <form class="form-group col-md-12" method="POST" action="{{route('users.store_skills', $user)}}">
                             {{csrf_field()}}                   
-                                
                             <div class="form-group col-md-12 row">
                                 <label for="skill" class="col-md-3 col-form-label text-md-right">{{ __('Voeg een vaardigheid toe') }}</label>
                                 <div class="col-md-7">
@@ -44,7 +39,6 @@
                                                 <option>{{$skill->skill}}</option>
                                             @endforeach
                                         </datalist>
-
                                     @if ($errors->has('skill'))
                                         <span class="invalid-feedback">
                                             <strong>{{ $errors->first('name') }}</strong>
@@ -57,18 +51,17 @@
                                     </button> 
                                 </div>
                             </div>
-                            
                         </form>
                     </div>
                     <div class="card-footer">
-                        <!-- Terug naar competenties -->
+                        <!-- back to competences -->
                         <div class="col-md-12">
                         <form class="col-md-2 float-left" method="GET" action="/users/{{Auth::user()->id}}/edit_competences"> 
                             <button type="submit" class="btn btn-primary ml-auto" role="button">
                                 {{ __('Vorige') }}
                             </button> 
                         </form>
-                    <!--  Naar volgende -->  
+                        <!--  forward to work experience -->  
                         <form class="col-md-2 float-right" method="GET" action="/users/{{Auth::user()->id}}/edit_workExperience">
                         {{-- <form class="col-md-2 float-right" method="GET" action="/users/{{Auth::user()->id}}/edit_workExperience">  --}}
                             <button type="submit" class="btn btn-primary ml-auto" role="button">
@@ -77,9 +70,9 @@
                         </form>
                         </div>
                     </div>
-                 </div>
-             </div>
-         </div>
-     </div>
- </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection

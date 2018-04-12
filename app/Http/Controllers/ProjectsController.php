@@ -20,7 +20,6 @@ class ProjectsController extends Controller
 		setlocale(LC_ALL, 'nl_NL');		
 	}
 
-
 	public function index() 
 	{
 		$now = date('Y-m-d');
@@ -73,7 +72,6 @@ class ProjectsController extends Controller
 		return view('projects.index', compact('listed_projects', 'user'));		
 	}
 
-
 	public function show(Project $project)
 	{
 		$isProjectOwner = $this->isOwner(Auth::guard('web')->user(), $project);
@@ -91,7 +89,6 @@ class ProjectsController extends Controller
 
 		return view('projects.show', compact('project', 'isProjectOwner', 'isProjectMember', 'list_of_projectusers', 'skills', 'competences'));
 	}
-
 
     public function search()
     {        
@@ -149,7 +146,6 @@ class ProjectsController extends Controller
 		else {
 			return false;
 		}
-
 	}
 
 
@@ -199,6 +195,7 @@ class ProjectsController extends Controller
 		// Register the current logged user as the project owner
 		// Because the start- & enddate of a projectowner involved in a project is determined by the start- & enndate of the project,
 		// This is not really needed, but just to be sure: register the startdate of the involvement of the projectowner in the pivot table.
+
 		$project->user()->attach($user_id, ['projectowner' => true,
 											'start_date_user' => \Carbon\Carbon::now()->toDateTimeString()
 										]);
@@ -919,6 +916,4 @@ class ProjectsController extends Controller
 			]);
 		}
 	} 
-
-   
 }

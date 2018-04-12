@@ -81,10 +81,8 @@ class User extends Authenticatable
     {
         return $this->hasMany(StudyExperience::class);
     }
-
-
+    
     public function skill()
-
     {
         return $this->belongsToMany(Skill::class, 'skill_user');
     }
@@ -98,8 +96,8 @@ class User extends Authenticatable
     {
         return $this->hasMany(Review::class, 'rated_user_id', 'user_id');
     }
-    public function hobby()
 
+    public function hobby()
     {
         return $this->belongsToMany(Hobby::class, 'hobby_user');
     }

@@ -3,18 +3,14 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-
         <div class="col-md-8">
             <div class="card">
-                <h4 class="card-header">{{ __('Kies een avatar') }}
-                </h4>
-
+                <h4 class="card-header">{{ __('Kies een avatar') }}</h4>
                 <div class="card-body">
                     <div class="row">
+                        <!-- select image -->
                         <div class="col-md-4">
-                            <!-- geselecteerde afbeelding -->
                             <img class="rounded float-left" src="/uploads/avatars/{{ $user->avatar }}" style="width: 150px; height: 150px; border-radius: 50%; margin-bottom: 25px; margin-right:  250px;">
-                            <!-- Afbeelding selectie -->
                             <form id='form' method="POST" action="{{route('users.update_avatar', $user)}}" enctype="multipart/form-data">
                                 <input id="avatar_upload" type="file" name="avatar" onchange="javascript:document.getElementById('form').submit();" value="kies avatar">
                                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
@@ -27,14 +23,11 @@
                                 </div>
                             </form>
                         </div>
-                        <div class="col-md-8">                        
-                            
-                        </div>
                     </div>
                 </div>
                 <div class="card-footer col-md-12">
                     <div class="row">
-                        <!-- Terug naar NAW-gegevens -->
+                        <!-- back to personal -->
                         <div class="col-md-12">
                             <div class="col-md-6 float-left">
                                 <form class="float-left" method="GET" action="/users/{{Auth::user()->id}}/edit_personal"> 
@@ -44,7 +37,7 @@
                                 </form>
                             </div>
                             <div class="col-md-6 float-right">
-                                    <!-- Naar competenitei selectie --> 
+                                <!--Forward to description --> 
                                 <form class="float-right" method="GET" action="/users/{{Auth::user()->id}}/edit_description"> 
                                 
                                     <button type="submit" class="btn btn-primary " role="button">

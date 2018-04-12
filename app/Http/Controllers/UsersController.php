@@ -33,10 +33,8 @@ class UsersController extends Controller
         else {
             return back();
         }
-        
     }
 
-   
     public function show(User $user) 
     {
         $competences_selected = $user->competence()->get();
@@ -56,7 +54,6 @@ class UsersController extends Controller
         return view('users.show', compact('user', 'projects', 'projectExperiences', 'competences_selected', 'skills_selected', 'workExperiences', 'studyExperiences', 'age', 'rating'));
     }
    
-
     public function update(User $user)
     { 
         $this->validate(request(), [
@@ -85,17 +82,15 @@ class UsersController extends Controller
 
     public function editAvatar(User $user)
     {   
-
         if ($user->id == Auth::guard('web')->user()->id) {
             return view('users.edit_avatar', compact('user'));
         }
         else {
             return back();
         }
-        
     }
 
-   public function updateAvatar(Request $request)
+    public function updateAvatar(Request $request)
     { 
         if ($request->hasFile('avatar')){
         	$avatar= $request->file('avatar');
@@ -105,7 +100,6 @@ class UsersController extends Controller
         	$user =Auth::user();
         	$user->avatar = $filename;
         	$user->save();
-
           
         	return view('users.edit_avatar', compact('user'));
         }
@@ -143,29 +137,21 @@ class UsersController extends Controller
       
     public function detachCompetences(Request $request)
     {   
-        
         $competence = $request->input('competence');  
         $user_id = Auth::guard('web')->user()->id;
-       
-
         $foundCompetence = Competence::find($competence);
         $foundCompetence->user()->detach($user_id);
-       
-                
+             
         return back();
- 
     }
-
 
     public function editProjectExperience(User $user)
     {        
-        //$projects = $user->project()->withPivot('projectowner', 'start_date_user', 'end_date_user')->where('projectowner', false)->orderBy('start_date', 'DESC')->get();
         $projects = $user->project()->withPivot('projectowner', 'start_date_user', 'end_date_user')->orderBy('start_date', 'DESC')->get();
         $projectExperiences = $user->projectExperience()->withPivot('start_date_user', 'end_date_user')->orderBy('start_date', 'DESC')->get();
 
         return view('users.edit_projectExperience', compact('user', 'projects', 'projectExperiences'));
     }
-
 
     public function detachProjects(User $user, Project $projects, Request $request)
     {        
@@ -187,7 +173,6 @@ class UsersController extends Controller
         
         return back();
     }
-
 
     public function sendLeftFromProjectMsg($project, $sender)
     {
@@ -215,14 +200,12 @@ class UsersController extends Controller
         }
     }
 
-
     public function editWorkExperience(User $user)
     {        
         $workExperiences = $user->workExperience()->orderBy('start_date', 'DESC')->get();
 
         return view('users.edit_workExperience', compact('user', 'workExperiences'));
     }
-
 
     public function storeWorkExperience(User $user)
     {   
@@ -252,7 +235,6 @@ class UsersController extends Controller
         $workExperiences = $user->WorkExperience()->orderBy('start_date', 'DESC')->get();
     
         return back();
-    
     }
 
     public function editStudyExperience(User $user)
@@ -323,17 +305,12 @@ class UsersController extends Controller
 
     public function detachSkills(Request $request)
     {   
-        
         $skill = $request->input('skill');  
         $user_id = Auth::guard('web')->user()->id;
-       
-
         $foundSkill = Skill::find($skill);
         $foundSkill->user()->detach($user_id);
-       
-                
+                 
         return back();
-
     }
 
     public function seekUsers()
@@ -343,14 +320,11 @@ class UsersController extends Controller
         return view('users.seekMembers', compact('users'));
     }
 
-
-
     public function storeOrUpdateUserRating(User $user)
     {   
 
         $rating_user_id = request('rating_user_id');
         $rated_user_id = request('rated_user_id');
-
         $alreadyReviewd = Review::where('rating_user_id', $rating_user_id)->where('rated_user_id', $rated_user_id)->get();
         if ($alreadyReviewd->count() < 1 && $rating_user_id != $rated_user_id ) {
 
@@ -366,11 +340,8 @@ class UsersController extends Controller
                     'rating'
                 ]));
  
-                 
         return back();
-        
-        }
-            
+        } 
         elseif ($alreadyReviewd->count() >= 1 && $rating_user_id != $rated_user_id ){
 
             $this->validate(request(),[
@@ -387,16 +358,15 @@ class UsersController extends Controller
         
             return back();
          
-         } else{
+        } 
+        else {
 
             return back();
-         }
+        }
     }
 
-
-     public function editDescription(User $user)
+    public function editDescription(User $user)
     { 
-
         $hobbies = Hobby::all();
         $hobbies_selected = $user->Skill()->get();
 
@@ -406,8 +376,7 @@ class UsersController extends Controller
         }
         else {
             return back();
-        }
-        
+        }       
     }
 
     public function updateDescription(User $user)
@@ -418,13 +387,10 @@ class UsersController extends Controller
         ]);
         
         $user->description=request('description');
-     
         $user->save();
 
         return back();
-
     }
-
 
         public function editHobbies(User $user)
     {   
@@ -441,7 +407,6 @@ class UsersController extends Controller
 
     public function storeHobbies(Request $request) 
     {
-
         $this->validate(request(),[
             
             'hobby' => 'required'
@@ -461,20 +426,13 @@ class UsersController extends Controller
 
     public function detachHobbies(Request $request)
     {   
-        
         $hobby = $request->input('hobby');  
         $user_id = Auth::guard('web')->user()->id;
-       
-
         $foundHobby = Hobby::find($hobby);
         $foundHobby->user()->detach($user_id);
-       
-                
+               
         return back();
-
     }
-
-
 }
 
 

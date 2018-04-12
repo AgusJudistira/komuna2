@@ -5,8 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="card">
-                <h4 class="card-header">{{ __('Iets over mezelf') }}
-                </h4>
+                <h4 class="card-header">{{ __('Hobby\'s') }}</h4>
                 <div class="card-body">  
                     <form class="form-group float-left" method="POST" action="{{route('users.detach_hobbies', $user)}}">
                         @foreach ($hobbies_selected as $hobby_selected)
@@ -50,7 +49,7 @@
                         </div>
                     </form>                                
                 </div>                        
-                    <!-- Terug naar avatar -->
+                <!-- Back to personal descriptionr -->
                 <div class="card-footer">
                     <div class="row">
                         <div class="col-md-12">
@@ -61,7 +60,7 @@
                                     </button> 
                                 </form>
                             </div>
-                    <!--  Naar volgende -->  
+                            <!-- Forward to competences -->  
                             <div class="col-md-6 float-right">
                                 <form class="float-right" method="GET" action="/users/{{Auth::user()->id}}/edit_competences">
                                     <button type="submit" class="btn btn-primary ml-auto" role="button">

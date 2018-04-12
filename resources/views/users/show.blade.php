@@ -9,15 +9,14 @@
                 <div class="card-header">Persoonlijk profiel van<h5>{{ $user->firstname }} {{ $user->lastname }}</h5>
                 </div>
                     <!-- Personal data -->
-
-                    <div class="card-header">  
+                <div class="card-header">  
                         <a class="float-right" href="{{ URL::previous() }}">terug</a>
                         <h5>Personlijke gegevens</h5>                 
-                    </div>
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-sm-4">
-                                <p class="m-3">
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <p class="m-3">
                                 <span class="">Naam:</span> {{ $user->firstname }} {{ $user->lastname }} <br />
                                 @if($user->birthday != null)
                                 <span class="">Leeftijd:</span> {{$age}} <br />
@@ -39,16 +38,11 @@
                                 @endif
                             </p>
                         </div>
-                            <div class="col-sm-5"><span class="text-center font-italic pt-3">{{$user->description}}</span></div>
-                            <div class="col-sm-3"><img class="rounded float-right" src="/uploads/avatars/{{ $user->avatar }}" style="width: 150px; height: 150px; margin: 20px; margin-top: 7px; border-radius: 50%;"></div>
+                        <div class="col-sm-5"><span class="text-center font-italic pt-3">{{$user->description}}</span></div>
+                        <div class="col-sm-3"><img class="rounded float-right" src="/uploads/avatars/{{ $user->avatar }}" style="width: 150px; height: 150px; margin: 20px; margin-top: 7px; border-radius: 50%;">
                         </div>
-
-
-
-
-                    
-                    </div> 
-
+                    </div>
+                </div> 
                     <div class="card-header">  
                         <h5 class="">Reviews</h5>                      
                     </div>
@@ -57,32 +51,30 @@
                             <div class="stars">
                                 @if($rating < 0.5 )
                                 <span class="star mr-2"></span>  
-                                    @elseif($rating >= 0.5 && $rating < 1)
+                                @elseif($rating >= 0.5 && $rating < 1)
                                 <span class="star half mr-2"></span>
-                                        @else($rating > 1 )
+                                @else($rating > 1 )
                                 <span class="star on mr-2"></span>
                                 @endif
                                 @if($rating < 1.5 )
                                 <span class="star mr-2"></span>   
-                                    @elseif($rating >= 1.5 && $rating < 2)
+                                @elseif($rating >= 1.5 && $rating < 2)
                                 <span class="star half mr-2"></span>    
-                                        @else($rating >= 2 )
+                                @else($rating >= 2 )
                                 <span class="star on mr-2"></span>
                                 @endif
-                        
                                 @if($rating < 2.5 )
                                 <span class="star mr-2"></span>
-                                    @elseif($rating >= 2.5 && $rating < 2.9)
+                                @elseif($rating >= 2.5 && $rating < 2.9)
                                 <span class="star half mr-2"></span>
-                                        @else($rating >= 2.9 )
+                                @else($rating >= 2.9 )
                                 <span class="star on mr-2"></span>
                                 @endif
-                        
                                 @if($rating < 3.5 )
                                 <span class="star mr-2"></span>
-                                    @elseif($rating >= 3.5 && $rating < 3.85)
+                                @elseif($rating >= 3.5 && $rating < 3.85)
                                 <span class="star half mr-2"></span>
-                                        @else($rating >= 3.85 )
+                                @else($rating >= 3.85 )
                                 <span class="star on mr-2"></span>
                                 @endif
                             </div>
@@ -91,7 +83,6 @@
                             {{csrf_field()}}
                                 <input type="hidden" value="{{Auth::user()->id}}" name="rating_user_id">
                                 <input type="hidden" value={{"$user->id"}} name=rated_user_id>
-                            
                                 <div class="rating">
                                     <span class="mr-5"><input type="radio" name="rating" id="str1" value="1"><label for="str1"></label></span>
                                     <span class="mr-5"><input type="radio" name="rating" id="str2" value="2"><label for="str2"></label></span>
@@ -103,9 +94,8 @@
                             @endif
                         </div> 
                     </div>
-
                     <!-- Competences -->
-                     <div class="card-header">  
+                    <div class="card-header">  
                         <h5>Competenties & Skills</h5>                      
                     </div>
                     <div class="card-body">
@@ -115,7 +105,6 @@
                            <span class="badge badge-pill badge-success" data-toggle="tooltip" title="{{ $competence_selected->description }}"class="btn btn-default float-left ml-1     mb-1" >{{ $competence_selected->competence }}</span>
                             @endforeach
                         </form>
-    
                         <!-- Skills -->
                         <form class="form-group ml-1" method="POST" action="{{route('users.detach_skills', $user)}}">
                             {{csrf_field()}}
@@ -124,11 +113,9 @@
                             @endforeach
                         </form>
                     </div>
-                    
                     <div class="card-header">  
                         <h5>Betrokken bij project</h5>                      
                     </div>
-                    
                     <div class="row">
                         <div class="col-md-12">
                             <table class="table table-striped col-md-12">
@@ -141,19 +128,18 @@
                                     <tr>
                                         <td><a href="/projects/{{$project->id}}"> {{$project->name}}</a>@if ($project->pivot->projectowner) (eigen project) @endif</td>
                                         @if ($project->pivot->projectowner)
-                                            <td>{{$project->start_date}}</td>
+                                        <td>{{$project->start_date}}</td>
                                         @else
-                                            <td> {{$project->pivot->start_date_user}}</td>
+                                        <td> {{$project->pivot->start_date_user}}</td>
                                         @endif
-                                        
                                         @if ($project->pivot->projectowner)
-                                            @if ($project->due_date < date("Y-m-d H:i:s") && strtotime($project->due_date) == true)
-                                                <td>{{$project->due_date}}</td>
-                                            @else
-                                                <td>Nog bezig</td>
-                                            @endif
+                                        @if ($project->due_date < date("Y-m-d H:i:s") && strtotime($project->due_date) == true)
+                                        <td>{{$project->due_date}}</td>
                                         @else
-                                            <td>Nog bezig</td>
+                                        <td>Nog bezig</td>
+                                        @endif
+                                        @else
+                                        <td>Nog bezig</td>
                                         @endif
                                     </tr>
                                 @endforeach
@@ -173,7 +159,6 @@
                     <div class="card-header">  
                         <h5>Werkervaring</h5>                      
                     </div>
-
                     <div class="row">
                         <div class="col-md-12">
                         <table class="table table-striped col-md-12">
@@ -198,8 +183,7 @@
                         </table>
                         </div>
                     </div><br /><br />
-
-                    <!-- Studyhistory -->
+                   <!-- Studyhistory -->
                     <div class="card-header">  
                         <h5>Studiervaring</h5>                      
                     </div>

@@ -6,7 +6,7 @@
         <div class="col-md-12">
             <div class="card">
                 <h4 class="card-header">{{ __('Iets over jezelf') }}</h4>
-                <!-- NAW Form -->
+                <!-- Personal description -->
                 <div class="card-body">
                     <form method="POST" action="{{route('users.update_description', $user)}}">
                         @csrf
@@ -22,7 +22,6 @@
                                 @endif
                             </div>
                         </div>
-
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-10">
                                 <button type="submit" class="btn btn-success ml-auto">
@@ -32,15 +31,15 @@
                         </div>
                     </form>
                 </div>    
-                <!-- Terug naar avatar -->
                 <div class="card-footer">
                     <div class="col-md-12">
+                        <!-- Back to  avatar -->
                         <form class="col-md-2 float-left" method="GET" action="/users/{{Auth::user()->  id}}/edit_avatar"> 
                             <button type="submit" class="btn btn-primary ml-auto" role="button">
                         {{ __('Vorige') }}
                             </button> 
                         </form>
-                <!--  Naar volgende -->  
+                        <!--  Forward to Hobbies -->  
                         <form class="col-md-2 float-right" method="GET" action="/users/{{Auth::user()->id}}/edit_hobbies">
                             <button type="submit" class="btn btn-primary ml-auto" role="button">
                         {{ __('Volgende') }}

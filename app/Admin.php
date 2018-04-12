@@ -29,15 +29,4 @@ class Admin extends Authenticatable
         'password', 'remember_token',
     ];
 
-    /*
-    public function project()
-    {
-        return $this->belongsToMany(Project_user::class, 'projects_users', 'project_id', 'user_id');
-    }
-
-    public function organization()
-    {
-        return $this->belongsToMany(Organization_user::class, 'organizations_users', 'organization_id', 'user_id');
-    }
-    */
 }

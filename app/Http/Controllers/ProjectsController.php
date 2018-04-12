@@ -90,6 +90,7 @@ class ProjectsController extends Controller
 		return view('projects.show', compact('project', 'isProjectOwner', 'isProjectMember', 'list_of_projectusers', 'skills', 'competences'));
 	}
 
+
     public function search()
     {        
         $zoekstring = "%" . request('searchstring') . "%";
@@ -151,14 +152,7 @@ class ProjectsController extends Controller
 
 	public function getProjectOwners($project) 
 	{
-		$projectUsers = $project->user()->withPivot('projectowner')->get();
-		$projectOwners = Array();
-
-		foreach ($projectUsers as $user) {			
-			if ($user->pivot->projectowner) {
-				array_push($projectOwners, $user);
-			}
-		}
+		$projectOwners = $project->user()->withPivot('projectowner')->where('projectowner', true)->get();		
 
 		return $projectOwners;
 	}
@@ -193,8 +187,8 @@ class ProjectsController extends Controller
 		]));
 		
 		// Register the current logged user as the project owner
-		// Because the start- & enddate of a projectowner involved in a project is determined by the start- & enndate of the project,
-		// This is not really needed, but just to be sure: register the startdate of the involvement of the projectowner in the pivot table.
+		// Because the start- & enddate of a projectowner involved in a project is determined by the start- & endate of the project,
+		// this is not really needed, but just to be sure: register the startdate of the involvement of the projectowner in the pivot table.
 
 		$project->user()->attach($user_id, ['projectowner' => true,
 											'start_date_user' => \Carbon\Carbon::now()->toDateTimeString()
@@ -450,8 +444,8 @@ class ProjectsController extends Controller
 			if (!$this->isMember($volunteer, $thisProject)) {
 				// filter out volunteers without any match
 				if (count($found_competences) > 0 || count($found_skills) > 0 ) {
-
-					$one_volunteer[] = (count($found_skills)+0.1) * (count($found_competences)+0.5);
+					// determine the importance by a formula
+					$one_volunteer[] = (count($found_skills)+0.1) * (count($found_competences)+0.5); 
 					$one_volunteer[] = $volunteer;
 					$one_volunteer[] = $found_skills;
 					$one_volunteer[] = $found_competences;
@@ -656,9 +650,7 @@ class ProjectsController extends Controller
 			$sender_fullname = $sender->firstname . " " . $sender->lastname;
 			$old_message->action_taken = 3; // 1 = accepted, 2 = refused, 3 = replied
 			$old_message->save();
-
-			// $new_message  = $old_message->message;
-			// $new_message .= "<p>" . $old_message->user_message . "</p>";
+			
 
 			$this_message = App\Message::create([
 				'sender_id' => $sender->id,

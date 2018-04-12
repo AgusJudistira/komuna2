@@ -43,7 +43,7 @@
                                             <option name='competence' value='{{ $competence->id }}' data-toggle="tooltip" title="{{ $competence->description }}" >{{ $competence->competence }}</option>
                                         @endforeach
                                     </select>
-                                    <div class="small m-1">Met dank aan de competentielijst gemaakt door <a href="https://www.sollicitego.nl/sollicitatietips/curriculum-vitae/competentielijst/">Sollicitego</a></div>
+                                    <div class="small m-1">Met dank aan de competentielijst gemaakt door <a href="https://www.sollicitego.nl/sollicitatietips/curriculum-vitae/competentielijst/" target="_blank">Sollicitego</a></div>
                                 </div>
                                 <div class="col-md-2">
                                     <button type="submit" class="btn btn-success">Voeg toe</button>

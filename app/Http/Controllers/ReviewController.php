@@ -30,12 +30,12 @@ class ReviewController extends Controller
             'rated_user_id',
             'rating_user_id',
             'rating'
-        ])  
+        ]);
         $newRating = Review::create(request([
             'rated_user_id',
             'rating_user_id',
             'rating'
-	     ]) 
+	     ]));
    		 $rating = DB::table('reviews')
       	->where('rated_user_id', '=', $user->id)
       	->avg('rating');
@@ -48,13 +48,13 @@ class ReviewController extends Controller
       	'rated_user_id',
       	'rating_user_id',
       	'rating'
-      	]
+      	]);
 
       $updated = Review::where('rating_user_id', $rating_user_id)->where('rated_user_id', $rated_user_id)->update(request([
         'rated_user_id',
       	'rating_user_id',
       	'rating'
-      	])
+      	]));
 
       $rating = DB::table('reviews')
       	->where('rated_user_id', '=', $user->id)
@@ -64,7 +64,8 @@ class ReviewController extends Controller
      	} 
       else {
         echo "pech gehad";
-     	  }
+		   }
+		}
    	}
    	
     

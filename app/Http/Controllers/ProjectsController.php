@@ -187,7 +187,7 @@ class ProjectsController extends Controller
 		]));
 		
 		// Register the current logged user as the project owner
-		// Because the start- & enddate of a projectowner involved in a project is determined by the start- & endate of the project,
+		/* Because the start- & enddate of a projectowner involved in a project is determined by the start- & endate of the project, */
 		// this is not really needed, but just to be sure: register the startdate of the involvement of the projectowner in the pivot table.
 
 		$project->user()->attach($user_id, ['projectowner' => true,

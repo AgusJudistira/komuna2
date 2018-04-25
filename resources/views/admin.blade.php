@@ -9,10 +9,7 @@
 
                 <div class="card-body">
                     <div class="card-body">
-                    <h5><a href="admin/edit_competences">Onderhoud Competenties</a></h5>
-                    
-                    
-                    
+                    <h5><a href="admin/edit_competences">Onderhoud Competenties</a></h5>                    
                     {{--  @if (session('status'))
                         <div class="alert alert-success">
                             {{ session('status') }}
